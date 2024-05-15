@@ -46,13 +46,13 @@ header {
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
-    background: #007bff;
+    background: #0056b3 ;
     border-radius: 5px;
     transition: background 0.3s;
 }
 
 .login-button:hover {
-    background: #0056b3;
+    background: #224f6d;
 }
 
 #mainindex {
@@ -168,5 +168,5 @@ form button:hover {
     background: #0056b3;
 }
 
-
+/*http://localhost/Erronka3-1/WB/*/
 

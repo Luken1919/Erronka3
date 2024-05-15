@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Usuario encontrado, iniciar sesión
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $erab_izena;
-        header("Location: ../html/index.html"); // Redirige a otra página
+        header("Location: ../html/Hasita.php"); // Redirige a otra página
         exit();
     } else {
         // Usuario no encontrado, redirigir con mensaje de error

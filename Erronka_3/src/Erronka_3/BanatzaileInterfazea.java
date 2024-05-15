@@ -150,6 +150,58 @@ public class BanatzaileInterfazea extends JFrame {
 		
 	}
 	
+	class Banatzaileagehitu extends JFrame{
+		public Banatzaileagehitu() {
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 399, 500);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
+			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
+			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTitulua.setBounds(10, 11, 363, 29);
+			contentPane.add(lblTitulua);
+			
+			JLabel lblizena = new JLabel("Izena:");
+			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblizena.setBounds(30, 51, 200, 29);
+			contentPane.add(lblizena);
+			
+			Izena = new JTextField();
+			Izena.setBounds(30, 91, 200, 34);
+			contentPane.add(Izena);
+			Izena.setColumns(10);
+			
+			JLabel lblAbizena = new JLabel("Abizena:");
+			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblAbizena.setBounds(30, 136, 200, 29);
+			contentPane.add(lblAbizena);
+			
+			Abizena = new JTextField();
+			Abizena.setColumns(10);
+			Abizena.setBounds(30, 176, 200, 34);
+			contentPane.add(Abizena);
+			
+			JLabel lblPasahitza = new JLabel("Pashitza:");
+			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblPasahitza.setBounds(30, 221, 200, 29);
+			contentPane.add(lblPasahitza);
+			
+			PasahitzaField = new JPasswordField();
+			PasahitzaField.setColumns(10);
+			PasahitzaField.setBounds(30, 261, 200, 34);
+			contentPane.add(PasahitzaField);
+			
+			
+			JButton btnEditatu = new JButton("Sortu");
+			btnEditatu.setBounds(250, 400, 89, 29);
+			contentPane.add(btnEditatu);
+		}
+	}
 	
 	
 	class BanatzaileaEditatu extends JFrame{
@@ -214,58 +266,7 @@ public class BanatzaileInterfazea extends JFrame {
 		}
 	}
 	
-	class Banatzaileagehitu extends JFrame{
-		public Banatzaileagehitu() {
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(100, 100, 399, 500);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
-			
-			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
-			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
-			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
-			lblTitulua.setBounds(10, 11, 363, 29);
-			contentPane.add(lblTitulua);
-			
-			JLabel lblizena = new JLabel("Izena:");
-			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
-			lblizena.setBounds(30, 51, 200, 29);
-			contentPane.add(lblizena);
-			
-			Izena = new JTextField();
-			Izena.setBounds(30, 91, 200, 34);
-			contentPane.add(Izena);
-			Izena.setColumns(10);
-			
-			JLabel lblAbizena = new JLabel("Abizena:");
-			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
-			lblAbizena.setBounds(30, 136, 200, 29);
-			contentPane.add(lblAbizena);
-			
-			Abizena = new JTextField();
-			Abizena.setColumns(10);
-			Abizena.setBounds(30, 176, 200, 34);
-			contentPane.add(Abizena);
-			
-			JLabel lblPasahitza = new JLabel("Pashitza:");
-			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
-			lblPasahitza.setBounds(30, 221, 200, 29);
-			contentPane.add(lblPasahitza);
-			
-			PasahitzaField = new JPasswordField();
-			PasahitzaField.setColumns(10);
-			PasahitzaField.setBounds(30, 261, 200, 34);
-			contentPane.add(PasahitzaField);
-			
-			
-			JButton btnEditatu = new JButton("Sortu");
-			btnEditatu.setBounds(250, 400, 89, 29);
-			contentPane.add(btnEditatu);
-		}
-	}
+	
 	
 	
 }

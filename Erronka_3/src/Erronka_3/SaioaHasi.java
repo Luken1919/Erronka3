@@ -59,7 +59,7 @@ public class SaioaHasi extends JFrame {
 		Irudia.setLayout(null);
 		
 		JLabel lblirudia = new JLabel();
-		ImageIcon irudia= new ImageIcon(new ImageIcon("C:\\Users\\1ag3.julemeri\\Downloads\\Irudia.jpg").getImage().getScaledInstance(531, 711, Image.SCALE_DEFAULT));
+		ImageIcon irudia= new ImageIcon(new ImageIcon("Irudiak/Irudia.jpg").getImage().getScaledInstance(531, 711, Image.SCALE_DEFAULT));
 		lblirudia.setIcon(irudia);
 		lblirudia.setBounds(0, 0, 531, 711);
 		Irudia.add(lblirudia);
@@ -76,10 +76,10 @@ public class SaioaHasi extends JFrame {
 		saioaHasi.add(textFieldErabIzen);
 		textFieldErabIzen.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Pasahitza");
-		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
-		lblNewLabel.setBounds(124, 461, 220, 30);
-		saioaHasi.add(lblNewLabel);
+		JLabel lblPasahitza = new JLabel("Pasahitza");
+		lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 20));
+		lblPasahitza.setBounds(124, 461, 220, 30);
+		saioaHasi.add(lblPasahitza);
 		
 		JLabel lblErabiltzaileIzena = new JLabel("Erabiltzaile Izena");
 		lblErabiltzaileIzena.setFont(new Font("Arial Black", Font.BOLD, 20));
@@ -93,7 +93,7 @@ public class SaioaHasi extends JFrame {
 		saioaHasi.add(lblTitulua);
 		
 		JLabel lblirudiSaioaHasi = new JLabel();
-		ImageIcon irudiaSaioaHasi= new ImageIcon(new ImageIcon("C:\\Users\\1ag3.julemeri\\Downloads\\logo1.png").getImage().getScaledInstance(275, 275, Image.SCALE_DEFAULT));
+		ImageIcon irudiaSaioaHasi= new ImageIcon(new ImageIcon("Irudiak/logo1.png").getImage().getScaledInstance(275, 275, Image.SCALE_DEFAULT));
 		lblirudiSaioaHasi.setIcon(irudiaSaioaHasi);
 		lblirudiSaioaHasi.setBounds(87, 65, 275, 275);
 		saioaHasi.add(lblirudiSaioaHasi);

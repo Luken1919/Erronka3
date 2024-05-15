@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -11,11 +14,17 @@ import javax.swing.JList;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BanatzaileInterfazea extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField Izena;
+	private JTextField Abizena;
+	private JTextField ErabiltzaileIzena;
+	private JPasswordField PasahitzaField;
 
 	/**
 	 * Launch the application.
@@ -83,6 +92,12 @@ public class BanatzaileInterfazea extends JFrame {
 		banatzaileak.add(Banatzaileak);
 		
 		JButton btnGehitu = new JButton("Gehitu");
+		btnGehitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Banatzaileagehitu gehitu = new Banatzaileagehitu();
+				gehitu.setVisible(true);
+			}
+		});
 		btnGehitu.setBackground(new Color(255, 255, 255));
 		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGehitu.setBounds(372, 110, 110, 40);
@@ -95,6 +110,12 @@ public class BanatzaileInterfazea extends JFrame {
 		banatzaileak.add(btnKendu);
 		
 		JButton btnEditatu = new JButton("Editatu");
+		btnEditatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BanatzaileaEditatu editatu = new BanatzaileaEditatu();
+				editatu.setVisible(true);
+			}
+		});
 		btnEditatu.setBackground(new Color(255, 255, 255));
 		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnEditatu.setBounds(372, 499, 110, 40);
@@ -128,4 +149,123 @@ public class BanatzaileInterfazea extends JFrame {
 		historiala.add(btnOrdenatu);
 		
 	}
+	
+	
+	
+	class BanatzaileaEditatu extends JFrame{
+		public BanatzaileaEditatu() {
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 399, 500);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
+			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
+			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTitulua.setBounds(10, 11, 363, 29);
+			contentPane.add(lblTitulua);
+			
+			JLabel lblizena = new JLabel("Izena:");
+			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblizena.setBounds(30, 51, 200, 29);
+			contentPane.add(lblizena);
+			
+			Izena = new JTextField();
+			Izena.setBounds(30, 91, 200, 34);
+			contentPane.add(Izena);
+			Izena.setColumns(10);
+			
+			JLabel lblAbizena = new JLabel("Abizena:");
+			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblAbizena.setBounds(30, 136, 200, 29);
+			contentPane.add(lblAbizena);
+			
+			Abizena = new JTextField();
+			Abizena.setColumns(10);
+			Abizena.setBounds(30, 176, 200, 34);
+			contentPane.add(Abizena);
+			
+			JLabel lblErabiltzaileIzena = new JLabel("Erabiltzaile Izena:");
+			lblErabiltzaileIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblErabiltzaileIzena.setBounds(30, 221, 200, 29);
+			contentPane.add(lblErabiltzaileIzena);
+			
+			ErabiltzaileIzena = new JTextField();
+			ErabiltzaileIzena.setColumns(10);
+			ErabiltzaileIzena.setBounds(30, 261, 200, 34);
+			contentPane.add(ErabiltzaileIzena);
+			
+			JLabel lblPasahitza = new JLabel("Pasahitza:");
+			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblPasahitza.setBounds(30, 306, 200, 29);
+			contentPane.add(lblPasahitza);
+			
+			PasahitzaField = new JPasswordField();
+			PasahitzaField.setColumns(10);
+			PasahitzaField.setBounds(30, 346, 200, 34);
+			contentPane.add(PasahitzaField);
+			
+			JButton btnEditatu = new JButton("Editatu");
+			btnEditatu.setBounds(250, 400, 89, 29);
+			contentPane.add(btnEditatu);
+		}
+	}
+	
+	class Banatzaileagehitu extends JFrame{
+		public Banatzaileagehitu() {
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 399, 500);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
+			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
+			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTitulua.setBounds(10, 11, 363, 29);
+			contentPane.add(lblTitulua);
+			
+			JLabel lblizena = new JLabel("Izena:");
+			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblizena.setBounds(30, 51, 200, 29);
+			contentPane.add(lblizena);
+			
+			Izena = new JTextField();
+			Izena.setBounds(30, 91, 200, 34);
+			contentPane.add(Izena);
+			Izena.setColumns(10);
+			
+			JLabel lblAbizena = new JLabel("Abizena:");
+			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblAbizena.setBounds(30, 136, 200, 29);
+			contentPane.add(lblAbizena);
+			
+			Abizena = new JTextField();
+			Abizena.setColumns(10);
+			Abizena.setBounds(30, 176, 200, 34);
+			contentPane.add(Abizena);
+			
+			JLabel lblPasahitza = new JLabel("Pashitza:");
+			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblPasahitza.setBounds(30, 221, 200, 29);
+			contentPane.add(lblPasahitza);
+			
+			PasahitzaField = new JPasswordField();
+			PasahitzaField.setColumns(10);
+			PasahitzaField.setBounds(30, 261, 200, 34);
+			contentPane.add(PasahitzaField);
+			
+			
+			JButton btnEditatu = new JButton("Sortu");
+			btnEditatu.setBounds(250, 400, 89, 29);
+			contentPane.add(btnEditatu);
+		}
+	}
+	
+	
 }

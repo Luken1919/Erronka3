@@ -2,7 +2,7 @@
  * 15 may 2024
  * Ioritz Lopetegi
  */
-package Eronka3;
+package Erronka_3;
 
 import java.awt.EventQueue;
 

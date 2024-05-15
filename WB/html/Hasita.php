@@ -55,10 +55,10 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PakAG</title>
-    <link rel="stylesheet" href="../css/hasita.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="icon" href="../irudiak/OIG4.png" type="image/png">
 </head>
-<body id="indexbody">
+<body id="hasitabody">
     <header>
         <nav class="nav-container">
             <a href="#" class="logo">
@@ -69,7 +69,7 @@ $conn->close();
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>
-    <main>
+    <main id="hasitamain">
         <section class="section" id="section1">
             <div class="content">
                 <h1>Banaketak:</h1>

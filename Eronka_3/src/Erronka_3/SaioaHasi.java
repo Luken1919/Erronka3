@@ -1,4 +1,4 @@
-package Eronka_3;
+package Erronka_3;
 
 import java.awt.EventQueue;
 
@@ -16,13 +16,14 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.JPasswordField;
 
 public class SaioaHasi extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldErabIzen;
-	private JTextField textFieldPasahitza;
+	private JPasswordField PasahitzaField;
 
 	/**
 	 * Launch the application.
@@ -70,17 +71,10 @@ public class SaioaHasi extends JFrame {
 		
 		textFieldErabIzen = new JTextField();
 		textFieldErabIzen.setCaretColor(new Color(0, 0, 0));
-		textFieldErabIzen.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
+		textFieldErabIzen.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(253, 194, 116)));
 		textFieldErabIzen.setBounds(124, 420, 220, 30);
 		saioaHasi.add(textFieldErabIzen);
 		textFieldErabIzen.setColumns(10);
-		
-		textFieldPasahitza = new JTextField();
-		textFieldPasahitza.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		textFieldPasahitza.setBackground(Color.WHITE);
-		textFieldPasahitza.setColumns(10);
-		textFieldPasahitza.setBounds(124, 502, 220, 30);
-		saioaHasi.add(textFieldPasahitza);
 		
 		JLabel lblNewLabel = new JLabel("Pasahitza");
 		lblNewLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
@@ -105,8 +99,14 @@ public class SaioaHasi extends JFrame {
 		saioaHasi.add(lblirudiSaioaHasi);
 		
 		JButton btnSaioaHasi = new JButton("Saioa Hasi");
-		btnSaioaHasi.setBackground(Color.BLUE);
+		btnSaioaHasi.setFont(new Font("Arial", Font.BOLD, 15));
+		btnSaioaHasi.setBackground(new Color(253, 194, 116));
 		btnSaioaHasi.setBounds(124, 605, 220, 30);
 		saioaHasi.add(btnSaioaHasi);
+		
+		PasahitzaField = new JPasswordField();
+		PasahitzaField.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(253, 194, 116)));
+		PasahitzaField.setBounds(124, 502, 220, 30);
+		saioaHasi.add(PasahitzaField);
 	}
 }

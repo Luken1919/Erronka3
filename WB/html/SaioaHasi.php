@@ -10,7 +10,7 @@
 <body>
     <header>
         <nav class="nav-container">
-            <a href="../hmtl/index.html" class="logo">
+            <a href="../html/index.html" class="logo">
                 <img src="../irudiak/OIG4.png" alt="Logo">
             </a>
         </nav>
@@ -18,11 +18,11 @@
     <main>
         <div class="login-container">
             <div class="login-image">
-                <img src="../irudiak/saioahasi.png"  alt="Imagen de inicio de sesión">
+                <img src="../irudiak/saioahasi.png" alt="Imagen de inicio de sesión">
             </div>
             <div class="login-form">
                 <h2>Saioa Hasi:</h2>
-                <form action="#" method="POST">
+                <form action="../php/login.php" method="POST">
                     <label for="username">Erabitzailea:</label>
                     <input type="text" id="username" name="username" required>
                     
@@ -31,6 +31,11 @@
                     
                     <button type="submit">Sartu</button>
                 </form>
+                <?php
+                if (isset($error)) {
+                    echo '<p style="color:red;">' . $error . '</p>';
+                }
+                ?>
             </div>
         </div>
     </main>
@@ -43,6 +48,5 @@
             <p>Email: <a href="mailto:pakAG@gmail.com" target="_blank">pakAG@gmail.com</a></p>
         </div>
     </footer>
-    
 </body>
 </html>

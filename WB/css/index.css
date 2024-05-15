@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+#indexbody{
+    background: url('https://www.ocu.org/-/media/ocu/images/home/consumo%20y%20familia/dchos%20consumidor/mensajer%C3%ADa_1600.jpg?rev=0229646c-9f30-4dc8-8ba1-b78cad470586&hash=D414CD321B1CDE793A051C33F9FF9AEE') no-repeat center center fixed;
+    background-size: cover;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -34,7 +39,7 @@ header {
 }
 
 .spacer {
-    flex-grow: 1;
+    flex-grow: 1; /* Empuja el botón hacia la derecha */
 }
 
 .login-button {
@@ -50,11 +55,17 @@ header {
     background: #0056b3;
 }
 
-main {
+#mainindex {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+main{
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 50px 20px;
 }
 
@@ -117,11 +128,20 @@ main {
 .login-form button:hover {
     background: #0056b3;
 }
+.content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
 
 footer {
     background: rgba(241, 241, 241, 0.8);
     padding: 20px 0;
-    text-align: center;
+    display: flex;
+    justify-content: center; /* Centra el contenedor del footer */
+}
+
+footer .container {
+    text-align: left; /* Alinea el texto a la izquierda dentro del contenedor */
 }
 
 form {
@@ -132,15 +152,6 @@ form {
 
 form label {
     margin-bottom: 10px;
-}
-
-form input[type="email"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
 }
 
 form button {
@@ -156,3 +167,6 @@ form button {
 form button:hover {
     background: #0056b3;
 }
+
+
+

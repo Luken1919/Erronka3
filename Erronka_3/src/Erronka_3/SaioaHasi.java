@@ -99,8 +99,9 @@ public class SaioaHasi extends JFrame {
 		saioaHasi.add(lblirudiSaioaHasi);
 		
 		JButton btnSaioaHasi = new JButton("Saioa Hasi");
+		btnSaioaHasi.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnSaioaHasi.setFont(new Font("Arial", Font.BOLD, 15));
-		btnSaioaHasi.setBackground(new Color(253, 194, 116));
+		btnSaioaHasi.setBackground(new Color(255, 255, 255));
 		btnSaioaHasi.setBounds(124, 605, 220, 30);
 		saioaHasi.add(btnSaioaHasi);
 		

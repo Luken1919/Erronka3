@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
@@ -17,7 +18,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class BanatzaileInterfazea extends JFrame {
+public class Banatzailea extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +34,7 @@ public class BanatzaileInterfazea extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BanatzaileInterfazea frame = new BanatzaileInterfazea();
+					Banatzailea frame = new Banatzailea();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +46,7 @@ public class BanatzaileInterfazea extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BanatzaileInterfazea() {
+	public Banatzailea() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -65,15 +66,31 @@ public class BanatzaileInterfazea extends JFrame {
 		panel.add(lblErabiltzailea);
 		
 		JButton btnPaketea = new JButton("Paketeak");
+		btnPaketea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Paketea paketea = new Paketea();
+				paketea.setVisible(true);
+				dispose();
+			}
+		});
+		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketea.setBackground(new Color(255, 255, 255));
 		btnPaketea.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketea.setBounds(854, 11, 120, 38);
 		panel.add(btnPaketea);
 		
 		JButton btnPaketeaEsleitu = new JButton("Paketeak Esleitu");
+		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnPaketeaEsleitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Esleipena esleitu = new Esleipena();
+				esleitu.setVisible(true);
+				dispose();
+			}
+		});
 		btnPaketeaEsleitu.setBackground(new Color(255, 255, 255));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnPaketeaEsleitu.setBounds(677, 11, 151, 38);
+		btnPaketeaEsleitu.setBounds(638, 11, 190, 38);
 		panel.add(btnPaketeaEsleitu);
 		
 		JPanel banatzaileak = new JPanel();
@@ -90,11 +107,11 @@ public class BanatzaileInterfazea extends JFrame {
 		Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		Banatzaileak.setBounds(0, 60, 362, 592);
 		banatzaileak.add(Banatzaileak);
-		
 		JButton btnGehitu = new JButton("Gehitu");
+		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Banatzaileagehitu gehitu = new Banatzaileagehitu();
+				BanatzaileaGehitu gehitu = new BanatzaileaGehitu();
 				gehitu.setVisible(true);
 			}
 		});
@@ -104,12 +121,20 @@ public class BanatzaileInterfazea extends JFrame {
 		banatzaileak.add(btnGehitu);
 		
 		JButton btnKendu = new JButton("Kendu");
+		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnKendu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BanatzaileaKendu kendu = new BanatzaileaKendu();
+				kendu.setVisible(true);
+			}
+		});
 		btnKendu.setBackground(new Color(255, 255, 255));
 		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnKendu.setBounds(372, 299, 110, 40);
 		banatzaileak.add(btnKendu);
 		
 		JButton btnEditatu = new JButton("Editatu");
+		btnEditatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnEditatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaEditatu editatu = new BanatzaileaEditatu();
@@ -137,12 +162,14 @@ public class BanatzaileInterfazea extends JFrame {
 		historiala.add(BanatzaileHistoriala);
 		
 		JButton btnFiltratu = new JButton("Filtratu");
+		btnFiltratu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnFiltratu.setBackground(new Color(255, 255, 255));
 		btnFiltratu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnFiltratu.setBounds(373, 199, 110, 40);
 		historiala.add(btnFiltratu);
 		
 		JButton btnOrdenatu = new JButton("Ordenatu");
+		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnOrdenatu.setBackground(new Color(255, 255, 255));
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnOrdenatu.setBounds(373, 405, 110, 40);
@@ -150,8 +177,8 @@ public class BanatzaileInterfazea extends JFrame {
 		
 	}
 	
-	class Banatzaileagehitu extends JFrame{
-		public Banatzaileagehitu() {
+	class BanatzaileaGehitu extends JFrame{
+		public BanatzaileaGehitu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 399, 500);
 			contentPane = new JPanel();
@@ -200,6 +227,32 @@ public class BanatzaileInterfazea extends JFrame {
 			JButton btnEditatu = new JButton("Sortu");
 			btnEditatu.setBounds(250, 400, 89, 29);
 			contentPane.add(btnEditatu);
+		}
+	}
+	
+	class BanatzaileaKendu extends JFrame{
+		public BanatzaileaKendu() {
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 362, 458);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			JLabel ErabIzenaLabel = new JLabel("Erabiltzailea");
+			ErabIzenaLabel.setFont(new Font("Arial", Font.BOLD, 15));
+			ErabIzenaLabel.setBounds(123, 24, 90, 36);
+			contentPane.add(ErabIzenaLabel);
+			
+			JComboBox comboBox = new JComboBox();
+			comboBox.setBounds(81, 68, 158, 22);
+			contentPane.add(comboBox);
+			
+			JButton EzabatuButton = new JButton("Ezabatu");
+			EzabatuButton.setFont(new Font("Arial Black", Font.BOLD, 15));
+			EzabatuButton.setBounds(210, 363, 126, 45);
+			contentPane.add(EzabatuButton);
 		}
 	}
 	

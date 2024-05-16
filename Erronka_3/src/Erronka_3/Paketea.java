@@ -30,11 +30,10 @@ import javax.swing.border.MatteBorder;
  * 
  * @author Ioritz Lopetegi
  */
-public class Paketeak extends JFrame {
+public class Paketea extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField AukeratutakoPaketeatextField;
 	private JTextField TelefonoatextField;
 	private JTextField HelbideatextField;
 
@@ -45,7 +44,7 @@ public class Paketeak extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Paketeak frame = new Paketeak();
+					Paketea frame = new Paketea();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +56,8 @@ public class Paketeak extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Paketeak() {
+	public Paketea() {
+		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -67,6 +67,7 @@ public class Paketeak extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
 		panel.setLayout(null);
 		panel.setBounds(0, 0, 984, 60);
 		contentPane.add(panel);
@@ -76,13 +77,29 @@ public class Paketeak extends JFrame {
 		lblErabiltzailea.setBounds(10, 11, 120, 38);
 		panel.add(lblErabiltzailea);
 
-		JButton btnPaketea = new JButton("Paketeak");
-		btnPaketea.setFont(new Font("Arial", Font.BOLD, 15));
-		btnPaketea.setBackground(Color.WHITE);
-		btnPaketea.setBounds(854, 11, 120, 38);
-		panel.add(btnPaketea);
+		JButton btnBanatzailea = new JButton("Banatzailea");
+		btnBanatzailea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Banatzailea banatzailea = new Banatzailea();
+				banatzailea.setVisible(true);
+				dispose();
+			}
+		});
+		btnBanatzailea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnBanatzailea.setFont(new Font("Arial", Font.BOLD, 15));
+		btnBanatzailea.setBackground(new Color(240, 240, 240));
+		btnBanatzailea.setBounds(854, 11, 120, 38);
+		panel.add(btnBanatzailea);
 
 		JButton btnPaketeaEsleitu = new JButton("Paketeak Esleitu");
+		btnPaketeaEsleitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Esleipena esleitu = new Esleipena();
+				esleitu.setVisible(true);
+				dispose();
+			}
+		});
+		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketeaEsleitu.setBackground(new Color(240, 240, 240));
 		btnPaketeaEsleitu.setBounds(677, 11, 151, 38);
@@ -100,10 +117,12 @@ public class Paketeak extends JFrame {
 
 		JList PaketeZerrenda = new JList();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		PaketeZerrenda.setBounds(0, 61, 362, 599);
+		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		ZerrendaPanela.add(PaketeZerrenda);
 
 		JButton SortuPaketeaButton = new JButton("Sortu");
+		SortuPaketeaButton.setBackground(new Color(240, 240, 240));
+		SortuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		SortuPaketeaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaketeaSortu sortu = new PaketeaSortu();
@@ -115,11 +134,15 @@ public class Paketeak extends JFrame {
 		SortuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
 
 		JButton EzabatuPaketeaButton = new JButton("Ezabatu");
+		EzabatuPaketeaButton.setBackground(new Color(240, 240, 240));
+		EzabatuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		EzabatuPaketeaButton.setBounds(372, 304, 110, 40);
 		ZerrendaPanela.add(EzabatuPaketeaButton);
 		EzabatuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
 
 		JButton EditatupaketeaButtonButton = new JButton("Editatu");
+		EditatupaketeaButtonButton.setBackground(new Color(240, 240, 240));
+		EditatupaketeaButtonButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		EditatupaketeaButtonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaketeaEditatu editatu = new PaketeaEditatu();
@@ -138,15 +161,17 @@ public class Paketeak extends JFrame {
 
 		JLabel lblPaketeHistoriala = new JLabel("Pakete Historiala");
 		lblPaketeHistoriala.setFont(new Font("Arial Black", Font.BOLD, 15));
-		lblPaketeHistoriala.setBounds(10, 0, 259, 39);
+		lblPaketeHistoriala.setBounds(10, 16, 259, 39);
 		panel_Paketeak.add(lblPaketeHistoriala);
 
 		JList PaketeHistoriala = new JList();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		PaketeHistoriala.setBounds(0, 50, 362, 599);
+		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);
 
 		JButton OrdenatuButton = new JButton("Ordenatu");
+		OrdenatuButton.setBackground(new Color(240, 240, 240));
+		OrdenatuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		OrdenatuButton.setFont(new Font("Arial", Font.BOLD, 15));
 		OrdenatuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,22 +181,18 @@ public class Paketeak extends JFrame {
 		panel_Paketeak.add(OrdenatuButton);
 
 		JButton FiltratuButton = new JButton("Filtratu");
+		FiltratuButton.setBackground(new Color(240, 240, 240));
+		FiltratuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		FiltratuButton.setFont(new Font("Arial", Font.BOLD, 15));
 		FiltratuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				PaketeakFiltratu frameFiltratu = new PaketeakFiltratu();
-				frameFiltratu.setVisible(rootPaneCheckingEnabled);
+				frameFiltratu.setVisible(true);
 
 			}
 		});
 		FiltratuButton.setBounds(372, 218, 110, 40);
 		panel_Paketeak.add(FiltratuButton);
-
-		AukeratutakoPaketeatextField = new JTextField();
-		AukeratutakoPaketeatextField.setBounds(490, 509, 196, 20);
-		panel_Paketeak.add(AukeratutakoPaketeatextField);
-		AukeratutakoPaketeatextField.setColumns(10);
 
 	}
 
@@ -309,7 +330,7 @@ public class Paketeak extends JFrame {
 			FiltratuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
-					Paketeak bueltatu = new Paketeak();
+					Paketea bueltatu = new Paketea();
 					bueltatu.setVisible(rootPaneCheckingEnabled);
 
 				}

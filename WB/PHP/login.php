@@ -9,8 +9,6 @@ $dbname = "erronka_pakag";
 // Crea la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
@@ -35,11 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Usuario no encontrado, redirigir con mensaje de error
-        $error = urlencode("Erabiltzailea edo pasahitza okerra da.");
-        header("Location: ../html/SaioaHasi.php");
+        $error = urlencode("Erabiltzailea edo pasahitza ez dira zuzenak, mesedez saiatu berriro.");
+        header("Location: ../html/SaioaHasi.php?error=$error");
         exit();
     }
-
 }
 
 $conn->close();

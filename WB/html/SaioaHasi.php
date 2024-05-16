@@ -31,9 +31,10 @@
                     
                     <button type="submit">Sartu</button>
                 </form>
+                <br>
                 <?php
-                if (isset($error)) {
-                    echo '<p style="color:red;">' . $error . '</p>';
+                if (isset($_GET['error'])) {
+                    echo '<p style="color:red;">' . htmlspecialchars($_GET['error']) . '</p>';
                 }
                 ?>
             </div>

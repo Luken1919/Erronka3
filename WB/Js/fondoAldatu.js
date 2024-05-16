@@ -14,5 +14,5 @@ document.addEventListener("DOMContentLoaded", () => {
         body.style.backgroundImage = `url(${backgrounds[currentBackgroundIndex]})`;
     }
 
-    setInterval(changeBackground, 4000); // Cambia cada 4 segundos
+    setInterval(changeBackground, 4000); //Aldatu 4 segunduka
 });

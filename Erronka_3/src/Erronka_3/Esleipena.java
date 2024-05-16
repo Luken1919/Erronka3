@@ -71,7 +71,7 @@ public class Esleipena extends JFrame {
 		 * Paketeak frame-era joateko botoia
 		 */
 		JButton btnPaketea = new JButton("Paketeak");
-		btnPaketea.setBackground(new Color(0, 86, 179));
+		btnPaketea.setBackground(new Color(111, 141, 158));
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,7 +88,7 @@ public class Esleipena extends JFrame {
 		 * Banatzaile frame-era joateko botoia
 		 */
 		JButton btnBanatzailea = new JButton("Banatzailea");
-		btnBanatzailea.setBackground(new Color(0, 86, 179));
+		btnBanatzailea.setBackground(new Color(111, 141, 158));
 		btnBanatzailea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnBanatzailea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +110,7 @@ public class Esleipena extends JFrame {
 		 * Banatzaile guztiake rakutsiko dituen ComboBox-a
 		 */
 		JComboBox Banatzaileak = new JComboBox();
-		Banatzaileak.setBackground(new Color(0, 86, 179));
+		Banatzaileak.setBackground(new Color(111, 141, 158));
 		Banatzaileak.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		Banatzaileak.setBounds(10, 11, 200, 35);
 		PaketeakEsleitu.add(Banatzaileak);
@@ -136,8 +136,8 @@ public class Esleipena extends JFrame {
 		 * botoia
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
-		btnGehitu.setForeground(new Color(255, 255, 255));
-		btnGehitu.setBackground(new Color(0, 86, 179));
+		btnGehitu.setForeground(new Color(0, 0, 0));
+		btnGehitu.setBackground(new Color(111, 141, 158));
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGehitu.setBounds(443, 140, 140, 30);
@@ -147,7 +147,7 @@ public class Esleipena extends JFrame {
 		 * botoia
 		 */
 		JButton btnKendu = new JButton("Kendu");
-		btnKendu.setBackground(new Color(0, 86, 179));
+		btnKendu.setBackground(new Color(111, 141, 158));
 		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnKendu.setBounds(443, 189, 140, 30);
@@ -157,7 +157,7 @@ public class Esleipena extends JFrame {
 		 * Banatzailearen paketeetatik pakete gutietara, pakete guztiak kentzeko botoia
 		 */
 		JButton btnKenduDneak = new JButton("Kendu Dneak");
-		btnKenduDneak.setBackground(new Color(0, 86, 179));
+		btnKenduDneak.setBackground(new Color(111, 141, 158));
 		btnKenduDneak.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnKenduDneak.setFont(new Font("Arial", Font.BOLD, 15));
 		btnKenduDneak.setBounds(443, 285, 140, 30);
@@ -168,7 +168,7 @@ public class Esleipena extends JFrame {
 		 */
 
 		JButton btnGehituDenak = new JButton("Gehitu Denak");
-		btnGehituDenak.setBackground(new Color(0, 86, 179));
+		btnGehituDenak.setBackground(new Color(111, 141, 158));
 		btnGehituDenak.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnGehituDenak.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGehituDenak.setBounds(443, 236, 140, 30);

@@ -100,7 +100,7 @@ public class Paketea extends JFrame {
 		});
 		btnBanatzailea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnBanatzailea.setFont(new Font("Arial", Font.BOLD, 15));
-		btnBanatzailea.setBackground(new Color(240, 240, 240));
+		btnBanatzailea.setBackground(new Color(111, 141, 158));
 		btnBanatzailea.setBounds(854, 11, 120, 38);
 		panel.add(btnBanatzailea);
 		/*
@@ -117,7 +117,7 @@ public class Paketea extends JFrame {
 
 		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnPaketeaEsleitu.setBackground(new Color(240, 240, 240));
+		btnPaketeaEsleitu.setBackground(new Color(111, 141, 158));
 		btnPaketeaEsleitu.setBounds(677, 11, 151, 38);
 		panel.add(btnPaketeaEsleitu);
 
@@ -144,7 +144,7 @@ public class Paketea extends JFrame {
 		 * Paketea sortzeko botoia, frame-a irekitzen du
 		 */
 		JButton SortuPaketeaButton = new JButton("Sortu");
-		SortuPaketeaButton.setBackground(new Color(240, 240, 240));
+		SortuPaketeaButton.setBackground(new Color(111, 141, 158));
 		SortuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		SortuPaketeaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class Paketea extends JFrame {
 		 * aukeratu)
 		 */
 		JButton EzabatuPaketeaButton = new JButton("Ezabatu");
-		EzabatuPaketeaButton.setBackground(new Color(240, 240, 240));
+		EzabatuPaketeaButton.setBackground(new Color(111, 141, 158));
 		EzabatuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		EzabatuPaketeaButton.setBounds(372, 304, 110, 40);
 		ZerrendaPanela.add(EzabatuPaketeaButton);
@@ -169,7 +169,7 @@ public class Paketea extends JFrame {
 		 * Paketea editatzeko botoia, frame-a irekitzen du
 		 */
 		JButton EditatupaketeaButtonButton = new JButton("Editatu");
-		EditatupaketeaButtonButton.setBackground(new Color(240, 240, 240));
+		EditatupaketeaButtonButton.setBackground(new Color(111, 141, 158));
 		EditatupaketeaButtonButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		EditatupaketeaButtonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -203,7 +203,7 @@ public class Paketea extends JFrame {
 		 * Paketeak ordenatzeko botoia
 		 */
 		JButton OrdenatuButton = new JButton("Ordenatu");
-		OrdenatuButton.setBackground(new Color(240, 240, 240));
+		OrdenatuButton.setBackground(new Color(111, 141, 158));
 		OrdenatuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		OrdenatuButton.setFont(new Font("Arial", Font.BOLD, 15));
 		OrdenatuButton.addActionListener(new ActionListener() {
@@ -216,7 +216,7 @@ public class Paketea extends JFrame {
 		 * Paketeak filtratzeko botoia, frame-a irekitzen du
 		 */
 		JButton FiltratuButton = new JButton("Filtratu");
-		FiltratuButton.setBackground(new Color(240, 240, 240));
+		FiltratuButton.setBackground(new Color(111, 141, 158));
 		FiltratuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		FiltratuButton.setFont(new Font("Arial", Font.BOLD, 15));
 		FiltratuButton.addActionListener(new ActionListener() {

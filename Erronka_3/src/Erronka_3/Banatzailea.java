@@ -95,7 +95,7 @@ public class Banatzailea extends JFrame {
 			}
 		});
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnPaketea.setBackground(new Color(111, 141, 158));
+		btnPaketea.setBackground(new Color(255, 255, 255));
 		btnPaketea.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketea.setBounds(854, 11, 120, 38);
 		panel.add(btnPaketea);
@@ -113,7 +113,7 @@ public class Banatzailea extends JFrame {
 				dispose();
 			}
 		});
-		btnPaketeaEsleitu.setBackground(new Color(111, 141, 158));
+		btnPaketeaEsleitu.setBackground(new Color(255, 255, 255));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketeaEsleitu.setBounds(638, 11, 190, 38);
 		panel.add(btnPaketeaEsleitu);
@@ -146,48 +146,48 @@ public class Banatzailea extends JFrame {
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnGehitu.setBackground(new Color(255, 255, 255));
+		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
+		btnGehitu.setBounds(372, 110, 110, 40);
+		banatzaileak.add(btnGehitu);
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaGehitu gehitu = new BanatzaileaGehitu();
 				gehitu.setVisible(true);
 			}
 		});
-		btnGehitu.setBackground(new Color(111, 141, 158));
-		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnGehitu.setBounds(372, 110, 110, 40);
-		banatzaileak.add(btnGehitu);
 
 		/*
 		 * Banatzaileak kentzeko panela irikitzen duen botoia
 		 */
 		JButton btnKendu = new JButton("Kendu");
 		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnKendu.setBackground(new Color(255, 255, 255));
+		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
+		btnKendu.setBounds(372, 299, 110, 40);
+		banatzaileak.add(btnKendu);
 		btnKendu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaKendu kendu = new BanatzaileaKendu();
 				kendu.setVisible(true);
 			}
 		});
-		btnKendu.setBackground(new Color(111, 141, 158));
-		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnKendu.setBounds(372, 299, 110, 40);
-		banatzaileak.add(btnKendu);
 
 		/*
 		 * Banatzaileak editatzeko panela irikitzen duen botoia
 		 */
 		JButton btnEditatu = new JButton("Editatu");
 		btnEditatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnEditatu.setBackground(new Color(255, 255, 255));
+		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
+		btnEditatu.setBounds(372, 499, 110, 40);
+		banatzaileak.add(btnEditatu);
 		btnEditatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaEditatu editatu = new BanatzaileaEditatu();
 				editatu.setVisible(true);
 			}
 		});
-		btnEditatu.setBackground(new Color(111, 141, 158));
-		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnEditatu.setBounds(372, 499, 110, 40);
-		banatzaileak.add(btnEditatu);
 
 		/*
 		 * Sortutako banatzaileak erakutsiko diren panela
@@ -216,7 +216,7 @@ public class Banatzailea extends JFrame {
 
 		JButton btnFiltratu = new JButton("Filtratu");
 		btnFiltratu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnFiltratu.setBackground(new Color(111, 141, 158));
+		btnFiltratu.setBackground(new Color(255, 255, 255));
 		btnFiltratu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnFiltratu.setBounds(373, 199, 110, 40);
 		historiala.add(btnFiltratu);
@@ -226,7 +226,7 @@ public class Banatzailea extends JFrame {
 		 */
 		JButton btnOrdenatu = new JButton("Ordenatu");
 		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnOrdenatu.setBackground(new Color(111, 141, 158));
+		btnOrdenatu.setBackground(new Color(255, 255, 255));
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnOrdenatu.setBounds(373, 405, 110, 40);
 		historiala.add(btnOrdenatu);

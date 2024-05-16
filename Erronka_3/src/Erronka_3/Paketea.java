@@ -1,4 +1,5 @@
-/**
+/*
+ * 16 may 2024
  * 
  */
 package Erronka_3;
@@ -26,20 +27,26 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
 
+
 /**
  * 
- * @author Ioritz Lopetegi
+ * 
  */
 public class Paketea extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/**  content pane. */
 	private JPanel contentPane;
+	
+	/**  Telefonoa textfield. */
 	private JTextField TelefonoatextField;
+	
+	/**  Helbidea textfield. */
 	private JTextField HelbideatextField;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -54,7 +61,7 @@ public class Paketea extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Paketearen frame-a sortu.
 	 */
 	public Paketea() {
 		setTitle("Paketeen informazioa");
@@ -72,11 +79,17 @@ public class Paketea extends JFrame {
 		panel.setBounds(0, 0, 984, 60);
 		contentPane.add(panel);
 
+		/*
+		 * Erabiltzailearen izena erakutsiko duen label-a
+		 */
 		JLabel lblErabiltzailea = new JLabel("Erabiltzailea:");
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblErabiltzailea.setBounds(10, 11, 120, 38);
 		panel.add(lblErabiltzailea);
 
+		/*
+		 * Banatzaile frame-era joateko botoia
+		 */
 		JButton btnBanatzailea = new JButton("Banatzailea");
 		btnBanatzailea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +103,9 @@ public class Paketea extends JFrame {
 		btnBanatzailea.setBackground(new Color(240, 240, 240));
 		btnBanatzailea.setBounds(854, 11, 120, 38);
 		panel.add(btnBanatzailea);
-
+		/*
+		 * Paketeak esleitu frame-era joateko botoia
+		 */
 		JButton btnPaketeaEsleitu = new JButton("Paketeak Esleitu");
 		btnPaketeaEsleitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,6 +114,7 @@ public class Paketea extends JFrame {
 				dispose();
 			}
 		});
+
 		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketeaEsleitu.setBackground(new Color(240, 240, 240));
@@ -110,16 +126,23 @@ public class Paketea extends JFrame {
 		contentPane.add(ZerrendaPanela);
 		ZerrendaPanela.setLayout(null);
 
+		/*
+		 * paketeen zerrenda label
+		 */
 		JLabel lblPaketeZerenda = new JLabel("Paketeen zerrenda");
 		lblPaketeZerenda.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblPaketeZerenda.setBounds(10, 11, 259, 39);
 		ZerrendaPanela.add(lblPaketeZerenda);
-
+		/*
+		 * Pakete guztiak erakusten dituen zerrenda
+		 */
 		JList PaketeZerrenda = new JList();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		ZerrendaPanela.add(PaketeZerrenda);
-
+		/*
+		 * Paketea sortzeko botoia, frame-a irekitzen du
+		 */
 		JButton SortuPaketeaButton = new JButton("Sortu");
 		SortuPaketeaButton.setBackground(new Color(240, 240, 240));
 		SortuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -132,14 +155,19 @@ public class Paketea extends JFrame {
 		SortuPaketeaButton.setBounds(372, 113, 110, 40);
 		ZerrendaPanela.add(SortuPaketeaButton);
 		SortuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
-
+		/*
+		 * Paketea sortzeko botoia, aukeratutako paketea ezabatzen du (Zerrendan
+		 * aukeratu)
+		 */
 		JButton EzabatuPaketeaButton = new JButton("Ezabatu");
 		EzabatuPaketeaButton.setBackground(new Color(240, 240, 240));
 		EzabatuPaketeaButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		EzabatuPaketeaButton.setBounds(372, 304, 110, 40);
 		ZerrendaPanela.add(EzabatuPaketeaButton);
 		EzabatuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
-
+		/*
+		 * Paketea editatzeko botoia, frame-a irekitzen du
+		 */
 		JButton EditatupaketeaButtonButton = new JButton("Editatu");
 		EditatupaketeaButtonButton.setBackground(new Color(240, 240, 240));
 		EditatupaketeaButtonButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -153,22 +181,27 @@ public class Paketea extends JFrame {
 		ZerrendaPanela.add(EditatupaketeaButtonButton);
 		EditatupaketeaButtonButton.setFont(new Font("Arial", Font.BOLD, 15));
 
-
 		JPanel panel_Paketeak = new JPanel();
 		panel_Paketeak.setBounds(492, 60, 492, 651);
 		contentPane.add(panel_Paketeak);
 		panel_Paketeak.setLayout(null);
-
+		/*
+		 * Sortutako paketeen labela
+		 */
 		JLabel lblPaketeHistoriala = new JLabel("Pakete Historiala");
 		lblPaketeHistoriala.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblPaketeHistoriala.setBounds(10, 16, 259, 39);
 		panel_Paketeak.add(lblPaketeHistoriala);
-
+		/*
+		 * Sortutako paketeen zerrenda
+		 */
 		JList PaketeHistoriala = new JList();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);
-
+		/*
+		 * Paketeak ordenatzeko botoia
+		 */
 		JButton OrdenatuButton = new JButton("Ordenatu");
 		OrdenatuButton.setBackground(new Color(240, 240, 240));
 		OrdenatuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -179,7 +212,9 @@ public class Paketea extends JFrame {
 		});
 		OrdenatuButton.setBounds(372, 399, 110, 40);
 		panel_Paketeak.add(OrdenatuButton);
-
+		/*
+		 * Paketeak filtratzeko botoia, frame-a irekitzen du
+		 */
 		JButton FiltratuButton = new JButton("Filtratu");
 		FiltratuButton.setBackground(new Color(240, 240, 240));
 		FiltratuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -196,7 +231,14 @@ public class Paketea extends JFrame {
 
 	}
 
-	class PaketeaSortu extends JFrame{
+	/**
+	 * The Class PaketeaSortu.
+	 */
+	class PaketeaSortu extends JFrame {
+		
+		/**
+		 * Instantiates a new paketea sortu.
+		 */
 		public PaketeaSortu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
@@ -205,38 +247,52 @@ public class Paketea extends JFrame {
 
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
-
+			/*
+			 * Bezeroaren telefono zenbakia label
+			 */
 			JLabel TelefonoaLabel = new JLabel("Telefonoa:");
 			TelefonoaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TelefonoaLabel.setBounds(40, 11, 108, 22);
 			contentPane.add(TelefonoaLabel);
-
+			/*
+			 * Bezeroaren telefono zenbakia ezartzeko textfield-a
+			 */
 			TelefonoatextField = new JTextField();
 			TelefonoatextField.setBounds(38, 32, 86, 20);
 			contentPane.add(TelefonoatextField);
 			TelefonoatextField.setColumns(10);
-
+			/*
+			 * Bezeroaren Helbidea label
+			 */
 			JLabel HelbideaLabel = new JLabel("Helbidea");
 			HelbideaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			HelbideaLabel.setBounds(40, 63, 108, 22);
 			contentPane.add(HelbideaLabel);
-
+			/*
+			 * Paketearen helbidea ezartzeko textfield-a
+			 */
 			HelbideatextField = new JTextField();
 			HelbideatextField.setBounds(38, 84, 86, 20);
 			contentPane.add(HelbideatextField);
 			HelbideatextField.setColumns(10);
-
+			/*
+			 * paketaren tamaina label
+			 */
 			JLabel TamainaLabel = new JLabel("Tamaina");
 			TamainaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TamainaLabel.setBounds(35, 115, 89, 20);
 			contentPane.add(TamainaLabel);
-
+			/*
+			 * Paketearen tamaina aukeratzeko combobox-a
+			 */
 			JComboBox comboBox = new JComboBox();
 			comboBox.setFont(new Font("Arial", Font.BOLD, 15));
 			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Txikia", "Ertaina" }));
 			comboBox.setBounds(35, 146, 97, 22);
 			contentPane.add(comboBox);
-
+			/*
+			 * Datu hauekin paketea sortzeko botoia
+			 */
 			JButton SortuButton = new JButton("SORTU");
 			SortuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			SortuButton.setBounds(230, 477, 89, 23);
@@ -244,7 +300,14 @@ public class Paketea extends JFrame {
 		}
 	}
 
-	class PaketeaEditatu extends JFrame{
+	/**
+	 * The Class PaketeaEditatu.
+	 */
+	class PaketeaEditatu extends JFrame {
+		
+		/**
+		 * Instantiates a new paketea editatu.
+		 */
 		public PaketeaEditatu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
@@ -253,47 +316,63 @@ public class Paketea extends JFrame {
 
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
-
+			/*
+			 * Bezeroaren telefonoa label
+			 */
 			JLabel TelefonoaLabel = new JLabel("Telefonoa :");
 			TelefonoaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TelefonoaLabel.setBounds(28, 23, 108, 14);
 			contentPane.add(TelefonoaLabel);
-
+			/*
+			 * Bezeroaren telefono berria ezartzeko textfield-a
+			 */
 			TelefonoatextField = new JTextField();
 			TelefonoatextField.setBounds(28, 48, 86, 20);
 			contentPane.add(TelefonoatextField);
 			TelefonoatextField.setColumns(10);
-
+			/*
+			 * Paketaren helbidea label
+			 */
 			JLabel HelbideaLabel = new JLabel("Helbidea:");
 			HelbideaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			HelbideaLabel.setBounds(28, 79, 86, 14);
 			contentPane.add(HelbideaLabel);
-
+			/*
+			 * Paketaren helbidea aldatzeko textfield-a
+			 */
 			HelbideatextField = new JTextField();
 			HelbideatextField.setBounds(28, 104, 86, 20);
 			contentPane.add(HelbideatextField);
 			HelbideatextField.setColumns(10);
-
+			/*
+			 * Paketearen tamaina label
+			 */
 			JLabel TamainaLabel = new JLabel("Tamaina:");
 			TamainaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TamainaLabel.setBounds(28, 146, 86, 14);
 			contentPane.add(TamainaLabel);
-
+			/*
+			 * paketearen tamaina aldatzeko combobox-a
+			 */
 			JComboBox TamainacomboBox = new JComboBox();
 			TamainacomboBox.setFont(new Font("Arial", Font.BOLD, 15));
 			TamainacomboBox.setModel(new DefaultComboBoxModel(new String[] { "Txikia", "Ertaina" }));
 			TamainacomboBox.setBounds(28, 171, 121, 27);
 			contentPane.add(TamainacomboBox);
-
+			/*
+			 * Paketearen mota label
+			 */
 			JLabel MotaLabel = new JLabel("Mota:");
 			MotaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			MotaLabel.setBounds(28, 209, 86, 14);
 			contentPane.add(MotaLabel);
-
+			/*
+			 * Paketearen egoera aldatzeko combobox-a
+			 */
 			JComboBox MotacomboBox_1 = new JComboBox();
 			MotacomboBox_1.setFont(new Font("Arial", Font.BOLD, 15));
-			MotacomboBox_1.setModel(
-					new DefaultComboBoxModel(new String[] { "Entregatuta", "Entregatu Gabe", "Entregatu Gabe arazoekin" }));
+			MotacomboBox_1.setModel(new DefaultComboBoxModel(
+					new String[] { "Entregatuta", "Entregatu Gabe", "Entregatu Gabe arazoekin" }));
 			MotacomboBox_1.setBounds(28, 233, 121, 24);
 			contentPane.add(MotacomboBox_1);
 
@@ -304,7 +383,14 @@ public class Paketea extends JFrame {
 		}
 	}
 
-	class PaketeakFiltratu extends JFrame{
+	/**
+	 * The Class PaketeakFiltratu.
+	 */
+	class PaketeakFiltratu extends JFrame {
+		
+		/**
+		 * Instantiates a new paketeak filtratu.
+		 */
 		public PaketeakFiltratu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 355, 439);
@@ -313,18 +399,25 @@ public class Paketea extends JFrame {
 
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
-
+			/*
+			 * paketearen tamaina label
+			 */
 			JLabel MotaLabel = new JLabel("Mota:");
 			MotaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			MotaLabel.setBounds(97, 49, 119, 39);
 			contentPane.add(MotaLabel);
 
+			/*
+			 * Paketearen tamaina aukeratzeko combobox-a
+			 */
 			JComboBox comboBox = new JComboBox();
 			comboBox.setFont(new Font("Arial", Font.BOLD, 15));
 			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Txikia", "Ertaina" }));
 			comboBox.setBounds(75, 109, 156, 22);
 			contentPane.add(comboBox);
-
+			/*
+			 * Aukeratutako tamainaren bidez filtratzeko botoia
+			 */
 			JButton FiltratuButton = new JButton("Filtratu");
 			FiltratuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			FiltratuButton.addActionListener(new ActionListener() {

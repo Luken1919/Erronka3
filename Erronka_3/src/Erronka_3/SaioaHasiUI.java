@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.TextField;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -148,4 +150,13 @@ public class SaioaHasiUI extends JFrame {
 		PasahitzaField.setBounds(124, 502, 220, 30);
 		saioaHasi.add(PasahitzaField);
 	}
+	
+	public JTextField getTextField() {
+		return textFieldErabIzen;
+	}
+	
+	public JPasswordField getJPasswordField() {
+		return PasahitzaField;
+	}
+
 }

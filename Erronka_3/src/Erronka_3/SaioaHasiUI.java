@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 /**
  * Class SaioaHasi.
  */
-public class SaioaHasi extends JFrame {
+public class SaioaHasiUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class SaioaHasi extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SaioaHasi frame = new SaioaHasi();
+					SaioaHasiUI frame = new SaioaHasiUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class SaioaHasi extends JFrame {
 	/**
 	 * Saioa hasi frame-a sortu.
 	 */
-	public SaioaHasi() {
+	public SaioaHasiUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();

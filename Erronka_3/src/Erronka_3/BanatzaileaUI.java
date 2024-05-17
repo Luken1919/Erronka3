@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 /**
  * Class Banatzailea.
  */
-public class Banatzailea extends JFrame {
+public class BanatzaileaUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class Banatzailea extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Banatzailea frame = new Banatzailea();
+					BanatzaileaUI frame = new BanatzaileaUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +61,7 @@ public class Banatzailea extends JFrame {
 	/**
 	 * Baanatzailearen frame-a sortu.
 	 */
-	public Banatzailea() {
+	public BanatzaileaUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -89,7 +89,7 @@ public class Banatzailea extends JFrame {
 		JButton btnPaketea = new JButton("Paketeak");
 		btnPaketea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Paketea paketea = new Paketea();
+				PaketeaUI paketea = new PaketeaUI();
 				paketea.setVisible(true);
 				dispose();
 			}
@@ -108,7 +108,7 @@ public class Banatzailea extends JFrame {
 		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketeaEsleitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Esleipena esleitu = new Esleipena();
+				EsleipenaUI esleitu = new EsleipenaUI();
 				esleitu.setVisible(true);
 				dispose();
 			}

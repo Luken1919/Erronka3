@@ -32,7 +32,7 @@ import javax.swing.border.MatteBorder;
  * 
  * 
  */
-public class Paketea extends JFrame {
+public class PaketeaUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -51,7 +51,7 @@ public class Paketea extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Paketea frame = new Paketea();
+					PaketeaUI frame = new PaketeaUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +63,7 @@ public class Paketea extends JFrame {
 	/**
 	 * Paketearen frame-a sortu.
 	 */
-	public Paketea() {
+	public PaketeaUI() {
 		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
@@ -93,7 +93,7 @@ public class Paketea extends JFrame {
 		JButton btnBanatzailea = new JButton("Banatzailea");
 		btnBanatzailea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Banatzailea banatzailea = new Banatzailea();
+				BanatzaileaUI banatzailea = new BanatzaileaUI();
 				banatzailea.setVisible(true);
 				dispose();
 			}
@@ -109,7 +109,7 @@ public class Paketea extends JFrame {
 		JButton btnPaketeaEsleitu = new JButton("Paketeak Esleitu");
 		btnPaketeaEsleitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Esleipena esleitu = new Esleipena();
+				EsleipenaUI esleitu = new EsleipenaUI();
 				esleitu.setVisible(true);
 				dispose();
 			}
@@ -423,7 +423,7 @@ public class Paketea extends JFrame {
 			FiltratuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
-					Paketea bueltatu = new Paketea();
+					PaketeaUI bueltatu = new PaketeaUI();
 					bueltatu.setVisible(rootPaneCheckingEnabled);
 
 				}

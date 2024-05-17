@@ -21,7 +21,7 @@ import java.awt.Color;
 /**
  * Class Esleipena.
  */
-public class Esleipena extends JFrame {
+public class EsleipenaUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class Esleipena extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Esleipena frame = new Esleipena();
+					EsleipenaUI frame = new EsleipenaUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class Esleipena extends JFrame {
 	/**
 	 * Esleipen Framea sortu.
 	 */
-	public Esleipena() {
+	public EsleipenaUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -75,7 +75,7 @@ public class Esleipena extends JFrame {
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Paketea paketea = new Paketea();
+				PaketeaUI paketea = new PaketeaUI();
 				paketea.setVisible(true);
 				dispose();
 			}
@@ -92,7 +92,7 @@ public class Esleipena extends JFrame {
 		btnBanatzailea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnBanatzailea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Banatzailea banatzailea = new Banatzailea();
+				BanatzaileaUI banatzailea = new BanatzaileaUI();
 				banatzailea.setVisible(true);
 				dispose();
 			}

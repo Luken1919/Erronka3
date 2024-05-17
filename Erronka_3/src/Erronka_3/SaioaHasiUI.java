@@ -44,9 +44,9 @@ public class SaioaHasiUI extends JFrame {
 	/** Pasahitza passwordfield. */
 	private JPasswordField PasahitzaField;
 
-String erab_izenaString;
-String pasahitzaString;
-	
+	String erab_izenaString;
+	String pasahitzaString;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -150,30 +150,23 @@ String pasahitzaString;
 				try {
 					konexioa.getConnection();
 					System.out.println("kaixo");
-					
-					System.out.println(lortuerabizena()); 
-					System.out.println(lortupasahitza()); 
-					System.out.println( konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString));
+
+					System.out.println(lortuerabizena());
+					System.out.println(lortupasahitza());
+					System.out.println(konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString));
 					BanatzaileaUI banatzaileaUI = new BanatzaileaUI();
 					if (konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString)) {
 						dispose();
 						banatzaileaUI.setVisible(true);
-					}
-					else {
+					} else {
 						JOptionPane.showMessageDialog(null, "Pasahitza edo erabiltzailea ez da existitzen");
 					}
-					
-					
-					
-					
-					
+
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-				
+
 			}
 		});
 		btnSaioaHasi.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -189,14 +182,13 @@ String pasahitzaString;
 		PasahitzaField.setBounds(124, 502, 220, 30);
 		saioaHasi.add(PasahitzaField);
 	}
-	
+
 	public String lortuerabizena() {
 		erab_izenaString = textFieldErabIzen.getText();
-		return  erab_izenaString;
-		
-		
+		return erab_izenaString;
+
 	}
-	
+
 	public String lortupasahitza() {
 		pasahitzaString = PasahitzaField.getText();
 		return pasahitzaString;

@@ -42,6 +42,8 @@ public class DatuBasea {
         
             rs = stmt.executeQuery();
 
+            
+          
             if (rs.next()) 
             {
             	

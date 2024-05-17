@@ -66,7 +66,7 @@ public class EsleipenaUI extends JFrame {
 		 */
 		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
-		lblErabiltzailea.setBounds(10, 11, 126, 38);
+		lblErabiltzailea.setBounds(10, 11, 316, 38);
 		panel.add(lblErabiltzailea);
 
 		/*

@@ -42,11 +42,12 @@
     </main>
     <footer>
         <div class="container">
-            <h2>Harremanetarako:</h2>
-            <br>
             <p>© 2024 pakAG.</p>
             <p>Telefonoa: +34 660 064 045</p>
             <p>Email: <a href="mailto:pakAG@gmail.com" target="_blank">pakAG@gmail.com</a></p>
+        </div>
+        <div class="logotxuri-beltza">
+            <img src="../irudiak/OIG4-modified.png" alt="Logo">
         </div>
     </footer>
 </body>

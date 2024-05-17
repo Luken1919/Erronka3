@@ -58,10 +58,15 @@ header {
     background: #0056b3 ;
     border-radius: 5px;
     transition: background 0.3s;
+    margin-left: 20px;
 }
 
 .login-button:hover {
     background: #224f6d;
+}
+.login-button.selected {
+    /* Estilos específicos cuando el botón está seleccionado */
+    background-color: #1a3b52; /* Cambia el color de fondo a azul */
 }
 
 #mainindex {
@@ -149,6 +154,7 @@ main{
 .login-form button:hover {
     background: #0056b3;
 }
+
 .content h1 {
     font-size: 3rem;
     margin-bottom: 20px;
@@ -156,20 +162,28 @@ main{
     
 }
 
-    #slogan {
+#slogan {
     font-size: 1.2rem;
     margin-bottom: 20px;
 }
 
 footer {
-    background: rgba(241, 241, 241, 0.432);
+    color: #a39f9f;
+    background: rgba(51, 51, 51, 0.8);
     padding: 20px 0;
     display: flex;
-    justify-content: center; /* Centra el contenedor del footer */
+    justify-content: space-between; /* Para separar el contenedor y la imagen */
+    align-items: center; /* Para alinear verticalmente los elementos */
 }
 
 footer .container {
     text-align: left; /* Alinea el texto a la izquierda dentro del contenedor */
+    margin-left: 50px;
+}
+
+.logotxuri-beltza img {
+    height: 100px; /* Ajusta el tamaño del logo según tus necesidades */
+    margin-right: 50px;
 }
 
 form {
@@ -198,3 +212,39 @@ form button:hover {
 
 /*http://localhost/Erronka3-1/WB/*/
 
+/* Estilos generales de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Estilos para las celdas del encabezado */
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Estilos alternados para filas */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para las celdas */
+td {
+    padding: 10px;
+}
+
+/* Estilos para la tabla cuando no hay datos */
+table:empty {
+    background-color: #ffffff;
+}
+
+/* Estilos para el mensaje de tabla vacía */
+table:empty td::before {
+    content: "Ez daukazu datu gehiagorik erakusteko.";
+    color: #999;
+    font-style: italic;
+}

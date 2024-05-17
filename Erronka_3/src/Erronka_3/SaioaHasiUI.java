@@ -144,16 +144,18 @@ public class SaioaHasiUI extends JFrame {
 		 * Saio hasteko botoia
 		 */
 		JButton btnSaioaHasi = new JButton("Saioa Hasi");
+		btnSaioaHasi.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnSaioaHasi.setFont(new Font("Arial", Font.BOLD, 15));
+		btnSaioaHasi.setBackground(new Color(111, 141, 158));
+		btnSaioaHasi.setBounds(124, 605, 220, 30);
+		saioaHasi.add(btnSaioaHasi);
 		btnSaioaHasi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatuBasea konexioa = new DatuBasea();
 				try {
 					konexioa.getConnection();
-					System.out.println("kaixo");
-
-					System.out.println(lortuerabizena());
-					System.out.println(lortupasahitza());
-					System.out.println(konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString));
+					lortuerabizena();
+					lortupasahitza();
 					BanatzaileaUI banatzaileaUI = new BanatzaileaUI();
 					if (konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString)) {
 						dispose();
@@ -169,11 +171,6 @@ public class SaioaHasiUI extends JFrame {
 
 			}
 		});
-		btnSaioaHasi.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnSaioaHasi.setFont(new Font("Arial", Font.BOLD, 15));
-		btnSaioaHasi.setBackground(new Color(111, 141, 158));
-		btnSaioaHasi.setBounds(124, 605, 220, 30);
-		saioaHasi.add(btnSaioaHasi);
 		/*
 		 * Erabiltzaileren psahitza sartzeko passwordfield
 		 */

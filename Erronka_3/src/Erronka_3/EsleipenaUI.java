@@ -28,6 +28,8 @@ public class EsleipenaUI extends JFrame {
 
 	/** content pane. */
 	private JPanel contentPane;
+	
+	String IzenAbizena = DatuBasea.erabIzena;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,7 +64,7 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Erabiltzailearen izena erakusteko label-a
 		 */
-		JLabel lblErabiltzailea = new JLabel("Erabiltzailea:");
+		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblErabiltzailea.setBounds(10, 11, 126, 38);
 		panel.add(lblErabiltzailea);
@@ -109,7 +111,7 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Banatzaile guztiake rakutsiko dituen ComboBox-a
 		 */
-		JComboBox Banatzaileak = new JComboBox();
+		JComboBox<String> Banatzaileak = new JComboBox<>();
 		Banatzaileak.setBackground(new Color(111, 141, 158));
 		Banatzaileak.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		Banatzaileak.setBounds(10, 11, 200, 35);
@@ -118,7 +120,7 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Sortutako pakete guztiak erakutsiko diren zerrenda
 		 */
-		JList PaketeGuztiak = new JList();
+		JList<String> PaketeGuztiak = new JList<>();
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
 		PaketeakEsleitu.add(PaketeGuztiak);
@@ -126,7 +128,7 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Banatzaileari ezarritako paketeak ikusiko diren zerrenda
 		 */
-		JList BanatzailearenPaketeak = new JList();
+		JList<String> BanatzailearenPaketeak = new JList<>();
 		BanatzailearenPaketeak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		BanatzailearenPaketeak.setBounds(622, 100, 300, 450);
 		PaketeakEsleitu.add(BanatzailearenPaketeak);

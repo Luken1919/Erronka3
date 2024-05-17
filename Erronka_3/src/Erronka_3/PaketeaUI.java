@@ -45,7 +45,8 @@ public class PaketeaUI extends JFrame {
 	
 	/**  Helbidea textfield. */
 	private JTextField HelbideatextField;
-
+	
+	String IzenAbizena = DatuBasea.erabIzena;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -82,7 +83,7 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Erabiltzailearen izena erakutsiko duen label-a
 		 */
-		JLabel lblErabiltzailea = new JLabel("Erabiltzailea:");
+		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblErabiltzailea.setBounds(10, 11, 120, 38);
 		panel.add(lblErabiltzailea);
@@ -136,7 +137,7 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
-		JList PaketeZerrenda = new JList();
+		JList<String> PaketeZerrenda = new JList<>();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		ZerrendaPanela.add(PaketeZerrenda);
@@ -195,7 +196,7 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Sortutako paketeen zerrenda
 		 */
-		JList PaketeHistoriala = new JList();
+		JList<String> PaketeHistoriala = new JList<>();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);

@@ -21,6 +21,10 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
+import java.awt.ScrollPane;
 
 /**
  * Class Banatzailea.
@@ -44,6 +48,8 @@ public class BanatzaileaUI extends JFrame {
 
 	/** Pasahitza passwordfield. */
 	private JPasswordField PasahitzaField;
+
+	String IzenAbizena = DatuBasea.erabIzena;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,9 +84,9 @@ public class BanatzaileaUI extends JFrame {
 		/*
 		 * Erabiltzaile izenaren label-a
 		 */
-		JLabel lblErabiltzailea = new JLabel("Erabiltzailea:");
+		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
-		lblErabiltzailea.setBounds(10, 11, 120, 38);
+		lblErabiltzailea.setBounds(10, 11, 265, 38);
 		panel.add(lblErabiltzailea);
 
 		/*
@@ -95,7 +101,7 @@ public class BanatzaileaUI extends JFrame {
 			}
 		});
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnPaketea.setBackground(new Color(255, 255, 255));
+		btnPaketea.setBackground(new Color(111, 141, 158));
 		btnPaketea.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketea.setBounds(854, 11, 120, 38);
 		panel.add(btnPaketea);
@@ -113,7 +119,7 @@ public class BanatzaileaUI extends JFrame {
 				dispose();
 			}
 		});
-		btnPaketeaEsleitu.setBackground(new Color(255, 255, 255));
+		btnPaketeaEsleitu.setBackground(new Color(111, 141, 158));
 		btnPaketeaEsleitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketeaEsleitu.setBounds(638, 11, 190, 38);
 		panel.add(btnPaketeaEsleitu);
@@ -136,17 +142,12 @@ public class BanatzaileaUI extends JFrame {
 		 * Banatzaileen zerrenda
 		 */
 
-		JList Banatzaileak = new JList();
-		Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		Banatzaileak.setBounds(0, 60, 362, 592);
-		banatzaileak.add(Banatzaileak);
-
 		/*
 		 * Banatzaileak sortzeko panela irikitzen duen botoia
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnGehitu.setBackground(new Color(255, 255, 255));
+		btnGehitu.setBackground(new Color(111, 141, 158));
 		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGehitu.setBounds(372, 110, 110, 40);
 		banatzaileak.add(btnGehitu);
@@ -162,7 +163,7 @@ public class BanatzaileaUI extends JFrame {
 		 */
 		JButton btnKendu = new JButton("Kendu");
 		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnKendu.setBackground(new Color(255, 255, 255));
+		btnKendu.setBackground(new Color(111, 141, 158));
 		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnKendu.setBounds(372, 299, 110, 40);
 		banatzaileak.add(btnKendu);
@@ -178,10 +179,16 @@ public class BanatzaileaUI extends JFrame {
 		 */
 		JButton btnEditatu = new JButton("Editatu");
 		btnEditatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnEditatu.setBackground(new Color(255, 255, 255));
+		btnEditatu.setBackground(new Color(111, 141, 158));
 		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnEditatu.setBounds(372, 499, 110, 40);
 		banatzaileak.add(btnEditatu);
+
+		
+		JList<String> Banatzaileak = new JList<>();
+		Banatzaileak.setBounds(0, 60, 362, 592);
+		banatzaileak.add(Banatzaileak);
+		Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		btnEditatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaEditatu editatu = new BanatzaileaEditatu();
@@ -205,10 +212,6 @@ public class BanatzaileaUI extends JFrame {
 		/*
 		 * Banatzaileen zerrenda
 		 */
-		JList BanatzaileHistoriala = new JList();
-		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		BanatzaileHistoriala.setBounds(0, 62, 362, 590);
-		historiala.add(BanatzaileHistoriala);
 
 		/*
 		 * Banatzaileak filtratzeko panela irikitzen duen botoia
@@ -216,7 +219,7 @@ public class BanatzaileaUI extends JFrame {
 
 		JButton btnFiltratu = new JButton("Filtratu");
 		btnFiltratu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnFiltratu.setBackground(new Color(255, 255, 255));
+		btnFiltratu.setBackground(new Color(111, 141, 158));
 		btnFiltratu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnFiltratu.setBounds(373, 199, 110, 40);
 		historiala.add(btnFiltratu);
@@ -226,10 +229,14 @@ public class BanatzaileaUI extends JFrame {
 		 */
 		JButton btnOrdenatu = new JButton("Ordenatu");
 		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnOrdenatu.setBackground(new Color(255, 255, 255));
+		btnOrdenatu.setBackground(new Color(111, 141, 158));
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnOrdenatu.setBounds(373, 405, 110, 40);
 		historiala.add(btnOrdenatu);
+		JList<String> BanatzaileHistoriala = new JList<>();
+		BanatzaileHistoriala.setBounds(0, 60, 362, 590);
+		historiala.add(BanatzaileHistoriala);
+		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 
 	}
 
@@ -442,5 +449,4 @@ public class BanatzaileaUI extends JFrame {
 			contentPane.add(btnEditatu);
 		}
 	}
-
 }

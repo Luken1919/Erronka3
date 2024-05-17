@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.TextField;
@@ -21,6 +23,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 /**
  * Class SaioaHasi.
@@ -39,7 +44,9 @@ public class SaioaHasiUI extends JFrame {
 	/** Pasahitza passwordfield. */
 	private JPasswordField PasahitzaField;
 
-
+String erab_izenaString;
+String pasahitzaString;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -137,6 +144,38 @@ public class SaioaHasiUI extends JFrame {
 		 * Saio hasteko botoia
 		 */
 		JButton btnSaioaHasi = new JButton("Saioa Hasi");
+		btnSaioaHasi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatuBasea konexioa = new DatuBasea();
+				try {
+					konexioa.getConnection();
+					System.out.println("kaixo");
+					
+					System.out.println(lortuerabizena()); 
+					System.out.println(lortupasahitza()); 
+					System.out.println( konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString));
+					BanatzaileaUI banatzaileaUI = new BanatzaileaUI();
+					if (DatuBasea.frogatuErabiltzailea(erab_izenaString, pasahitzaString)) {
+						dispose();
+						banatzaileaUI.setVisible(true);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Pasahitza edo erabiltzailea ez da existitzen");
+					}
+					
+					
+					
+					
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+			}
+		});
 		btnSaioaHasi.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnSaioaHasi.setFont(new Font("Arial", Font.BOLD, 15));
 		btnSaioaHasi.setBackground(new Color(111, 141, 158));
@@ -151,12 +190,16 @@ public class SaioaHasiUI extends JFrame {
 		saioaHasi.add(PasahitzaField);
 	}
 	
-	public JTextField getTextField() {
-		return textFieldErabIzen;
+	public String lortuerabizena() {
+		erab_izenaString = textFieldErabIzen.getText();
+		return  erab_izenaString;
+		
+		
 	}
 	
-	public JPasswordField getJPasswordField() {
-		return PasahitzaField;
+	public String lortupasahitza() {
+		pasahitzaString = PasahitzaField.getText();
+		return pasahitzaString;
 	}
 
 }

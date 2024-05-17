@@ -27,28 +27,35 @@ public class DatuBasea {
         ResultSet rs = null;
         erabIzena = erabiltzailea;
         try {
-            // Connect to the database
+           
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-            // Prepare a secure SQL statement using PreparedStatement
+           
             String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ?";
             stmt = conn.prepareStatement(sql);
+          
 
-            // Set parameters to prevent SQL injection attacks
+         
             stmt.setString(1, erabiltzailea);
             stmt.setString(2, pasahitza);
-
-            // Execute the query and get the results
+            System.out.println(stmt);
+        
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next()) 
+            {
+            	
 				erabIzena = rs.getString("Izena") + " " + rs.getString("Abizena");
 				erabKod = rs.getString("idErabiltzailea");
 				
+				return true;
 			}
-            return rs.next();
-            // Check if a user record is found
-             // Returns true if a record exists, false otherwise
+            else 
+            {
+            	// ez du topatu
+            	return false;
+            }
+           
 
         } catch (SQLException e) {
             // Handle database errors gracefully

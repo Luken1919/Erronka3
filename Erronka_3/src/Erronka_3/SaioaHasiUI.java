@@ -155,7 +155,7 @@ String pasahitzaString;
 					System.out.println(lortupasahitza()); 
 					System.out.println( konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString));
 					BanatzaileaUI banatzaileaUI = new BanatzaileaUI();
-					if (DatuBasea.frogatuErabiltzailea(erab_izenaString, pasahitzaString)) {
+					if (konexioa.frogatuErabiltzailea(erab_izenaString, pasahitzaString)) {
 						dispose();
 						banatzaileaUI.setVisible(true);
 					}

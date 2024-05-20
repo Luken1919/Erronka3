@@ -229,6 +229,7 @@ public class DatuBasea {
 		        pstmt.executeUpdate();
 		    } catch (SQLException e) {
 		        e.printStackTrace();
+		        
 		    }
 		}
 }

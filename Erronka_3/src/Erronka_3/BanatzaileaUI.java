@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -21,6 +22,7 @@ import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -51,6 +53,8 @@ public class BanatzaileaUI extends JFrame {
 	private JPasswordField PasahitzaField;
 
 	String IzenAbizena = DatuBasea.erabIzena;
+	
+	 private JList<String> Banatzaileak;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -129,15 +133,15 @@ public class BanatzaileaUI extends JFrame {
 		 * Banatzaileak erakutsiko diren panel-a
 		 */
 
-		JPanel banatzaileak = new JPanel();
-		banatzaileak.setBounds(0, 59, 492, 652);
-		contentPane.add(banatzaileak);
-		banatzaileak.setLayout(null);
+		JPanel banatzaileakPanel = new JPanel();
+        banatzaileakPanel.setBounds(0, 59, 492, 652);
+        contentPane.add(banatzaileakPanel);
+        banatzaileakPanel.setLayout(null);
 
-		JLabel lblBanatzailea = new JLabel("Banatzaileak");
-		lblBanatzailea.setBounds(10, 11, 352, 38);
-		lblBanatzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
-		banatzaileak.add(lblBanatzailea);
+        JLabel lblBanatzailea = new JLabel("Banatzaileak");
+        lblBanatzailea.setBounds(10, 11, 352, 38);
+        lblBanatzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
+        banatzaileakPanel.add(lblBanatzailea);
 
 		/*
 		 * Banatzaileen zerrenda
@@ -151,7 +155,7 @@ public class BanatzaileaUI extends JFrame {
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnGehitu.setBackground(new Color(111, 141, 158));
 		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
-		banatzaileak.add(btnGehitu);
+		banatzaileakPanel.add(btnGehitu);
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaGehitu gehitu = new BanatzaileaGehitu();
@@ -167,7 +171,7 @@ public class BanatzaileaUI extends JFrame {
 		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnKendu.setBackground(new Color(111, 141, 158));
 		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));
-		banatzaileak.add(btnKendu);
+		banatzaileakPanel.add(btnKendu);
 		btnKendu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BanatzaileaKendu kendu = new BanatzaileaKendu();
@@ -183,16 +187,17 @@ public class BanatzaileaUI extends JFrame {
 		btnEditatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnEditatu.setBackground(new Color(111, 141, 158));
 		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
-		banatzaileak.add(btnEditatu);
+		banatzaileakPanel.add(btnEditatu);
 
 		
 		JScrollPane BanatzaileakScrollPane = new JScrollPane();
-		BanatzaileakScrollPane.setBounds(0, 49, 362, 603);
-		banatzaileak.add(BanatzaileakScrollPane);
-		 
-		JList<String> Banatzaileak = new JList<>();
-		BanatzaileakScrollPane.setViewportView(Banatzaileak);
-		Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+        BanatzaileakScrollPane.setBounds(0, 49, 362, 603);
+        banatzaileakPanel.add(BanatzaileakScrollPane);
+
+        Banatzaileak = new JList<>();
+        BanatzaileakScrollPane.setViewportView(Banatzaileak);
+        Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+        lortuBanatzaileak();
 		
 		btnEditatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -242,6 +247,7 @@ public class BanatzaileaUI extends JFrame {
 		JScrollPane BanatzaileakHistorialaScrollPane = new JScrollPane();
 		BanatzaileakHistorialaScrollPane.setBounds(0, 49, 362, 603);
 		historiala.add(BanatzaileakHistorialaScrollPane);
+		
 		JList<String> BanatzaileHistoriala = new JList<>();
 		BanatzaileakHistorialaScrollPane.setViewportView(BanatzaileHistoriala);
 		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
@@ -457,4 +463,15 @@ public class BanatzaileaUI extends JFrame {
 			contentPane.add(btnEditatu);
 		}
 	}
+	
+	private void lortuBanatzaileak() {
+        ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (String banatzailea : banatzaileakList) {
+            model.addElement(banatzailea);
+        }
+
+        Banatzaileak.setModel(model);
+    }
 }

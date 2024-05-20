@@ -276,6 +276,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			TelefonoaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TelefonoaLabel.setBounds(40, 11, 108, 22);
 			contentPane.add(TelefonoaLabel);
+
 			/*
 			 * Bezeroaren telefono zenbakia ezartzeko textfield-a
 			 */
@@ -283,6 +284,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			TelefonoatextField.setBounds(38, 32, 86, 20);
 			contentPane.add(TelefonoatextField);
 			TelefonoatextField.setColumns(10);
+			
 			/*
 			 * Bezeroaren Helbidea label
 			 */
@@ -319,6 +321,21 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			SortuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			SortuButton.setBounds(230, 477, 89, 23);
 			contentPane.add(SortuButton);
+
+			SortuButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DatuBasea konexioa = new DatuBasea();
+					String zenb = TelefonoaLabel.getText();
+					String helbidea = HelbideaLabel.getText();
+					String tamaina = (String) comboBox.getSelectedItem();
+					System.out.println(tamaina);
+					String luzeera = TelefonoatextField.getText();
+					int luze = luzeera.length();
+					System.out.println(luze);
+					konexioa.sortuPaketea(zenb, helbidea, tamaina);
+				}
+			});
+			
 		}
 	}
 	private void lortupaketeak() {

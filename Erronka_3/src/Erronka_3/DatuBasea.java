@@ -215,14 +215,16 @@ public class DatuBasea {
 			}
 		}
 	   
-	   public void sortuPaketa(String Izena, String Abizena, String Pasahitza) {
-		    String sql = "INSERT INTO paketea (Bezero zen, Abizena, Pasahitza, Mota) VALUES (?, ?, ?, 'Banatzailea')";
+	   public void sortuPaketea(String Bezero_zenbakia, String Helbidea, String Pakete_Tamaina) {
+		    String sql = "INSERT INTO paketea (Bezero_zenbakia, Helbidea, Pakete_Tamaina, Erabiltzailea_idErabiltzailea) VALUES (?, ?, ?, '1')";
+		    
 
 		    try (Connection conn = getConnection();
 		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-		        pstmt.setString(1, Izena);
-		        pstmt.setString(2, Abizena);
-		        pstmt.setString(3, Pasahitza);
+		    	System.out.println(pstmt);
+		        pstmt.setString(1, Bezero_zenbakia);
+		        pstmt.setString(2, Helbidea);
+		        pstmt.setString(3, Pakete_Tamaina);
 
 		        pstmt.executeUpdate();
 		    } catch (SQLException e) {

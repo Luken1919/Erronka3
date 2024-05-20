@@ -325,8 +325,8 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			SortuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					DatuBasea konexioa = new DatuBasea();
-					String zenb = TelefonoaLabel.getText();
-					String helbidea = HelbideaLabel.getText();
+					String zenb = TelefonoatextField.getText();
+					String helbidea = HelbideatextField.getText();
 					String tamaina = (String) comboBox.getSelectedItem();
 					System.out.println(tamaina);
 					String luzeera = TelefonoatextField.getText();

@@ -214,4 +214,19 @@ public class DatuBasea {
 				return paketeakhistoriala;
 			}
 		}
+	   
+	   public void sortuPaketa(String Izena, String Abizena, String Pasahitza) {
+		    String sql = "INSERT INTO paketea (Bezero zen, Abizena, Pasahitza, Mota) VALUES (?, ?, ?, 'Banatzailea')";
+
+		    try (Connection conn = getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		        pstmt.setString(1, Izena);
+		        pstmt.setString(2, Abizena);
+		        pstmt.setString(3, Pasahitza);
+
+		        pstmt.executeUpdate();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		}
 }

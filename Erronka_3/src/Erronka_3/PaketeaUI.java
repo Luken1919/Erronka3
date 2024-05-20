@@ -85,7 +85,7 @@ public class PaketeaUI extends JFrame {
 		 */
 		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
-		lblErabiltzailea.setBounds(10, 11, 120, 38);
+		lblErabiltzailea.setBounds(10, 11, 298, 38);
 		panel.add(lblErabiltzailea);
 
 		/*

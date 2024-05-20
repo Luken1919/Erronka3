@@ -61,8 +61,6 @@ public class BanatzaileaUI extends JFrame {
 
 	JList<String> BanatzaileHistoriala = new JList<>();
 
-
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -196,7 +194,6 @@ public class BanatzaileaUI extends JFrame {
 		btnEditatu.setFont(new Font("Arial", Font.BOLD, 15));
 		banatzaileakPanel.add(btnEditatu);
 
-
 		JScrollPane BanatzaileakScrollPane = new JScrollPane();
 		BanatzaileakScrollPane.setBounds(0, 49, 362, 603);
 		banatzaileakPanel.add(BanatzaileakScrollPane);
@@ -204,14 +201,17 @@ public class BanatzaileaUI extends JFrame {
 		Banatzaileak = new JList<>();
 		Banatzaileak.setFixedCellHeight(20);
 
+		/*
+		 * Aukeratutako banatzailearen historiala erakusten du
+		 */
 		Banatzaileak.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					String aukeratutakoa = Banatzaileak.getSelectedValue();
 					String[] parts = aukeratutakoa.split(" ");
-					String id = parts[parts.length - 1]; // El ID es la última parte
+					String id = parts[parts.length - 1];
 					System.out.println("ID seleccionado: " + id);
-					lortuBanatzaileakhist(id); // Llamada al método con el ID seleccionado
+					lortuBanatzaileakhist(id);
 				}
 			}
 		});
@@ -344,7 +344,7 @@ public class BanatzaileaUI extends JFrame {
 			contentPane.add(PasahitzaField);
 
 			/*
-			 * Banatzailea sortzeko botoia
+			 * Banatzailea sortzeko botoia, sartutako datuekin sortuko da
 			 */
 			JButton btnGehitu = new JButton("Sortu");
 			btnGehitu.setBounds(250, 400, 89, 29);
@@ -357,10 +357,9 @@ public class BanatzaileaUI extends JFrame {
 					String PasahitzaSortu = PasahitzaField.getText();
 					System.out.println(IzenaSortu + AbizenaSortu + PasahitzaSortu);
 					konexioa.sortuBanatzailea(IzenaSortu, AbizenaSortu, PasahitzaSortu);
+					dispose();
 				}
 			});
-
-
 
 		}
 	}
@@ -393,13 +392,12 @@ public class BanatzaileaUI extends JFrame {
 			BanatzaileaUI bantzaileBanatzaileaUI = new BanatzaileaUI();
 			JComboBox comboBox = new JComboBox();
 			ArrayList<String> historial = bantzaileBanatzaileaUI.lortuBanatzaileakzerrenda();
-			for(String item : historial) {
-			    comboBox.addItem(item);
+			for (String item : historial) {
+				comboBox.addItem(item);
 			}
 			comboBox.setBounds(81, 68, 158, 22);
 			contentPane.add(comboBox);
-			
-			
+
 			comboBox.setBounds(81, 68, 158, 22);
 			contentPane.add(comboBox);
 
@@ -415,12 +413,12 @@ public class BanatzaileaUI extends JFrame {
 					DatuBasea konexioa = new DatuBasea();
 					String aukeratutakoerabiltzailea = (String) comboBox.getSelectedItem();
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
-			        String id = parts[parts.length - 1]; // El ID es la última parte
-			        System.out.println("Aukeratutakoa: " + id);
+					String id = parts[parts.length - 1];
+					System.out.println("Aukeratutakoa: " + id);
 					konexioa.EzabatuBanatzailea(id);
 					dispose();
 					System.out.println(aukeratutakoerabiltzailea);
-					
+
 				}
 			});
 		}
@@ -519,23 +517,28 @@ public class BanatzaileaUI extends JFrame {
 			contentPane.add(btnEditatu);
 		}
 	}
+
 	/**
 	 * Lortu banatzaileak.Datubaseko banatzaileak zerrendan gordetzen dira
-	 * @return 
+	 * 
+	 * @return banatzaileakList
 	 * 
 	 */
 	private ArrayList<String> lortuBanatzaileakzerrenda() {
-        ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
-        DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
+		DefaultListModel<String> model = new DefaultListModel<>();
 
-        for (String banatzailea : banatzaileakList) {
-            model.addElement(banatzailea);
-        }
+		for (String banatzailea : banatzaileakList) {
+			model.addElement(banatzailea);
+		}
 
-        Banatzaileak.setModel(model);
-        return banatzaileakList;
-    }
-	
+		Banatzaileak.setModel(model);
+		return banatzaileakList;
+	}
+
+	/*
+	 * Banatzaileak lortzeko metodoa
+	 */
 	private void lortuBanatzaileak() {
 		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
 		DefaultListModel<String> model = new DefaultListModel<>();
@@ -546,6 +549,13 @@ public class BanatzaileaUI extends JFrame {
 
 		Banatzaileak.setModel(model);
 	}
+	/*
+	 * Banatzaileen historiala lortzeko metodoa
+	 * 
+	 * @param id, banatzailearen id-a
+	 * 
+	 */
+
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 

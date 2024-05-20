@@ -35,7 +35,6 @@ import javax.swing.border.MatteBorder;
 
 import com.mysql.cj.xdevapi.Statement;
 
-
 /**
  * 
  * 
@@ -44,22 +43,22 @@ public class PaketeaUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
-	/**  content pane. */
+
+	/** content pane. */
 	private JPanel contentPane;
-	
-	/**  Telefonoa textfield. */
+
+	/** Telefonoa textfield. */
 	private JTextField TelefonoatextField;
-	
-	/**  Helbidea textfield. */
+
+	/** Helbidea textfield. */
 	private JTextField HelbideatextField;
-	
+
 	String IzenAbizena = DatuBasea.erabIzena;
-	
+
 	JList<String> PaketeZerrenda = new JList<>();
-	
+
 	JList<String> PaketeHistoriala = new JList<>();
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,8 +75,7 @@ public class PaketeaUI extends JFrame {
 	/**
 	 * Paketearen frame-a sortu.
 	 */
-	
-	
+
 	public PaketeaUI() {
 		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -151,11 +149,10 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
-	 PaketeZerrenda = new JList<>();
-	 
-	 lortupaketeak();
-		
-		
+		PaketeZerrenda = new JList<>();
+
+		lortupaketeak();
+
 		DatuBasea konexioapaketezerrenda = new DatuBasea();
 		konexioapaketezerrenda.lortupaketeak();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
@@ -216,9 +213,9 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Sortutako paketeen zerrenda
 		 */
-		 PaketeHistoriala = new JList<>();
-lortupaketeakhistori();
-PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+		PaketeHistoriala = new JList<>();
+		lortupaketeakhistori();
+		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);
 		/*
@@ -257,7 +254,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 	 * The Class PaketeaSortu.
 	 */
 	class PaketeaSortu extends JFrame {
-		
+
 		/**
 		 * Instantiates a new paketea sortu.
 		 */
@@ -284,7 +281,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			TelefonoatextField.setBounds(38, 32, 86, 20);
 			contentPane.add(TelefonoatextField);
 			TelefonoatextField.setColumns(10);
-			
+
 			/*
 			 * Bezeroaren Helbidea label
 			 */
@@ -321,6 +318,10 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			SortuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			SortuButton.setBounds(230, 477, 89, 23);
 			contentPane.add(SortuButton);
+			/*
+			 * Pakete berri bat sortzeko botoia, bertan idatzitako baloreekin banatzaile
+			 * berri bat sortuko dugu
+			 */
 
 			SortuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -335,39 +336,47 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
 				}
 			});
-			
+
 		}
 	}
+
+	/*
+	 * Paketak lortzeko metodoa
+	 */
 	private void lortupaketeak() {
 		DatuBasea konexioaBasea = new DatuBasea();
-        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
-        DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
+		DefaultListModel<String> model = new DefaultListModel<>();
 
-        for (String paketea : paketeaklist) {
-            model.addElement(paketea);
-            System.out.println(paketea);
-        }
+		for (String paketea : paketeaklist) {
+			model.addElement(paketea);
+			System.out.println(paketea);
+		}
 
-        PaketeZerrenda.setModel(model);
-    }
+		PaketeZerrenda.setModel(model);
+	}
+
+	/*
+	 * Entregatutako paketeak lortzeko metodoa
+	 */
 	private void lortupaketeakhistori() {
 		DatuBasea konexioaBasea = new DatuBasea();
-        ArrayList<String> paketeakhisto = konexioaBasea.lortupaketeakhistoriala();
-        DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> paketeakhisto = konexioaBasea.lortupaketeakhistoriala();
+		DefaultListModel<String> model = new DefaultListModel<>();
 
-        for (String paketeahist : paketeakhisto) {
-            model.addElement(paketeahist);
-            System.out.println(paketeahist);
-        }
+		for (String paketeahist : paketeakhisto) {
+			model.addElement(paketeahist);
+			System.out.println(paketeahist);
+		}
 
-        PaketeHistoriala.setModel(model);
-    }
+		PaketeHistoriala.setModel(model);
+	}
 
 	/**
 	 * The Class PaketeaEditatu.
 	 */
 	class PaketeaEditatu extends JFrame {
-		
+
 		/**
 		 * Instantiates a new paketea editatu.
 		 */
@@ -450,7 +459,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 	 * The Class PaketeakFiltratu.
 	 */
 	class PaketeakFiltratu extends JFrame {
-		
+
 		/**
 		 * Instantiates a new paketeak filtratu.
 		 */
@@ -495,5 +504,5 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			contentPane.add(FiltratuButton);
 		}
 	}
-	
+
 }

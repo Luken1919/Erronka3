@@ -93,4 +93,37 @@ public class DatuBasea {
 			return banatzaileak;
 		}
 	} 
+	
+	   public ArrayList<String> lortupaketeak () {
+	    	ArrayList<String> paketeak = new ArrayList<>(); {
+				Connection conn 		= null;
+				PreparedStatement stmt 	= null;
+				ResultSet rs 			= null;
+
+
+
+				try {   
+					conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+					
+
+					String sql = "SELECT * FROM paketea";
+					stmt = conn.prepareStatement(sql);
+					rs = stmt.executeQuery(sql);
+					
+					while (rs.next()) {
+		                String idpakete = rs.getString("idPaketea");
+		                String helbideapekete = rs.getString("Helbidea");
+		                paketeak.add(idpakete + " " + helbideapekete);
+		            }
+					
+					rs.close();
+					stmt.close();
+					conn.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return paketeak;
+			}
+		}
 }

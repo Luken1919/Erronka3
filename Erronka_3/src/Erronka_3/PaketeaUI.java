@@ -16,16 +16,24 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
+
+import com.mysql.cj.xdevapi.Statement;
 
 
 /**
@@ -48,6 +56,8 @@ public class PaketeaUI extends JFrame {
 	
 	String IzenAbizena = DatuBasea.erabIzena;
 	
+	JList<String> PaketeZerrenda = new JList<>();
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,6 +74,8 @@ public class PaketeaUI extends JFrame {
 	/**
 	 * Paketearen frame-a sortu.
 	 */
+	
+	
 	public PaketeaUI() {
 		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -137,7 +149,13 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
-		JList<String> PaketeZerrenda = new JList<>();
+	 PaketeZerrenda = new JList<>();
+	 
+	 lortupaketeak();
+		
+		
+		DatuBasea konexioapaketezerrenda = new DatuBasea();
+		konexioapaketezerrenda.lortupaketeak();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		ZerrendaPanela.add(PaketeZerrenda);
@@ -300,6 +318,18 @@ public class PaketeaUI extends JFrame {
 			contentPane.add(SortuButton);
 		}
 	}
+	private void lortupaketeak() {
+		DatuBasea konexioaBasea = new DatuBasea();
+        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (String paketea : paketeaklist) {
+            model.addElement(paketea);
+            System.out.println(paketea);
+        }
+
+        PaketeZerrenda.setModel(model);
+    }
 
 	/**
 	 * The Class PaketeaEditatu.
@@ -433,4 +463,5 @@ public class PaketeaUI extends JFrame {
 			contentPane.add(FiltratuButton);
 		}
 	}
+	
 }

@@ -232,4 +232,20 @@ public class DatuBasea {
 		        
 		    }
 		}
+	   public void EzabatuBanatzailea(String id) {
+		    String sql = "Delete from erabiltzailea where idErabiltzailea = ? ";
+		    
+
+		    try (Connection conn = getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		    	System.out.println(pstmt);
+		        pstmt.setString(1, id);
+		        
+
+		        pstmt.executeUpdate();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        
+		    }
+		}
 }

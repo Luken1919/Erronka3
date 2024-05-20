@@ -410,6 +410,19 @@ public class BanatzaileaUI extends JFrame {
 			EzabatuButton.setFont(new Font("Arial Black", Font.BOLD, 15));
 			EzabatuButton.setBounds(210, 363, 126, 45);
 			contentPane.add(EzabatuButton);
+			EzabatuButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DatuBasea konexioa = new DatuBasea();
+					String aukeratutakoerabiltzailea = (String) comboBox.getSelectedItem();
+					String[] parts = aukeratutakoerabiltzailea.split(" ");
+			        String id = parts[parts.length - 1]; // El ID es la última parte
+			        System.out.println("Aukeratutakoa: " + id);
+					konexioa.EzabatuBanatzailea(id);
+					dispose();
+					System.out.println(aukeratutakoerabiltzailea);
+					
+				}
+			});
 		}
 	}
 

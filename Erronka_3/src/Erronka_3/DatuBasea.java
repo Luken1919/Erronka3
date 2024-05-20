@@ -29,7 +29,7 @@ public class DatuBasea {
 		try {   
 			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ?";
+			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ? AND mota'Kudeatzailea'";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, erabiltzailea);
 			stmt.setString(2, pasahitza);
@@ -93,6 +93,41 @@ public class DatuBasea {
 			return banatzaileak;
 		}
 	} 
+	
+	public ArrayList<String> getBanatzaielaHistoriala () {
+    	ArrayList<String> BanatzaileHistoriala = new ArrayList<>(); {
+			Connection conn 		= null;
+			PreparedStatement stmt 	= null;
+			ResultSet rs 			= null;
+
+
+
+			try {   
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				
+
+				String sql = "SELECT *  FROM paketea WHERE Ereabiltzailea_idErabiltzailea=''";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+				
+				while (rs.next()) {
+	                String idpakete = rs.getString("idEntregatuta");
+	                String helbideapekete = rs.getString("Helbidea");
+	                String izenabanatzaileaString = rs.getString("Izena");
+	                String abizenabanatzaileaString = rs.getString("Abizena");
+	                BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + izenabanatzaileaString + " " + abizenabanatzaileaString);
+	            }
+				
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return BanatzaileHistoriala;
+		}
+	}
 	
 	   public ArrayList<String> lortupaketeak () {
 	    	ArrayList<String> paketeak = new ArrayList<>(); {

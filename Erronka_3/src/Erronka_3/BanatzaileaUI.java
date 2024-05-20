@@ -20,6 +20,9 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -55,6 +58,7 @@ public class BanatzaileaUI extends JFrame {
 	String IzenAbizena = DatuBasea.erabIzena;
 	
 	 private JList<String> Banatzaileak;
+	 JList<String> BanatzaileHistoriala = new JList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -195,6 +199,19 @@ public class BanatzaileaUI extends JFrame {
         banatzaileakPanel.add(BanatzaileakScrollPane);
 
         Banatzaileak = new JList<>();
+        Banatzaileak.setFixedCellHeight(20);
+        
+        Banatzaileak.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    String aukeratutakoa = Banatzaileak.getSelectedValue();
+                    String[] parts = aukeratutakoa.split(" ");
+                    String id = parts[parts.length - 1]; // El ID es la última parte
+                    System.out.println("ID seleccionado: " + id);
+                    lortuBanatzaileakhist(id); // Llamada al método con el ID seleccionado
+                }
+            }
+        });
         BanatzaileakScrollPane.setViewportView(Banatzaileak);
         Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
         lortuBanatzaileak();
@@ -248,7 +265,8 @@ public class BanatzaileaUI extends JFrame {
 		BanatzaileakHistorialaScrollPane.setBounds(0, 49, 362, 603);
 		historiala.add(BanatzaileakHistorialaScrollPane);
 		
-		JList<String> BanatzaileHistoriala = new JList<>();
+		 BanatzaileHistoriala = new JList<>();
+		 BanatzaileHistoriala.setFixedCellHeight(20);
 		BanatzaileakHistorialaScrollPane.setViewportView(BanatzaileHistoriala);
 		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 
@@ -474,4 +492,16 @@ public class BanatzaileaUI extends JFrame {
 
         Banatzaileak.setModel(model);
     }
+	private void lortuBanatzaileakhist(String id) {
+	    DatuBasea losrtubanatzailehsit = new DatuBasea();
+	    
+	    ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistoriala(id);
+	    DefaultListModel<String> model = new DefaultListModel<>();
+
+	    for (String banatzailea : banatzaileakhistList) {
+	        model.addElement(banatzailea);
+	    }
+
+	    BanatzaileHistoriala.setModel(model);
+	}
 }

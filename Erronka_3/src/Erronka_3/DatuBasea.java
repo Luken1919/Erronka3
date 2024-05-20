@@ -80,7 +80,8 @@ public class DatuBasea {
 				while (rs.next()) {
 	                String izena = rs.getString("Izena");
 	                String abizena = rs.getString("Abizena");
-	                banatzaileak.add(izena + " " + abizena);
+	                String idString = rs.getString("idErabiltzailea");
+	                banatzaileak.add(izena + " " + abizena + " " + idString);
 	            }
 				
 				rs.close();
@@ -94,7 +95,7 @@ public class DatuBasea {
 		}
 	} 
 	
-	public ArrayList<String> getBanatzaielaHistoriala () {
+	public ArrayList<String> getBanatzaielaHistoriala (String idString) {
     	ArrayList<String> BanatzaileHistoriala = new ArrayList<>(); {
 			Connection conn 		= null;
 			PreparedStatement stmt 	= null;
@@ -106,16 +107,18 @@ public class DatuBasea {
 				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				
 
-				String sql = "SELECT *  FROM paketea WHERE Ereabiltzailea_idErabiltzailea=''";
+				String sql = "SELECT *  FROM entregatuta WHERE erabiltzailea_idErabiltzailea=  "+ idString + "";
 				stmt = conn.prepareStatement(sql);
+				System.out.println(stmt);
 				rs = stmt.executeQuery(sql);
 				
 				while (rs.next()) {
 	                String idpakete = rs.getString("idEntregatuta");
 	                String helbideapekete = rs.getString("Helbidea");
-	                String izenabanatzaileaString = rs.getString("Izena");
-	                String abizenabanatzaileaString = rs.getString("Abizena");
-	                BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + izenabanatzaileaString + " " + abizenabanatzaileaString);
+	                String entregadaraString =rs.getString("Entrega_data");
+	                String entregaorduaString = rs.getString("Entrega_Ordua");
+	             String paketetamainaString = rs.getString("Pakete_Tamaina");
+	                BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + entregadaraString + " " + entregaorduaString + " " + paketetamainaString );
 	            }
 				
 				rs.close();

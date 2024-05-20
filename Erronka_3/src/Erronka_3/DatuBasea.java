@@ -132,6 +132,22 @@ public class DatuBasea {
 		}
 	}
 	
+	public void sortuBanatzailea(String Izena, String Abizena, String Pasahitza) {
+	    String sql = "INSERT INTO erabiltzailea (Izena, Abizena, Pasahitza, Mota) VALUES (?, ?, ?, 'Banatzailea')";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, Izena);
+	        pstmt.setString(2, Abizena);
+	        pstmt.setString(3, Pasahitza);
+
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	
 	   public ArrayList<String> lortupaketeak () {
 	    	ArrayList<String> paketeak = new ArrayList<>(); {
 				Connection conn 		= null;

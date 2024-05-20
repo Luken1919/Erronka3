@@ -58,6 +58,8 @@ public class PaketeaUI extends JFrame {
 	
 	JList<String> PaketeZerrenda = new JList<>();
 	
+	JList<String> PaketeHistoriala = new JList<>();
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -214,8 +216,9 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Sortutako paketeen zerrenda
 		 */
-		JList<String> PaketeHistoriala = new JList<>();
-		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+		 PaketeHistoriala = new JList<>();
+lortupaketeakhistori();
+PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);
 		/*
@@ -329,6 +332,18 @@ public class PaketeaUI extends JFrame {
         }
 
         PaketeZerrenda.setModel(model);
+    }
+	private void lortupaketeakhistori() {
+		DatuBasea konexioaBasea = new DatuBasea();
+        ArrayList<String> paketeakhisto = konexioaBasea.lortupaketeakhistoriala();
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (String paketeahist : paketeakhisto) {
+            model.addElement(paketeahist);
+            System.out.println(paketeahist);
+        }
+
+        PaketeHistoriala.setModel(model);
     }
 
 	/**

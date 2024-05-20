@@ -126,4 +126,38 @@ public class DatuBasea {
 				return paketeak;
 			}
 		}
+	   public ArrayList<String> lortupaketeakhistoriala () {
+	    	ArrayList<String> paketeakhistoriala = new ArrayList<>(); {
+				Connection conn 		= null;
+				PreparedStatement stmt 	= null;
+				ResultSet rs 			= null;
+
+
+
+				try {   
+					conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+					
+
+					String sql = "SELECT entregatuta.idEntregatuta,entregatuta.Helbidea, erabiltzailea.izena, erabiltzailea.abizena  FROM entregatuta inner join erabiltzailea on erabiltzailea.idErabiltzailea = entregatuta.erabiltzailea_idErabiltzailea";
+					stmt = conn.prepareStatement(sql);
+					rs = stmt.executeQuery(sql);
+					
+					while (rs.next()) {
+		                String idpakete = rs.getString("idEntregatuta");
+		                String helbideapekete = rs.getString("Helbidea");
+		                String izenabanatzaileaString = rs.getString("Izena");
+		                String abizenabanatzaileaString = rs.getString("Abizena");
+		                paketeakhistoriala.add(idpakete + " " + helbideapekete + " " + izenabanatzaileaString + " " + abizenabanatzaileaString);
+		            }
+					
+					rs.close();
+					stmt.close();
+					conn.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return paketeakhistoriala;
+			}
+		}
 }

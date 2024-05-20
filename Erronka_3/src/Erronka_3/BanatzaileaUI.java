@@ -390,7 +390,16 @@ public class BanatzaileaUI extends JFrame {
 			/*
 			 * Banatzaileak erakusten dituen combobox-a
 			 */
+			BanatzaileaUI bantzaileBanatzaileaUI = new BanatzaileaUI();
 			JComboBox comboBox = new JComboBox();
+			ArrayList<String> historial = bantzaileBanatzaileaUI.lortuBanatzaileakzerrenda();
+			for(String item : historial) {
+			    comboBox.addItem(item);
+			}
+			comboBox.setBounds(81, 68, 158, 22);
+			contentPane.add(comboBox);
+			
+			
 			comboBox.setBounds(81, 68, 158, 22);
 			contentPane.add(comboBox);
 
@@ -497,7 +506,23 @@ public class BanatzaileaUI extends JFrame {
 			contentPane.add(btnEditatu);
 		}
 	}
+	/**
+	 * Lortu banatzaileak.Datubaseko banatzaileak zerrendan gordetzen dira
+	 * @return 
+	 * 
+	 */
+	private ArrayList<String> lortuBanatzaileakzerrenda() {
+        ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
+        DefaultListModel<String> model = new DefaultListModel<>();
 
+        for (String banatzailea : banatzaileakList) {
+            model.addElement(banatzailea);
+        }
+
+        Banatzaileak.setModel(model);
+        return banatzaileakList;
+    }
+	
 	private void lortuBanatzaileak() {
 		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
 		DefaultListModel<String> model = new DefaultListModel<>();

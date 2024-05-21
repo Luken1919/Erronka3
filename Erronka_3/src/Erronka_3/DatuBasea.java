@@ -323,6 +323,7 @@ public class DatuBasea {
             pstmt.setString(4, Mota);
             pstmt.setString(5, id);
 
+            
             pstmt.executeUpdate();
             
         } catch (SQLException e) {

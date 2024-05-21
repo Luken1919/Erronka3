@@ -191,6 +191,7 @@ public class PaketeaUI extends JFrame {
 				String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
+				
 			}
 		});
 		

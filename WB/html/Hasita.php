@@ -88,26 +88,31 @@ $conn->close();
         <section class="section" id="section3">
             <div class="content">
                 <h1>Banaketak:</h1>
-                <?php
-                // Verifica si se encontraron resultados de paquetes
-                if ($result_paquetes->num_rows > 0) {
-                    // Mostrar los paquetes en una tabla
-                    echo "<table>";
-                    echo "<tr><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
-                    while ($row_paquete = $result_paquetes->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row_paquete["idPaketea"] . "</td>";
-                        echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
-                        echo "<td>" . $row_paquete["Helbidea"] . "</td>";
-                        echo "<td>" . $row_paquete["Pakete_Tamaina"] . "</td>";
-                        echo "</tr>";
+                <form method="post" action="../html/UnekoBanaketak.php">
+                    <?php
+                    // Verifica si se encontraron resultados de paquetes
+                    if ($result_paquetes->num_rows > 0) {
+                        // Mostrar los paquetes en una tabla
+                        echo "<table>";
+                        echo "<tr><th></th><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
+                        while ($row_paquete = $result_paquetes->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td><input type='radio' name='selected_package' value='" . $row_paquete["idPaketea"] . "'></td>";
+                            echo "<td>" . $row_paquete["idPaketea"] . "</td>";
+                            echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
+                            echo "<td>" . $row_paquete["Helbidea"] . "</td>";
+                            echo "<td>" . $row_paquete["Pakete_Tamaina"] . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</table>";
+                        echo "<br>";
+                        echo "<input type='submit' name='submit' value='Aukeratu'>";
+                    } else {
+                        // Si no se encontraron paquetes
+                        echo "<p>Ez da aurkitu paketerik.</p>";
                     }
-                    echo "</table>";
-                } else {
-                    // Si no se encontraron paquetes
-                    echo "<p>Ez da aurkitu paketerik.</p>";
-                }
-                ?>
+                    ?>
+                </form>
             </div>
         </section>
     </main>
@@ -123,4 +128,3 @@ $conn->close();
     </footer>
 </body>
 </html>
-

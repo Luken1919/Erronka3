@@ -16,3 +16,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(changeBackground, 4000); //Aldatu 4 segunduka
 });
+

@@ -1,51 +1,67 @@
 <?php
-// Inicia la sesión
 session_start();
 
-// Verifica si el usuario está autenticado
 if (!isset($_SESSION['loggedin'])) {
     header('Location: login.html');
     exit;
 }
 
-// Conexión a la base de datos
 $servername = "localhost:33066";
 $username = "root";
 $password = "";
 $dbname = "erronka_pakag";
 
-// Crea la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-// Crea la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica la conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Consulta SQL para obtener los detalles del usuario
 $sql = "SELECT Izena, Abizena FROM erabiltzailea WHERE Erab_Izena = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Verifica si se encontraron resultados
 if ($result->num_rows > 0) {
-    // Usuario encontrado, obtiene los detalles
     $row = $result->fetch_assoc();
     $izena = $row['Izena'];
     $abizena = $row['Abizena'];
 } else {
-    // Si no se encuentra el usuario, muestra un mensaje de error
     $izena = "Errorea";
     $abizena = "Errorea";
 }
 
 $stmt->close();
+
+// Verificar si se envió el paquete seleccionado desde hasita.php
+if(isset($_POST['selected_package'])) {
+    $selected_package_id = $_POST['selected_package'];
+
+    // Consulta SQL para obtener los detalles del paquete seleccionado
+    $sql_package = "SELECT * FROM paketea WHERE idPaketea = ?";
+    $stmt_package = $conn->prepare($sql_package);
+    $stmt_package->bind_param("i", $selected_package_id);
+    $stmt_package->execute();
+    $result_package = $stmt_package->get_result();
+
+    if ($result_package->num_rows > 0) {
+        $row_package = $result_package->fetch_assoc();
+        // Guardar los detalles del paquete en una sesión
+        $_SESSION['selected_package_details'] = $row_package;
+        // Mostrar los detalles del paquete seleccionado
+        $selected_package_details = $row_package;
+    } else {
+        $selected_package_details = null;
+    }
+
+    $stmt_package->close();
+} elseif(isset($_SESSION['selected_package_details'])) {
+    // Si no hay un paquete seleccionado en el formulario pero hay detalles de paquete almacenados en la sesión
+    // Mostrar los detalles del paquete almacenados en la sesión
+    $selected_package_details = $_SESSION['selected_package_details'];
+}
+
 $conn->close();
 ?>
 
@@ -76,7 +92,25 @@ $conn->close();
         <section class="section" id="section2">
             <div class="content">
                 <h1>Uneko Banaketak:</h1>
-                <p>Pakete2</p>
+                <?php
+                if(isset($selected_package_details)) {
+                    echo "<table>";
+                    echo "<tr><th></th><th>ID del Paquete</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
+                    echo "<tr>";
+                    echo "<td><input type='radio' name='selected_package' '></td>";
+                    echo "<td>" . $selected_package_details['idPaketea'] . "</td>";
+                    echo "<td>" . $selected_package_details['Bezero_zenbakia'] . "</td>";
+                    echo "<td>" . $selected_package_details['Helbidea'] . "</td>";
+                    echo "<td>" . $selected_package_details['Pakete_Tamaina'] . "</td>";
+                    echo "</tr>";
+                    echo "</table>";
+                    echo "<br>";
+                    echo "<input type='submit' name='submit' value='Eginda'>";
+                    echo "<input type='submit' name='submit' value='Arazoa'>";
+                } else {
+                    echo "<p>Ez da paquetea hautatu.</p>";
+                }
+                ?>
             </div>
         </section>
     </main>

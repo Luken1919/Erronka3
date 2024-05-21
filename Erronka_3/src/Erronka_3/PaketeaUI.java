@@ -35,6 +35,7 @@ import javax.swing.border.MatteBorder;
 
 import com.mysql.cj.xdevapi.Statement;
 
+
 /**
  * 
  * 
@@ -43,22 +44,22 @@ public class PaketeaUI extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-
-	/** content pane. */
+	
+	/**  content pane. */
 	private JPanel contentPane;
-
-	/** Telefonoa textfield. */
+	
+	/**  Telefonoa textfield. */
 	private JTextField TelefonoatextField;
-
-	/** Helbidea textfield. */
+	
+	/**  Helbidea textfield. */
 	private JTextField HelbideatextField;
-
+	
 	String IzenAbizena = DatuBasea.erabIzena;
-
+	
 	JList<String> PaketeZerrenda = new JList<>();
-
+	
 	JList<String> PaketeHistoriala = new JList<>();
-
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -75,7 +76,8 @@ public class PaketeaUI extends JFrame {
 	/**
 	 * Paketearen frame-a sortu.
 	 */
-
+	
+	
 	public PaketeaUI() {
 		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -149,10 +151,11 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
-		PaketeZerrenda = new JList<>();
-
-		lortupaketeak();
-
+	 PaketeZerrenda = new JList<>();
+	 
+	 lortupaketeak();
+		
+		
 		DatuBasea konexioapaketezerrenda = new DatuBasea();
 		konexioapaketezerrenda.lortupaketeak();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
@@ -183,6 +186,14 @@ public class PaketeaUI extends JFrame {
 		EzabatuPaketeaButton.setBounds(372, 304, 110, 40);
 		ZerrendaPanela.add(EzabatuPaketeaButton);
 		EzabatuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
+		EzabatuPaketeaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
+				String[] parts = aukeratutakoPaketea.split(" ");
+				String id = parts[0];
+			}
+		});
+		
 		/*
 		 * Paketea editatzeko botoia, frame-a irekitzen du
 		 */
@@ -213,9 +224,9 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Sortutako paketeen zerrenda
 		 */
-		PaketeHistoriala = new JList<>();
-		lortupaketeakhistori();
-		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+		 PaketeHistoriala = new JList<>();
+lortupaketeakhistori();
+PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 		panel_Paketeak.add(PaketeHistoriala);
 		/*
@@ -254,7 +265,7 @@ public class PaketeaUI extends JFrame {
 	 * The Class PaketeaSortu.
 	 */
 	class PaketeaSortu extends JFrame {
-
+		
 		/**
 		 * Instantiates a new paketea sortu.
 		 */
@@ -281,7 +292,7 @@ public class PaketeaUI extends JFrame {
 			TelefonoatextField.setBounds(38, 32, 86, 20);
 			contentPane.add(TelefonoatextField);
 			TelefonoatextField.setColumns(10);
-
+			
 			/*
 			 * Bezeroaren Helbidea label
 			 */
@@ -318,10 +329,6 @@ public class PaketeaUI extends JFrame {
 			SortuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			SortuButton.setBounds(230, 477, 89, 23);
 			contentPane.add(SortuButton);
-			/*
-			 * Pakete berri bat sortzeko botoia, bertan idatzitako baloreekin banatzaile
-			 * berri bat sortuko dugu
-			 */
 
 			SortuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -336,47 +343,39 @@ public class PaketeaUI extends JFrame {
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
 				}
 			});
-
+			
 		}
 	}
-
-	/*
-	 * Paketak lortzeko metodoa
-	 */
 	private void lortupaketeak() {
 		DatuBasea konexioaBasea = new DatuBasea();
-		ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
-		DefaultListModel<String> model = new DefaultListModel<>();
+        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
+        DefaultListModel<String> model = new DefaultListModel<>();
 
-		for (String paketea : paketeaklist) {
-			model.addElement(paketea);
-			System.out.println(paketea);
-		}
+        for (String paketea : paketeaklist) {
+            model.addElement(paketea);
+            System.out.println(paketea);
+        }
 
-		PaketeZerrenda.setModel(model);
-	}
-
-	/*
-	 * Entregatutako paketeak lortzeko metodoa
-	 */
+        PaketeZerrenda.setModel(model);
+    }
 	private void lortupaketeakhistori() {
 		DatuBasea konexioaBasea = new DatuBasea();
-		ArrayList<String> paketeakhisto = konexioaBasea.lortupaketeakhistoriala();
-		DefaultListModel<String> model = new DefaultListModel<>();
+        ArrayList<String> paketeakhisto = konexioaBasea.lortupaketeakhistoriala();
+        DefaultListModel<String> model = new DefaultListModel<>();
 
-		for (String paketeahist : paketeakhisto) {
-			model.addElement(paketeahist);
-			System.out.println(paketeahist);
-		}
+        for (String paketeahist : paketeakhisto) {
+            model.addElement(paketeahist);
+            System.out.println(paketeahist);
+        }
 
-		PaketeHistoriala.setModel(model);
-	}
+        PaketeHistoriala.setModel(model);
+    }
 
 	/**
 	 * The Class PaketeaEditatu.
 	 */
 	class PaketeaEditatu extends JFrame {
-
+		
 		/**
 		 * Instantiates a new paketea editatu.
 		 */
@@ -452,6 +451,27 @@ public class PaketeaUI extends JFrame {
 			EditatuButton.setFont(new Font("Arial", Font.BOLD, 15));
 			EditatuButton.setBounds(230, 312, 89, 23);
 			contentPane.add(EditatuButton);
+			
+			EditatuButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DatuBasea konexioa = new DatuBasea();
+					String zenb = TelefonoatextField.getText();
+					String helbidea = HelbideatextField.getText();
+					String tamaina = (String) TamainacomboBox.getSelectedItem();
+					String mota = (String) MotacomboBox_1.getSelectedItem();
+					String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
+					String[] parts = aukeratutakoPaketea.split(" ");
+					String id = parts[0];
+					System.out.println("Aukeratutakoa: " + id);
+					
+					System.out.println(tamaina);
+					String luzeera = TelefonoatextField.getText();
+					int luze = luzeera.length();
+					System.out.println(luze);
+					konexioa.editatuPaketa(id, zenb, helbidea, tamaina, mota);
+				}
+			});
+			
 		}
 	}
 
@@ -459,7 +479,7 @@ public class PaketeaUI extends JFrame {
 	 * The Class PaketeakFiltratu.
 	 */
 	class PaketeakFiltratu extends JFrame {
-
+		
 		/**
 		 * Instantiates a new paketeak filtratu.
 		 */
@@ -504,5 +524,5 @@ public class PaketeaUI extends JFrame {
 			contentPane.add(FiltratuButton);
 		}
 	}
-
+	
 }

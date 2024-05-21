@@ -193,6 +193,25 @@ public class DatuBasea {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Ezabatu banatzailea.
+	 *
+	 * @param id , erabiltzailearen id-a
+	 */
+	public void EzabatuBanatzailea(String id) {
+		String sql = "DELETE FROM erabiltzailea WHERE idErabiltzailea = ? ";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			System.out.println(pstmt);
+			pstmt.setString(1, id);
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+	}
 
 	/**
 	 * Lortupaketeak zerrenda.
@@ -291,23 +310,24 @@ public class DatuBasea {
 
 		}
 	}
+	
+	public void editatuPaketa(String id, String bezero_zenabakia, String Helbidea, String Tamaina, String Mota) {
+        String sql = "UPDATE paketea SET Bezero_zenbakia = ?, Helbidea = ?, Pakete_Tamaina = ?, Mota = ? WHERE idPaketea = ?";
 
-	/**
-	 * Ezabatu banatzailea.
-	 *
-	 * @param id , erabiltzailearen id-a
-	 */
-	public void EzabatuBanatzailea(String id) {
-		String sql = "Delete from erabiltzailea where idErabiltzailea = ? ";
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, bezero_zenabakia);
+            pstmt.setString(2, Helbidea);
+            pstmt.setString(3, Tamaina);
+            pstmt.setString(4, Mota);
+            pstmt.setString(5, id);
 
-		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			System.out.println(pstmt);
-			pstmt.setString(1, id);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		}
-	}
 }

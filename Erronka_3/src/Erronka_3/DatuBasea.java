@@ -344,5 +344,24 @@ public class DatuBasea {
 	            System.out.println(e.getMessage());
 	        }
 	}
+	
+	public void editatubanatzailea(String id, String izenaString, String abizenString, String pasahitaString, String erabizenaString) {
+        String sql = "UPDATE erabiltzailea SET Izena = ?, Abizena = ?, Pasahitza = ?, Erab_Izena = ? WHERE idErabiltzailea = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, izenaString);
+            pstmt.setString(2, abizenString);
+            pstmt.setString(3, pasahitaString);
+            pstmt.setString(4, erabizenaString);
+            pstmt.setString(5, id);
+
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

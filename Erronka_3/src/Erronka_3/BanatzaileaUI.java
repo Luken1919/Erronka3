@@ -515,6 +515,22 @@ public class BanatzaileaUI extends JFrame {
 			JButton btnEditatu = new JButton("Editatu");
 			btnEditatu.setBounds(250, 400, 89, 29);
 			contentPane.add(btnEditatu);
+			btnEditatu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DatuBasea konexioa = new DatuBasea();
+					String izenaString = Izena.getText();
+					String abizenaString = Abizena.getText();
+					String pasahitza = PasahitzaField.getText();
+					String erabizenaString= ErabiltzaileIzena.getText();
+				
+					String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedValue();
+					String[] parts = aukeratutakoerabiltzailea.split(" ");
+					String id = parts[parts.length - 1];
+					System.out.println("Aukeratutakoa: " + id);
+					konexioa.editatubanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
+					dispose();
+				}
+			});
 		}
 	}
 

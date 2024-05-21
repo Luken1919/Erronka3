@@ -188,9 +188,11 @@ public class PaketeaUI extends JFrame {
 		EzabatuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
 		EzabatuPaketeaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DatuBasea konexioa = new DatuBasea();
 				String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
+				konexioa.ezabatuPaketa(id);
 				
 			}
 		});

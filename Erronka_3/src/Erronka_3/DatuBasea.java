@@ -323,12 +323,26 @@ public class DatuBasea {
             pstmt.setString(4, Mota);
             pstmt.setString(5, id);
 
-            
             pstmt.executeUpdate();
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+	
+	public void ezabatuPaketa(String id) {
+		 String sql = "DELETE FROM paketea WHERE idpaketa = ? ";
+
+	        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            
+	            pstmt.setString(1, id);
+	            
+	            pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	}
 
 }

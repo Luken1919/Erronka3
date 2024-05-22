@@ -338,6 +338,7 @@ public class PaketeaUI extends JFrame {
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
 					lortupaketeak();
 					lortupaketeakhistori();
+					dispose();
 				}
 			});
 
@@ -444,6 +445,7 @@ public class PaketeaUI extends JFrame {
 					konexioa.editatuPaketa(id, zenb, helbidea, tamaina, mota);
 					lortupaketeak();
 					lortupaketeakhistori();
+					dispose();
 					
 				}
 			});

@@ -540,7 +540,7 @@ public class BanatzaileaUI extends JFrame {
 	 * @return banatzaileakList
 	 * 
 	 */
-	private ArrayList<String> lortuBanatzaileakzerrenda() {
+	public ArrayList<String> lortuBanatzaileakzerrenda() {
 		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
 		DefaultListModel<String> model = new DefaultListModel<>();
 

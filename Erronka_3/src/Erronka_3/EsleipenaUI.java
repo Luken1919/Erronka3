@@ -14,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
@@ -112,6 +113,11 @@ public class EsleipenaUI extends JFrame {
 		 * Banatzaile guztiake rakutsiko dituen ComboBox-a
 		 */
 		JComboBox<String> Banatzaileak = new JComboBox<>();
+		BanatzaileaUI bantzaileBanatzaileaUI = new BanatzaileaUI();
+		ArrayList<String> historial = bantzaileBanatzaileaUI.lortuBanatzaileakzerrenda();
+		for (String item : historial) {
+			Banatzaileak.addItem(item);
+		}
 		Banatzaileak.setBackground(new Color(111, 141, 158));
 		Banatzaileak.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		Banatzaileak.setBounds(10, 11, 200, 35);

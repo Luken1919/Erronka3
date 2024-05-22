@@ -62,6 +62,7 @@ public class BanatzaileaUI extends JFrame {
 	private JList<String> BanatzaileHistoriala;
 	
 	private DatuBasea konexioa = new DatuBasea();
+	String[] parts;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -206,7 +207,11 @@ public class BanatzaileaUI extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					String aukeratutakoa = Banatzaileak.getSelectedValue();
-					String[] parts = aukeratutakoa.split(" ");
+if (aukeratutakoa != null ) {
+	 parts = aukeratutakoa.split(" ");
+					}
+					
+					
 					String id = parts[parts.length - 1];
 					lortuBanatzaileakhist(id);
 				}
@@ -359,7 +364,9 @@ public class BanatzaileaUI extends JFrame {
 					String AbizenaSortu = Abizena.getText();
 					String PasahitzaSortu = PasahitzaField.getText();
 					konexioa.sortuBanatzailea(IzenaSortu, AbizenaSortu, PasahitzaSortu);
+					
 					dispose();
+					lortuBanatzaileakzerrenda();
 				}
 			});
 
@@ -420,7 +427,9 @@ public class BanatzaileaUI extends JFrame {
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
 					konexioa.ezabatuBanatzailea(id);
+					
 					dispose();
+					lortuBanatzaileakzerrenda();
 
 				}
 			});
@@ -531,6 +540,7 @@ public class BanatzaileaUI extends JFrame {
 					String id = parts[parts.length - 1];
 					konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
 					dispose();
+					lortuBanatzaileakzerrenda();
 				}
 			});
 			

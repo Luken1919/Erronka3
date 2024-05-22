@@ -183,6 +183,8 @@ public class PaketeaUI extends JFrame {
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
 				konexioa.ezabatuPaketa(id);
+				lortupaketeak();
+				lortupaketeakhistori();
 
 			}
 		});
@@ -334,6 +336,8 @@ public class PaketeaUI extends JFrame {
 					String helbidea = HelbideatextField.getText();
 					String tamaina = (String) comboBox.getSelectedItem();
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
+					lortupaketeak();
+					lortupaketeakhistori();
 				}
 			});
 
@@ -438,6 +442,9 @@ public class PaketeaUI extends JFrame {
 					String luzeera = TelefonoatextField.getText();
 					int luze = luzeera.length();
 					konexioa.editatuPaketa(id, zenb, helbidea, tamaina, mota);
+					lortupaketeak();
+					lortupaketeakhistori();
+					
 				}
 			});
 			

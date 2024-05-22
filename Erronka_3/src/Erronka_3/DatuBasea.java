@@ -248,7 +248,7 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
-	public ArrayList<String> lortupaketeakgehitu() {
+	public ArrayList<String> lortupaketeakesleitu() {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
@@ -258,7 +258,7 @@ public class DatuBasea {
 			try {
 				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-				String sql = "insert into ";
+				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1";
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
 
@@ -270,6 +270,38 @@ public class DatuBasea {
 
 				rs.close();
 				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
+	}
+	public ArrayList<String> lortupaketeakgehitu(String id,String paketeid) {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = " + id + " where idPaketea = "  + paketeid  +"";
+				
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				
+				 pstmt.executeUpdate();
+			
+				System.out.println(pstmt);
+			
+				
+
+				
+
+				
+				pstmt.close();
 				conn.close();
 
 			} catch (Exception e) {

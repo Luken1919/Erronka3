@@ -143,6 +143,7 @@ public class EsleipenaUI extends JFrame {
 		
 	
 		lortupaketeakguztiak();
+		
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
 		PaketeakEsleitu.add(PaketeGuztiak);
@@ -166,6 +167,24 @@ public class EsleipenaUI extends JFrame {
 		 * botoia
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
+		btnGehitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DatuBasea konexioaBasea = new DatuBasea();
+				String aukeratutakopaketea= (String) PaketeGuztiak.getSelectedValue();
+				String[] parts = aukeratutakopaketea.split(" ");
+				String id = parts[0];
+				String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedItem();
+				String[] parts2 = aukeratutakopaketea.split(" ");
+				String iderab = parts[0];
+				System.out.println("Aukeratutakoaa: " + iderab);
+				System.out.println("Aukeratutakoa: " + id);
+				konexioaBasea.lortupaketeakgehitu(iderab,id);
+				
+				
+				
+			}
+		});
 		btnGehitu.setForeground(new Color(0, 0, 0));
 		btnGehitu.setBackground(new Color(111, 141, 158));
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -222,7 +241,7 @@ public class EsleipenaUI extends JFrame {
 	}
 	public void lortupaketeakguztiak() {
 		DatuBasea konexioaBasea = new DatuBasea();
-        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
+        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeakesleitu();
         DefaultListModel<String> model = new DefaultListModel<>();
 
         for (String paketea : paketeaklist) {

@@ -78,6 +78,7 @@ $conn->close();
             <a href="../html/Hasita.php" class="login-button">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
             <a href="#" class="login-button selected">Banaketare Historiala</a>
+            <a href="../html/arazoak.php" class="login-button">Arazoak</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>

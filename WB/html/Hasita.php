@@ -47,18 +47,26 @@ $stmt_usuario->close();
 $sql_paquetes = "SELECT p.idPaketea, p.Bezero_zenbakia, p.Helbidea, p.Pakete_Tamaina, p.Erabiltzailea_idErabiltzailea
                 FROM paketea p
                 INNER JOIN erabiltzailea e ON p.Erabiltzailea_idErabiltzailea = e.idErabiltzailea
-                WHERE e.Erab_Izena = ?";
+                WHERE e.Erab_Izena = ? AND p.Mota='entregatuGabe'";
                 
 $stmt_paquetes = $conn->prepare($sql_paquetes);
 $stmt_paquetes->bind_param("s", $_SESSION['username']);
 $stmt_paquetes->execute();
 $result_paquetes = $stmt_paquetes->get_result();
 
-// Cerrar la consulta de paquetes
-$stmt_paquetes->close();
+// Verifica si se ha enviado el formulario y realiza la actualización de la base de datos
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_POST['selected_package'])) {
+    // Obtiene el ID del paquete seleccionado
+    $selected_package_id = $_POST['selected_package'];
 
-// Cerrar la conexión
-$conn->close();
+    // Actualiza el valor del atributo "mota" en la tabla "paketea" a "entregatzen"
+    $update_query = "UPDATE paketea SET Mota = 'entregatzen' WHERE idPaketea = ?";
+    $stmt_update = $conn->prepare($update_query);
+    $stmt_update->bind_param("i", $selected_package_id);
+    $stmt_update->execute();
+    $stmt_update->close();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +86,7 @@ $conn->close();
             </a>
             <h2 class="espazioa">Erabiltzailea: <?php echo $izena . ' ' . $abizena; ?></h2>
             <div class="spacer"></div>
-            <a href="#" class="login-button  selected">Banaketak</a>
+            <a href="#" class="login-button selected">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
             <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketare Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
@@ -88,7 +96,7 @@ $conn->close();
         <section class="section" id="section3">
             <div class="content">
                 <h1>Banaketak:</h1>
-                <form method="post" action="../html/UnekoBanaketak.php">
+                <form id="myForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <?php
                     // Verifica si se encontraron resultados de paquetes
                     if ($result_paquetes->num_rows > 0) {
@@ -128,3 +136,11 @@ $conn->close();
     </footer>
 </body>
 </html>
+
+<?php
+// Cerrar la consulta de paquetes
+$stmt_paquetes->close();
+
+// Cerrar la conexión
+$conn->close();
+?>

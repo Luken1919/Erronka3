@@ -1,68 +1,61 @@
 <?php
+// Inicia la sesión
 session_start();
 
+// Verifica si el usuario está autenticado
 if (!isset($_SESSION['loggedin'])) {
     header('Location: login.html');
     exit;
 }
 
+// Conexión a la base de datos
 $servername = "localhost:33066";
 $username = "root";
 $password = "";
 $dbname = "erronka_pakag";
 
+// Crea la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Verifica la conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-$sql = "SELECT Izena, Abizena FROM erabiltzailea WHERE Erab_Izena = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $_SESSION['username']);
-$stmt->execute();
-$result = $stmt->get_result();
+// Consulta SQL para obtener los datos del usuario
+$sql_usuario = "SELECT Izena, Abizena FROM erabiltzailea WHERE Erab_Izena = ?";
+$stmt_usuario = $conn->prepare($sql_usuario);
+$stmt_usuario->bind_param("s", $_SESSION['username']);
+$stmt_usuario->execute();
+$result_usuario = $stmt_usuario->get_result();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $izena = $row['Izena'];
-    $abizena = $row['Abizena'];
+// Verifica si se encontraron resultados de usuario
+if ($result_usuario->num_rows > 0) {
+    // Usuario encontrado, obtiene los detalles
+    $row_usuario = $result_usuario->fetch_assoc();
+    $izena = $row_usuario['Izena'];
+    $abizena = $row_usuario['Abizena'];
 } else {
+    // Si no se encuentra el usuario, muestra un mensaje de error
     $izena = "Errorea";
     $abizena = "Errorea";
 }
 
-$stmt->close();
+$stmt_usuario->close();
 
-// Verificar si se envió el paquete seleccionado desde hasita.php
-if(isset($_POST['selected_package'])) {
-    $selected_package_id = $_POST['selected_package'];
+// Consulta SQL para obtener los paquetes entregados del usuario actual
+$sql_paquetes_entregados = "SELECT paketea.idPaketea, paketea.Bezero_zenbakia, paketea.Helbidea, paketea.Pakete_Tamaina 
+                            FROM paketea 
+                            INNER JOIN erabiltzailea 
+                            ON paketea.Erabiltzailea_idErabiltzailea = erabiltzailea.idErabiltzailea 
+                            WHERE erabiltzailea.Erab_Izena = ? 
+                            AND paketea.Mota = 'entregatzen'";
 
-    // Consulta SQL para obtener los detalles del paquete seleccionado
-    $sql_package = "SELECT * FROM paketea WHERE idPaketea = ?";
-    $stmt_package = $conn->prepare($sql_package);
-    $stmt_package->bind_param("i", $selected_package_id);
-    $stmt_package->execute();
-    $result_package = $stmt_package->get_result();
+$stmt_paquetes_entregados = $conn->prepare($sql_paquetes_entregados);
+$stmt_paquetes_entregados->bind_param("s", $_SESSION['username']);
+$stmt_paquetes_entregados->execute();
+$result_paquetes_entregados = $stmt_paquetes_entregados->get_result();
 
-    if ($result_package->num_rows > 0) {
-        $row_package = $result_package->fetch_assoc();
-        // Guardar los detalles del paquete en una sesión
-        $_SESSION['selected_package_details'] = $row_package;
-        // Mostrar los detalles del paquete seleccionado
-        $selected_package_details = $row_package;
-    } else {
-        $selected_package_details = null;
-    }
-
-    $stmt_package->close();
-} elseif(isset($_SESSION['selected_package_details'])) {
-    // Si no hay un paquete seleccionado en el formulario pero hay detalles de paquete almacenados en la sesión
-    // Mostrar los detalles del paquete almacenados en la sesión
-    $selected_package_details = $_SESSION['selected_package_details'];
-}
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +63,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PakAG</title>
+    <title>PakAG - Banaketa</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="icon" href="../irudiak/OIG4.png" type="image/png">
 </head>
@@ -82,35 +75,35 @@ $conn->close();
             </a>
             <h2 class="espazioa">Erabiltzailea: <?php echo $izena . ' ' . $abizena; ?></h2>
             <div class="spacer"></div>
-            <a href="../html/Hasita.php" class="login-button">Banaketak</a>
+            <a href="../html/Hasita.php" class="login-button ">Banaketak</a>
             <a href="#" class="login-button selected">Uneko Banaketak</a>
             <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketare Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>
     <main id="hasitamain">
-        <section class="section" id="section2">
+        <section class="section" id="section3">
             <div class="content">
-                <h1>Uneko Banaketak:</h1>
-                <?php
-                if(isset($selected_package_details)) {
-                    echo "<table>";
-                    echo "<tr><th></th><th>ID del Paquete</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
-                    echo "<tr>";
-                    echo "<td><input type='radio' name='selected_package' '></td>";
-                    echo "<td>" . $selected_package_details['idPaketea'] . "</td>";
-                    echo "<td>" . $selected_package_details['Bezero_zenbakia'] . "</td>";
-                    echo "<td>" . $selected_package_details['Helbidea'] . "</td>";
-                    echo "<td>" . $selected_package_details['Pakete_Tamaina'] . "</td>";
-                    echo "</tr>";
-                    echo "</table>";
-                    echo "<br>";
-                    echo "<input type='submit' name='submit' value='Eginda'>";
-                    echo "<input type='submit' name='submit' value='Arazoa'>";
-                } else {
-                    echo "<p>Ez da paquetea hautatu.</p>";
-                }
-                ?>
+                <h1>Banaketak:</h1>
+                <table>
+                    <tr>
+                        <th>Paketea ID</th>
+                        <th>Bezero Zenbakia</th>
+                        <th>Helbidea</th>
+                        <th>Tamaina</th>
+                    </tr>
+                    <?php
+                    // Mostrar los paquetes entregados en una tabla
+                    while ($row_paquete = $result_paquetes_entregados->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row_paquete["idPaketea"] . "</td>";
+                        echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
+                        echo "<td>" . $row_paquete["Helbidea"] . "</td>";
+                        echo "<td>" . $row_paquete["Pakete_Tamaina"] . "</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
             </div>
         </section>
     </main>
@@ -126,3 +119,11 @@ $conn->close();
     </footer>
 </body>
 </html>
+
+<?php
+// Cerrar la consulta de paquetes entregados
+$stmt_paquetes_entregados->close();
+
+// Cerrar la conexión
+$conn->close();
+?>

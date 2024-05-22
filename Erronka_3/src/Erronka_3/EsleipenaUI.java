@@ -34,6 +34,7 @@ public class EsleipenaUI extends JFrame {
 	String IzenAbizena = DatuBasea.erabIzena;
 	
 	JList<String> PaketeGuztiak = new JList<>();
+	JList<String> BanatzailearenPaketeak = new JList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -116,6 +117,15 @@ public class EsleipenaUI extends JFrame {
 		 * Banatzaile guztiake rakutsiko dituen ComboBox-a
 		 */
 		JComboBox<String> Banatzaileak = new JComboBox<>();
+		Banatzaileak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedItem();
+				String[] parts = aukeratutakoerabiltzailea.split(" ");
+				String id = parts[parts.length - 1];
+				System.out.println("Aukeratutakoa: " + id);
+				lortuBanatzaileakhist(id);
+			}
+		});
 		BanatzaileaUI bantzaileBanatzaileaUI = new BanatzaileaUI();
 		ArrayList<String> historial = bantzaileBanatzaileaUI.lortuBanatzaileakzerrenda();
 		for (String item : historial) {
@@ -140,7 +150,13 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Banatzaileari ezarritako paketeak ikusiko diren zerrenda
 		 */
-		JList<String> BanatzailearenPaketeak = new JList<>();
+		 BanatzailearenPaketeak = new JList<>();
+		 
+		
+		
+		
+		
+		
 		BanatzailearenPaketeak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		BanatzailearenPaketeak.setBounds(622, 100, 300, 450);
 		PaketeakEsleitu.add(BanatzailearenPaketeak);
@@ -216,4 +232,16 @@ public class EsleipenaUI extends JFrame {
 
         PaketeGuztiak.setModel(model);
     }
+	private void lortuBanatzaileakhist(String id) {
+		DatuBasea losrtubanatzailehsit = new DatuBasea();
+
+		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistoriala(id);
+		DefaultListModel<String> model = new DefaultListModel<>();
+
+		for (String banatzailea : banatzaileakhistList) {
+			model.addElement(banatzailea);
+		}
+
+		BanatzailearenPaketeak.setModel(model);
+	}
 }

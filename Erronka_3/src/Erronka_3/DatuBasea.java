@@ -59,7 +59,7 @@ public class DatuBasea {
 		try {
 			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ? AND mota'Kudeatzailea'";
+			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ? AND mota ='Kudeatzailea'";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, erabiltzailea);
 			stmt.setString(2, pasahitza);

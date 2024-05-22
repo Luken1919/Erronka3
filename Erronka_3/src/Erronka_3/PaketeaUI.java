@@ -151,7 +151,7 @@ public class PaketeaUI extends JFrame {
 
 
 
-		konexioa.lortupaketeak();
+		konexioa.lortuPaketeak();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		/*
@@ -333,10 +333,6 @@ public class PaketeaUI extends JFrame {
 					String zenb = TelefonoatextField.getText();
 					String helbidea = HelbideatextField.getText();
 					String tamaina = (String) comboBox.getSelectedItem();
-					System.out.println(tamaina);
-					String luzeera = TelefonoatextField.getText();
-					int luze = luzeera.length();
-					System.out.println(luze);
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
 				}
 			});
@@ -438,12 +434,9 @@ public class PaketeaUI extends JFrame {
 					String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
 					String[] parts = aukeratutakoPaketea.split(" ");
 					String id = parts[0];
-					System.out.println("Aukeratutakoa: " + id);
 
-					System.out.println(tamaina);
 					String luzeera = TelefonoatextField.getText();
 					int luze = luzeera.length();
-					System.out.println(luze);
 					konexioa.editatuPaketa(id, zenb, helbidea, tamaina, mota);
 				}
 			});
@@ -513,23 +506,21 @@ public class PaketeaUI extends JFrame {
 	}
 
 	public void lortupaketeak() {
-		ArrayList<String> paketeaklist = konexioa.lortupaketeak();
+		ArrayList<String> paketeaklist = konexioa.lortuPaketeak();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String paketea : paketeaklist) {
 			model.addElement(paketea);
-			System.out.println(paketea);
 		}
 
 		PaketeZerrenda.setModel(model);
 	}
 	private void lortupaketeakhistori() {
-		ArrayList<String> paketeakhisto = konexioa.lortupaketeakhistoriala();
+		ArrayList<String> paketeakhisto = konexioa.paketeHistorialaLortu();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String paketeahist : paketeakhisto) {
 			model.addElement(paketeahist);
-			System.out.println(paketeahist);
 		}
 
 		PaketeHistoriala.setModel(model);

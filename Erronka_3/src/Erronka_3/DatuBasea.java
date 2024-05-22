@@ -56,13 +56,14 @@ public class DatuBasea {
 		ResultSet rs = null;
 		erabIzena = erabiltzailea;
 
-		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
+		try {conn = getConnection();
+			
 			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ? AND mota ='Kudeatzailea'";
 			stmt = conn.prepareStatement(sql);
+			
 			stmt.setString(1, erabiltzailea);
 			stmt.setString(2, pasahitza);
+			
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -99,15 +100,14 @@ public class DatuBasea {
 	 *
 	 * @return banatzaile zerrenda
 	 */
-	public static ArrayList<String> getBanatzaileak() {
+	public static ArrayList<String> lortuBanatzaileak() {
 		ArrayList<String> banatzaileak = new ArrayList<>();
 		{
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			try {conn = getConnection();
 
 				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea'";
 				stmt = conn.prepareStatement(sql);
@@ -137,19 +137,17 @@ public class DatuBasea {
 	 * @param idString the id string
 	 * @return the banatzaiela historiala
 	 */
-	public ArrayList<String> getBanatzaielaHistoriala(String idString) {
+	public ArrayList<String> lortuBanatzaielarenHistoriala(String idString) {
 		ArrayList<String> BanatzaileHistoriala = new ArrayList<>();
 		{
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			try {conn = getConnection();
 
 				String sql = "SELECT *  FROM entregatuta WHERE erabiltzailea_idErabiltzailea=  " + idString + "";
 				stmt = conn.prepareStatement(sql);
-				System.out.println(stmt);
 				rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
@@ -181,6 +179,7 @@ public class DatuBasea {
 	 * @param Pasahitza, banatzailearen pasahitza
 	 */
 	public void sortuBanatzailea(String Izena, String Abizena, String Pasahitza) {
+		
 		String sql = "INSERT INTO erabiltzailea (Izena, Abizena, Pasahitza, Mota) VALUES (?, ?, ?, 'Banatzailea')";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -193,17 +192,18 @@ public class DatuBasea {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Ezabatu banatzailea.
 	 *
 	 * @param id , erabiltzailearen id-a
 	 */
-	public void EzabatuBanatzailea(String id) {
+	public void ezabatuBanatzailea(String id) {
+		
 		String sql = "DELETE FROM erabiltzailea WHERE idErabiltzailea = ? ";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			System.out.println(pstmt);
+
 			pstmt.setString(1, id);
 
 			pstmt.executeUpdate();
@@ -213,12 +213,30 @@ public class DatuBasea {
 		}
 	}
 
+	public void editatuBanatzailea(String id, String izenaString, String abizenString, String pasahitaString, String erabizenaString) {
+		String sql = "UPDATE erabiltzailea SET Izena = ?, Abizena = ?, Pasahitza = ?, Erab_Izena = ? WHERE idErabiltzailea = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, izenaString);
+			pstmt.setString(2, abizenString);
+			pstmt.setString(3, pasahitaString);
+			pstmt.setString(4, erabizenaString);
+			pstmt.setString(5, id);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	/**
 	 * Lortupaketeak zerrenda.
 	 *
 	 * @return paketeen zerrenda
 	 */
-	public ArrayList<String> lortupaketeak() {
+	public ArrayList<String> lortuPaketeak() {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
@@ -226,7 +244,7 @@ public class DatuBasea {
 			ResultSet rs = null;
 
 			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				conn = getConnection();
 
 				String sql = "SELECT * FROM paketea";
 				stmt = conn.prepareStatement(sql);
@@ -248,115 +266,20 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
-	public ArrayList<String> lortupaketeakesleitu() {
-		ArrayList<String> paketeak = new ArrayList<>();
-		{
-			Connection conn = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1";
-				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery(sql);
-
-				while (rs.next()) {
-					String idpakete = rs.getString("idPaketea");
-					String helbideapekete = rs.getString("Helbidea");
-					paketeak.add(idpakete + " " + helbideapekete);
-				}
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return paketeak;
-		}
-	}
-	public ArrayList<String> lortupaketeakgehitu(String id,String paketeid) {
-		ArrayList<String> paketeak = new ArrayList<>();
-		{
-			Connection conn = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = " + id + " where idPaketea = "  + paketeid  +"";
-				
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-				
-				 pstmt.executeUpdate();
-			
-				System.out.println(pstmt);
-			
-				
-
-				
-
-				
-				pstmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return paketeak;
-		}
-	}
-	public ArrayList<String> lortupaketeakkendu(String paketeid) {
-		ArrayList<String> paketeak = new ArrayList<>();
-		{
-			Connection conn = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = 1   where idPaketea = "  + paketeid  +"";
-				
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-				
-				 pstmt.executeUpdate();
-			
-				System.out.println(pstmt);
-			
-				
-
-				
-
-				
-				pstmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return paketeak;
-		}
-	}
-
+	
 	/**
 	 * Lortupaketeakhistoriala.
 	 *
 	 * @return Entregatutako paketeen zerrenda eta nork
 	 */
-	public ArrayList<String> lortupaketeakhistoriala() {
+	public ArrayList<String> paketeHistorialaLortu() {
 		ArrayList<String> paketeakhistoriala = new ArrayList<>();
 		{
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			try {conn = getConnection();
 
 				String sql = "SELECT entregatuta.idEntregatuta,entregatuta.Helbidea, erabiltzailea.izena, erabiltzailea.abizena  FROM entregatuta inner join erabiltzailea on erabiltzailea.idErabiltzailea = entregatuta.erabiltzailea_idErabiltzailea";
 				stmt = conn.prepareStatement(sql);
@@ -381,7 +304,97 @@ public class DatuBasea {
 			return paketeakhistoriala;
 		}
 	}
-	public ArrayList<String> getBanatzaielaHistorialaesleipen(String idString) {
+	
+	
+	/**
+	 * Sortu paketea.
+	 *
+	 * @param Bezero_zenbakia, telefonoa
+	 * @param Helbidea
+	 * @param Pakete_Tamaina   (Txikia edo Ertaina)
+	 */
+	public void sortuPaketea(String Bezero_zenbakia, String Helbidea, String Pakete_Tamaina) {
+		
+		String sql = "INSERT INTO paketea (Bezero_zenbakia, Helbidea, Pakete_Tamaina, Mota, Erabiltzailea_idErabiltzailea) VALUES (?, ?, ?, 'Entregatu Gabe','1')";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, Bezero_zenbakia);
+			pstmt.setString(2, Helbidea);
+			pstmt.setString(3, Pakete_Tamaina);
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	public void editatuPaketa(String id, String bezero_zenabakia, String Helbidea, String Tamaina, String Mota) {
+		
+		String sql = "UPDATE paketea SET Bezero_zenbakia = ?, Helbidea = ?, Pakete_Tamaina = ?, Mota = ? WHERE idPaketea = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, bezero_zenabakia);
+			pstmt.setString(2, Helbidea);
+			pstmt.setString(3, Tamaina);
+			pstmt.setString(4, Mota);
+			pstmt.setString(5, id);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void ezabatuPaketa(String id) {
+		String sql = "DELETE FROM paketea WHERE idPaketea = ? ";
+
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, id);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
+	public ArrayList<String> paketeakEsleituLortuPeketeak() {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {conn = getConnection();
+
+				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String idpakete = rs.getString("idPaketea");
+					String helbideapekete = rs.getString("Helbidea");
+					paketeak.add(idpakete + " " + helbideapekete);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
+	}
+	
+	public ArrayList<String> paketeakEsleituBanatzailearenPaketakLortu(String idString) {
 		ArrayList<String> BanatzaileHistoriala = new ArrayList<>();
 		{
 			Connection conn = null;
@@ -389,17 +402,16 @@ public class DatuBasea {
 			ResultSet rs = null;
 
 			try {
-				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				conn = getConnection();
 
 				String sql = "SELECT *  FROM paketea WHERE erabiltzailea_idErabiltzailea=  " + idString + "";
 				stmt = conn.prepareStatement(sql);
-				System.out.println(stmt);
 				rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
 					String idpakete = rs.getString("idPaketea");
 					String helbideapekete = rs.getString("Helbidea");
-				
+
 					String paketetamainaString = rs.getString("Pakete_Tamaina");
 					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " "   + paketetamainaString);
 				}
@@ -414,81 +426,49 @@ public class DatuBasea {
 			return BanatzaileHistoriala;
 		}
 	}
+	
+	
+	public ArrayList<String> paketeakEsleituGehitu(String id,String paketeid) {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
 
-	/**
-	 * Sortu paketea.
-	 *
-	 * @param Bezero_zenbakia, telefonoa
-	 * @param Helbidea
-	 * @param Pakete_Tamaina   (Txikia edo Ertaina)
-	 */
-	public void sortuPaketea(String Bezero_zenbakia, String Helbidea, String Pakete_Tamaina) {
-		String sql = "INSERT INTO paketea (Bezero_zenbakia, Helbidea, Pakete_Tamaina, Erabiltzailea_idErabiltzailea) VALUES (?, ?, ?, '1')";
+			try {conn = getConnection();
 
-		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			System.out.println(pstmt);
-			pstmt.setString(1, Bezero_zenbakia);
-			pstmt.setString(2, Helbidea);
-			pstmt.setString(3, Pakete_Tamaina);
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = " + id + " where idPaketea = "  + paketeid  +"";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+				pstmt.close();
+				conn.close();
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
 		}
 	}
-	
-	public void editatuPaketa(String id, String bezero_zenabakia, String Helbidea, String Tamaina, String Mota) {
-        String sql = "UPDATE paketea SET Bezero_zenbakia = ?, Helbidea = ?, Pakete_Tamaina = ?, Mota = ? WHERE idPaketea = ?";
+	public ArrayList<String> paketeakEsleituKendu(String paketeid) {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
 
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, bezero_zenabakia);
-            pstmt.setString(2, Helbidea);
-            pstmt.setString(3, Tamaina);
-            pstmt.setString(4, Mota);
-            pstmt.setString(5, id);
 
-            pstmt.executeUpdate();
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-	
-	public void ezabatuPaketa(String id) {
-		 String sql = "DELETE FROM paketea WHERE idpaketa = ? ";
+			try {conn = getConnection();
 
-	        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	            
-	            pstmt.setString(1, id);
-	            
-	            pstmt.executeUpdate();
-	            
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = 1   where idPaketea = "  + paketeid  +"";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+
+				pstmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
 	}
-	
-	public void editatubanatzailea(String id, String izenaString, String abizenString, String pasahitaString, String erabizenaString) {
-        String sql = "UPDATE erabiltzailea SET Izena = ?, Abizena = ?, Pasahitza = ?, Erab_Izena = ? WHERE idErabiltzailea = ?";
-
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, izenaString);
-            pstmt.setString(2, abizenString);
-            pstmt.setString(3, pasahitaString);
-            pstmt.setString(4, erabizenaString);
-            pstmt.setString(5, id);
-
-            pstmt.executeUpdate();
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
 }

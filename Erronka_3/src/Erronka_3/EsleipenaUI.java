@@ -179,7 +179,7 @@ public class EsleipenaUI extends JFrame {
 				String iderab = parts[0];
 				System.out.println("Aukeratutakoaa: " + iderab);
 				System.out.println("Aukeratutakoa: " + id);
-				konexioaBasea.lortupaketeakgehitu(iderab,id);
+				konexioaBasea.paketeakEsleituGehitu(iderab,id);
 				lortupaketeakguztiak();
 				String aukeratutakoerabiltzailea3= (String) Banatzaileak.getSelectedItem();
 				String[] parts3 = aukeratutakoerabiltzailea3.split(" ");
@@ -210,7 +210,7 @@ public class EsleipenaUI extends JFrame {
 				String id = parts[0];
 			
 				System.out.println("Aukeratutakoa: " + id);
-				konexioaBasea.lortupaketeakkendu(id);
+				konexioaBasea.paketeakEsleituKendu(id);
 				
 				lortupaketeakguztiak();
 				String aukeratutakoerabiltzailea2= (String) Banatzaileak.getSelectedItem();
@@ -264,9 +264,11 @@ public class EsleipenaUI extends JFrame {
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 		PaketeakEsleitu.add(lblBanaPaketeak);
 	}
+	
+	
 	public void lortupaketeakguztiak() {
 		DatuBasea konexioaBasea = new DatuBasea();
-        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeakesleitu();
+        ArrayList<String> paketeaklist = konexioaBasea.paketeakEsleituLortuPeketeak();
         DefaultListModel<String> model = new DefaultListModel<>();
 
         for (String paketea : paketeaklist) {
@@ -276,10 +278,12 @@ public class EsleipenaUI extends JFrame {
 
         PaketeGuztiak.setModel(model);
     }
+	
+	
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 
-		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistorialaesleipen(id);
+		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.paketeakEsleituBanatzailearenPaketakLortu(id);
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakhistList) {

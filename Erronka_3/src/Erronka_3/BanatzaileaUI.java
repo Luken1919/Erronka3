@@ -419,7 +419,7 @@ public class BanatzaileaUI extends JFrame {
 					String aukeratutakoerabiltzailea = (String) comboBox.getSelectedItem();
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
-					konexioa.EzabatuBanatzailea(id);
+					konexioa.ezabatuBanatzailea(id);
 					dispose();
 
 				}
@@ -529,7 +529,7 @@ public class BanatzaileaUI extends JFrame {
 					String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedValue();
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
-					konexioa.editatubanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
+					konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
 					dispose();
 				}
 			});
@@ -554,7 +554,7 @@ public class BanatzaileaUI extends JFrame {
 	 * 
 	 */
 	public ArrayList<String> lortuBanatzaileakzerrenda() {
-		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileak();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
@@ -569,7 +569,7 @@ public class BanatzaileaUI extends JFrame {
 	 * Banatzaileak lortzeko metodoa
 	 */
 	private void lortuBanatzaileak() {
-		ArrayList<String> banatzaileakList = DatuBasea.getBanatzaileak();
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileak();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
@@ -588,7 +588,7 @@ public class BanatzaileaUI extends JFrame {
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 
-		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistoriala(id);
+		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.lortuBanatzaielarenHistoriala(id);
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakhistList) {

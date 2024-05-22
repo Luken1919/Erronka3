@@ -1,6 +1,5 @@
 /*
- * 20 may 2024
- * 
+ * 22 may 2024
  */
 package Erronka_3;
 
@@ -11,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DatuBasea.
  */
@@ -56,14 +54,15 @@ public class DatuBasea {
 		ResultSet rs = null;
 		erabIzena = erabiltzailea;
 
-		try {conn = getConnection();
-			
+		try {
+			conn = getConnection();
+
 			String sql = "SELECT * FROM Erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ? AND mota ='Kudeatzailea'";
 			stmt = conn.prepareStatement(sql);
-			
+
 			stmt.setString(1, erabiltzailea);
 			stmt.setString(2, pasahitza);
-			
+
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -107,7 +106,8 @@ public class DatuBasea {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {conn = getConnection();
+			try {
+				conn = getConnection();
 
 				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea'";
 				stmt = conn.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class DatuBasea {
 	 * Banatzaileak zerrendan gortzekeko metodoa.Datu guztiekin
 	 *
 	 * @param idString the id string
-	 * @return the banatzaiela historiala
+	 * @return banatzaile historiala
 	 */
 	public ArrayList<String> lortuBanatzaielarenHistoriala(String idString) {
 		ArrayList<String> BanatzaileHistoriala = new ArrayList<>();
@@ -144,7 +144,8 @@ public class DatuBasea {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {conn = getConnection();
+			try {
+				conn = getConnection();
 
 				String sql = "SELECT *  FROM entregatuta WHERE erabiltzailea_idErabiltzailea=  " + idString + "";
 				stmt = conn.prepareStatement(sql);
@@ -179,7 +180,7 @@ public class DatuBasea {
 	 * @param Pasahitza, banatzailearen pasahitza
 	 */
 	public void sortuBanatzailea(String Izena, String Abizena, String Pasahitza) {
-		
+
 		String sql = "INSERT INTO erabiltzailea (Izena, Abizena, Pasahitza, Mota) VALUES (?, ?, ?, 'Banatzailea')";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -199,7 +200,7 @@ public class DatuBasea {
 	 * @param id , erabiltzailearen id-a
 	 */
 	public void ezabatuBanatzailea(String id) {
-		
+
 		String sql = "DELETE FROM erabiltzailea WHERE idErabiltzailea = ? ";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -213,7 +214,17 @@ public class DatuBasea {
 		}
 	}
 
-	public void editatuBanatzailea(String id, String izenaString, String abizenString, String pasahitaString, String erabizenaString) {
+	/**
+	 * Editatu banatzailea.
+	 *
+	 * @param id              , banatzailearen id-a
+	 * @param izenaString     , banatzailearen Izena
+	 * @param abizenString    , banatzailearen abizena
+	 * @param pasahitaString  , banatzailearen pasahitza
+	 * @param erabizenaString , banatzailearen erabiltzaile izena
+	 */
+	public void editatuBanatzailea(String id, String izenaString, String abizenString, String pasahitaString,
+			String erabizenaString) {
 		String sql = "UPDATE erabiltzailea SET Izena = ?, Abizena = ?, Pasahitza = ?, Erab_Izena = ? WHERE idErabiltzailea = ?";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -266,7 +277,7 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
-	
+
 	/**
 	 * Lortupaketeakhistoriala.
 	 *
@@ -279,7 +290,8 @@ public class DatuBasea {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {conn = getConnection();
+			try {
+				conn = getConnection();
 
 				String sql = "SELECT entregatuta.idEntregatuta,entregatuta.Helbidea, erabiltzailea.izena, erabiltzailea.abizena  FROM entregatuta inner join erabiltzailea on erabiltzailea.idErabiltzailea = entregatuta.erabiltzailea_idErabiltzailea";
 				stmt = conn.prepareStatement(sql);
@@ -304,8 +316,7 @@ public class DatuBasea {
 			return paketeakhistoriala;
 		}
 	}
-	
-	
+
 	/**
 	 * Sortu paketea.
 	 *
@@ -314,7 +325,7 @@ public class DatuBasea {
 	 * @param Pakete_Tamaina   (Txikia edo Ertaina)
 	 */
 	public void sortuPaketea(String Bezero_zenbakia, String Helbidea, String Pakete_Tamaina) {
-		
+
 		String sql = "INSERT INTO paketea (Bezero_zenbakia, Helbidea, Pakete_Tamaina, Mota, Erabiltzailea_idErabiltzailea) VALUES (?, ?, ?, 'Entregatu Gabe','1')";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -330,8 +341,17 @@ public class DatuBasea {
 		}
 	}
 
+	/**
+	 * Editatu paketa.
+	 *
+	 * @param id               Paketearen id-a
+	 * @param bezero_zenabakia , bezeroaren telefono zenbakia
+	 * @param Helbidea         , paketaren helbidea
+	 * @param Tamaina          , paketearen tamaina (Txikia edo Ertaina)
+	 * @param Mota             (Entregatu gabea, Entregatuta...)
+	 */
 	public void editatuPaketa(String id, String bezero_zenabakia, String Helbidea, String Tamaina, String Mota) {
-		
+
 		String sql = "UPDATE paketea SET Bezero_zenbakia = ?, Helbidea = ?, Pakete_Tamaina = ?, Mota = ? WHERE idPaketea = ?";
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -349,6 +369,11 @@ public class DatuBasea {
 		}
 	}
 
+	/**
+	 * Ezabatu paketa.
+	 *
+	 * @param id , paketearen id-a
+	 */
 	public void ezabatuPaketa(String id) {
 		String sql = "DELETE FROM paketea WHERE idPaketea = ? ";
 
@@ -362,8 +387,12 @@ public class DatuBasea {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	
+
+	/**
+	 * Paketeak esleitu lortu peketeak.
+	 *
+	 * @return Esleitutako paketeak
+	 */
 	public ArrayList<String> paketeakEsleituLortuPeketeak() {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
@@ -371,7 +400,8 @@ public class DatuBasea {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 
-			try {conn = getConnection();
+			try {
+				conn = getConnection();
 
 				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1";
 				stmt = conn.prepareStatement(sql);
@@ -393,7 +423,13 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
-	
+
+	/**
+	 * Paketeak esleitu banatzailearen paketak lortu.
+	 *
+	 * @param idString , banatzailearen id-a
+	 * @return Banatzaile zerrenda
+	 */
 	public ArrayList<String> paketeakEsleituBanatzailearenPaketakLortu(String idString) {
 		ArrayList<String> BanatzaileHistoriala = new ArrayList<>();
 		{
@@ -413,7 +449,7 @@ public class DatuBasea {
 					String helbideapekete = rs.getString("Helbidea");
 
 					String paketetamainaString = rs.getString("Pakete_Tamaina");
-					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " "   + paketetamainaString);
+					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + paketetamainaString);
 				}
 
 				rs.close();
@@ -426,17 +462,25 @@ public class DatuBasea {
 			return BanatzaileHistoriala;
 		}
 	}
-	
-	
-	public ArrayList<String> paketeakEsleituGehitu(String id,String paketeid) {
+
+	/**
+	 * Paketeak esleitu gehitu.
+	 *
+	 * @param id       , banatzailearen id-a
+	 * @param paketeid , paketearen id-a
+	 * @return Pakete zerrenda
+	 */
+	public ArrayList<String> paketeakEsleituGehitu(String id, String paketeid) {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 
-			try {conn = getConnection();
+			try {
+				conn = getConnection();
 
-				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = " + id + " where idPaketea = "  + paketeid  +"";
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = " + id + " where idPaketea = "
+						+ paketeid + "";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.executeUpdate();
 
@@ -449,16 +493,24 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
+
+	/**
+	 * Paketeak esleitu kendu.
+	 *
+	 * @param paketeid , paketearen id-a
+	 * @return paketeen zerrenda
+	 */
 	public ArrayList<String> paketeakEsleituKendu(String paketeid) {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 
+			try {
+				conn = getConnection();
 
-			try {conn = getConnection();
-
-				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = 1   where idPaketea = "  + paketeid  +"";
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = 1   where idPaketea = " + paketeid
+						+ "";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.executeUpdate();
 

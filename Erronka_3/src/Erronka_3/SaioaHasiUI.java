@@ -1,5 +1,5 @@
 /*
- * 16 may 2024
+ * 22 may 2024
  */
 package Erronka_3;
 
@@ -44,9 +44,17 @@ public class SaioaHasiUI extends JFrame {
 	/** Pasahitza passwordfield. */
 	private JPasswordField PasahitzaField;
 
+	/** Erabiltzaile izena. */
 	String erab_izenaString;
+
+	/** Pasahitza. */
 	String pasahitzaString;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -165,7 +173,7 @@ public class SaioaHasiUI extends JFrame {
 					}
 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 
@@ -180,12 +188,22 @@ public class SaioaHasiUI extends JFrame {
 		saioaHasi.add(PasahitzaField);
 	}
 
+	/**
+	 * Lortuerabizena.
+	 *
+	 * @return erabiltzailearen izena
+	 */
 	public String lortuerabizena() {
 		erab_izenaString = textFieldErabIzen.getText();
 		return erab_izenaString;
 
 	}
 
+	/**
+	 * Lortupasahitza.
+	 *
+	 * @return erabiltzailearen pasahitza
+	 */
 	public String lortupasahitza() {
 		pasahitzaString = PasahitzaField.getText();
 		return pasahitzaString;

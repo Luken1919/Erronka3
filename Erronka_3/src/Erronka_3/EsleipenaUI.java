@@ -1,5 +1,5 @@
 /*
- * 16 may 2024
+ * 22 may 2024
  */
 package Erronka_3;
 
@@ -30,12 +30,21 @@ public class EsleipenaUI extends JFrame {
 
 	/** content pane. */
 	private JPanel contentPane;
-	
+
+	/** Izen abizena. */
 	String IzenAbizena = DatuBasea.erabIzena;
-	
+
+	/** Pakete guztiak. */
 	JList<String> PaketeGuztiak = new JList<>();
+
+	/** Banatzailearen paketeak. */
 	JList<String> BanatzailearenPaketeak = new JList<>();
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -119,7 +128,7 @@ public class EsleipenaUI extends JFrame {
 		JComboBox<String> Banatzaileak = new JComboBox<>();
 		Banatzaileak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedItem();
+				String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
 				String[] parts = aukeratutakoerabiltzailea.split(" ");
 				String id = parts[parts.length - 1];
 				System.out.println("Aukeratutakoa: " + id);
@@ -139,11 +148,10 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Sortutako pakete guztiak erakutsiko diren zerrenda
 		 */
-		 PaketeGuztiak = new JList<>();
-		
-	
+		PaketeGuztiak = new JList<>();
+
 		lortupaketeakguztiak();
-		
+
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
 		PaketeakEsleitu.add(PaketeGuztiak);
@@ -151,13 +159,8 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Banatzaileari ezarritako paketeak ikusiko diren zerrenda
 		 */
-		 BanatzailearenPaketeak = new JList<>();
-		 
-		
-		
-		
-		
-		
+		BanatzailearenPaketeak = new JList<>();
+
 		BanatzailearenPaketeak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		BanatzailearenPaketeak.setBounds(622, 100, 300, 450);
 		PaketeakEsleitu.add(BanatzailearenPaketeak);
@@ -169,24 +172,24 @@ public class EsleipenaUI extends JFrame {
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				DatuBasea konexioaBasea = new DatuBasea();
-				String aukeratutakopaketea= (String) PaketeGuztiak.getSelectedValue();
+				String aukeratutakopaketea = (String) PaketeGuztiak.getSelectedValue();
 				String[] parts = aukeratutakopaketea.split(" ");
 				String id = parts[0];
-				String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedItem();
+				String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
 				String[] parts2 = aukeratutakopaketea.split(" ");
 				String iderab = parts[0];
 				System.out.println("Aukeratutakoaa: " + iderab);
 				System.out.println("Aukeratutakoa: " + id);
-				konexioaBasea.paketeakEsleituGehitu(iderab,id);
+				konexioaBasea.paketeakEsleituGehitu(iderab, id);
 				lortupaketeakguztiak();
-				String aukeratutakoerabiltzailea3= (String) Banatzaileak.getSelectedItem();
+				String aukeratutakoerabiltzailea3 = (String) Banatzaileak.getSelectedItem();
 				String[] parts3 = aukeratutakoerabiltzailea3.split(" ");
 				String id3 = parts3[parts3.length - 1];
 				System.out.println("Aukeratutakoa3: " + id3);
 				lortuBanatzaileakhist(id3);
-				
+
 			}
 		});
 		btnGehitu.setForeground(new Color(0, 0, 0));
@@ -202,23 +205,22 @@ public class EsleipenaUI extends JFrame {
 		JButton btnKendu = new JButton("Kendu");
 		btnKendu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				DatuBasea konexioaBasea = new DatuBasea();
-				String aukeratutakopaketea= (String) BanatzailearenPaketeak.getSelectedValue();
+				String aukeratutakopaketea = (String) BanatzailearenPaketeak.getSelectedValue();
 				String[] parts = aukeratutakopaketea.split(" ");
 				String id = parts[0];
-			
+
 				System.out.println("Aukeratutakoa: " + id);
 				konexioaBasea.paketeakEsleituKendu(id);
-				
+
 				lortupaketeakguztiak();
-				String aukeratutakoerabiltzailea2= (String) Banatzaileak.getSelectedItem();
+				String aukeratutakoerabiltzailea2 = (String) Banatzaileak.getSelectedItem();
 				String[] parts2 = aukeratutakoerabiltzailea2.split(" ");
 				String id2 = parts2[parts2.length - 1];
 				System.out.println("Aukeratutakoa2: " + id2);
 				lortuBanatzaileakhist(id2);
-				
+
 			}
 		});
 		btnKendu.setBackground(new Color(111, 141, 158));
@@ -264,22 +266,28 @@ public class EsleipenaUI extends JFrame {
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 		PaketeakEsleitu.add(lblBanaPaketeak);
 	}
-	
-	
+
+	/**
+	 * Lortupaketeakguztiak.
+	 */
 	public void lortupaketeakguztiak() {
 		DatuBasea konexioaBasea = new DatuBasea();
-        ArrayList<String> paketeaklist = konexioaBasea.paketeakEsleituLortuPeketeak();
-        DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> paketeaklist = konexioaBasea.paketeakEsleituLortuPeketeak();
+		DefaultListModel<String> model = new DefaultListModel<>();
 
-        for (String paketea : paketeaklist) {
-            model.addElement(paketea);
-            System.out.println(paketea);
-        }
+		for (String paketea : paketeaklist) {
+			model.addElement(paketea);
+			System.out.println(paketea);
+		}
 
-        PaketeGuztiak.setModel(model);
-    }
-	
-	
+		PaketeGuztiak.setModel(model);
+	}
+
+	/**
+	 * Lortu banatzaileakhist.
+	 *
+	 * @param id , banatzailearen id-a
+	 */
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 
@@ -292,5 +300,5 @@ public class EsleipenaUI extends JFrame {
 
 		BanatzailearenPaketeak.setModel(model);
 	}
-	
+
 }

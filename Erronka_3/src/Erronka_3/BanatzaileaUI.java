@@ -1,6 +1,5 @@
 /*
- * 16 may 2024
- * 
+ * 22 may 2024
  */
 package Erronka_3;
 
@@ -55,15 +54,26 @@ public class BanatzaileaUI extends JFrame {
 	/** Pasahitza passwordfield. */
 	private JPasswordField PasahitzaField;
 
+	/** Izen abizena. Erabiltzailearen izena osatzeko */
 	private String IzenAbizena = DatuBasea.erabIzena;
 
+	/** Banatzaileen Zerrenda. */
 	private JList<String> Banatzaileak;
 
+	/** Banatzaile historiala Bakoitzaren paketeak. */
 	private JList<String> BanatzaileHistoriala;
-	
+
+	/** Datubaseko konexioa. */
 	private DatuBasea konexioa = new DatuBasea();
+
+	/** Zerrendako testuaren zatiak. */
 	String[] parts;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,7 +88,7 @@ public class BanatzaileaUI extends JFrame {
 	}
 
 	/**
-	 * Baanatzailearen frame-a sortu.
+	 * Banatzailearen frame-a sortu.
 	 */
 	public BanatzaileaUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,10 +156,6 @@ public class BanatzaileaUI extends JFrame {
 		lblBanatzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 
 		/*
-		 * Banatzaileen zerrenda
-		 */
-
-		/*
 		 * Banatzaileak sortzeko panela irikitzen duen botoia
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
@@ -193,11 +199,10 @@ public class BanatzaileaUI extends JFrame {
 				editatu.setVisible(true);
 			}
 		});
-		
 
 		JScrollPane BanatzaileakScrollPane = new JScrollPane();
 		BanatzaileakScrollPane.setBounds(0, 49, 362, 603);
-		
+
 		/*
 		 * Aukeratutako banatzailearen historiala erakusten du
 		 */
@@ -207,11 +212,10 @@ public class BanatzaileaUI extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					String aukeratutakoa = Banatzaileak.getSelectedValue();
-if (aukeratutakoa != null ) {
-	 parts = aukeratutakoa.split(" ");
+					if (aukeratutakoa != null) {
+						parts = aukeratutakoa.split(" ");
 					}
-					
-					
+
 					String id = parts[parts.length - 1];
 					lortuBanatzaileakhist(id);
 				}
@@ -231,7 +235,6 @@ if (aukeratutakoa != null ) {
 		JLabel lblHistoriala = new JLabel("Autatutako banatzailearen historiala");
 		lblHistoriala.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblHistoriala.setBounds(10, 11, 352, 38);
-		
 
 		/*
 		 * Banatzaileen zerrenda
@@ -246,7 +249,6 @@ if (aukeratutakoa != null ) {
 		btnFiltratu.setBackground(new Color(111, 141, 158));
 		btnFiltratu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnFiltratu.setBounds(373, 199, 110, 40);
-		
 
 		/*
 		 * Banatzaileak ordenatzeko panela irikitzen duen botoia
@@ -256,7 +258,6 @@ if (aukeratutakoa != null ) {
 		btnOrdenatu.setBackground(new Color(111, 141, 158));
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnOrdenatu.setBounds(373, 405, 110, 40);
-		
 
 		JScrollPane BanatzaileakHistorialaScrollPane = new JScrollPane();
 		BanatzaileakHistorialaScrollPane.setBounds(0, 49, 362, 603);
@@ -267,21 +268,20 @@ if (aukeratutakoa != null ) {
 		BanatzaileakHistorialaScrollPane.setViewportView(BanatzaileHistoriala);
 		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 
-		
 		contentPane.add(panel);
 		contentPane.add(banatzaileakPanel);
 		contentPane.add(historiala);
-		
+
 		panel.add(lblErabiltzailea);
 		panel.add(btnPaketea);
 		panel.add(btnPaketeaEsleitu);
-		
+
 		banatzaileakPanel.add(lblBanatzailea);
 		banatzaileakPanel.add(btnGehitu);
 		banatzaileakPanel.add(btnKendu);
 		banatzaileakPanel.add(btnEditatu);
 		banatzaileakPanel.add(BanatzaileakScrollPane);
-		
+
 		historiala.add(lblHistoriala);
 		historiala.add(btnFiltratu);
 		historiala.add(btnOrdenatu);
@@ -309,7 +309,6 @@ if (aukeratutakoa != null ) {
 			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
 			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTitulua.setBounds(10, 11, 363, 29);
-			
 
 			/*
 			 * Banatzailearen izena zehazteko label-a
@@ -331,21 +330,21 @@ if (aukeratutakoa != null ) {
 			JLabel lblAbizena = new JLabel("Abizena:");
 			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblAbizena.setBounds(30, 136, 200, 29);
-			
+
 			/*
 			 * Idatziko den abizena textfield-ean joango da
 			 */
 			Abizena = new JTextField();
 			Abizena.setColumns(10);
 			Abizena.setBounds(30, 176, 200, 34);
-			
+
 			/*
 			 * Banatzailearen pasahitza zehazteko label-a
 			 */
 			JLabel lblPasahitza = new JLabel("Pashitza:");
 			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblPasahitza.setBounds(30, 221, 200, 29);
-			
+
 			/*
 			 * Banatzailearen pasahitza sartzeko textfield berezia
 			 */
@@ -364,7 +363,7 @@ if (aukeratutakoa != null ) {
 					String AbizenaSortu = Abizena.getText();
 					String PasahitzaSortu = PasahitzaField.getText();
 					konexioa.sortuBanatzailea(IzenaSortu, AbizenaSortu, PasahitzaSortu);
-					
+
 					dispose();
 					lortuBanatzaileakzerrenda();
 				}
@@ -375,8 +374,7 @@ if (aukeratutakoa != null ) {
 			contentPane.add(lblAbizena);
 			contentPane.add(lblPasahitza);
 			contentPane.add(btnGehitu);
-			
-			
+
 			contentPane.add(Izena);
 			contentPane.add(Abizena);
 			contentPane.add(PasahitzaField);
@@ -427,13 +425,13 @@ if (aukeratutakoa != null ) {
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
 					konexioa.ezabatuBanatzailea(id);
-					
+
 					dispose();
 					lortuBanatzaileakzerrenda();
 
 				}
 			});
-			
+
 			contentPane.add(ErabIzenaLabel);
 			contentPane.add(comboBox);
 			contentPane.add(EzabatuButton);
@@ -469,7 +467,6 @@ if (aukeratutakoa != null ) {
 			JLabel lblizena = new JLabel("Izena:");
 			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblizena.setBounds(30, 51, 200, 29);
-			
 
 			/*
 			 * Izen berria sartzeko textfield-a
@@ -490,14 +487,14 @@ if (aukeratutakoa != null ) {
 			Abizena = new JTextField();
 			Abizena.setColumns(10);
 			Abizena.setBounds(30, 176, 200, 34);
-			
+
 			/*
 			 * Banatzailearen erabiltzaile izena editatzeko label-a
 			 */
 			JLabel lblErabiltzaileIzena = new JLabel("Erabiltzaile Izena:");
 			lblErabiltzaileIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblErabiltzaileIzena.setBounds(30, 221, 200, 29);
-			
+
 			/*
 			 * Idatziko den erabiltzaile izena textfield-ean joango da
 			 */
@@ -505,7 +502,6 @@ if (aukeratutakoa != null ) {
 			ErabiltzaileIzena = new JTextField();
 			ErabiltzaileIzena.setColumns(10);
 			ErabiltzaileIzena.setBounds(30, 261, 200, 34);
-			
 
 			/*
 			 * Banatzailearen pasahitza editatzeko label-a
@@ -513,17 +509,16 @@ if (aukeratutakoa != null ) {
 			JLabel lblPasahitza = new JLabel("Pasahitza:");
 			lblPasahitza.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblPasahitza.setBounds(30, 306, 200, 29);
-			
+
 			/*
 			 * Idatziko den pasahitza textfield-ean joango da
 			 */
 			PasahitzaField = new JPasswordField();
 			PasahitzaField.setColumns(10);
 			PasahitzaField.setBounds(30, 346, 200, 34);
-			
 
 			/*
-			 * sartutako informazioa editatzeko botoia
+			 * Sartutako informazioa editatzeko botoia
 			 */
 			JButton btnEditatu = new JButton("Editatu");
 			btnEditatu.setBounds(250, 400, 89, 29);
@@ -533,9 +528,9 @@ if (aukeratutakoa != null ) {
 					String izenaString = Izena.getText();
 					String abizenaString = Abizena.getText();
 					String pasahitza = PasahitzaField.getText();
-					String erabizenaString= ErabiltzaileIzena.getText();
-				
-					String aukeratutakoerabiltzailea= (String) Banatzaileak.getSelectedValue();
+					String erabizenaString = ErabiltzaileIzena.getText();
+
+					String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedValue();
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
 					konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
@@ -543,13 +538,13 @@ if (aukeratutakoa != null ) {
 					lortuBanatzaileakzerrenda();
 				}
 			});
-			
+
 			contentPane.add(lblTitulua);
 			contentPane.add(lblizena);
 			contentPane.add(lblAbizena);
 			contentPane.add(lblErabiltzaileIzena);
 			contentPane.add(lblPasahitza);
-			
+
 			contentPane.add(Izena);
 			contentPane.add(Abizena);
 			contentPane.add(ErabiltzaileIzena);
@@ -575,6 +570,9 @@ if (aukeratutakoa != null ) {
 		return banatzaileakList;
 	}
 
+	/**
+	 * Lortu banatzaileak.
+	 */
 	/*
 	 * Banatzaileak lortzeko metodoa
 	 */
@@ -595,6 +593,11 @@ if (aukeratutakoa != null ) {
 	 * 
 	 */
 
+	/**
+	 * Lortu banatzaileakhist.
+	 *
+	 * @param id banatzailearen id-a
+	 */
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 

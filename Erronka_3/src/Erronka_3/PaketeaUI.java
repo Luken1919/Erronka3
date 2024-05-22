@@ -35,7 +35,6 @@ import javax.swing.border.MatteBorder;
 
 import com.mysql.cj.xdevapi.Statement;
 
-
 /**
  * 
  * 
@@ -45,13 +44,13 @@ public class PaketeaUI extends JFrame {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**  content pane. */
+	/** content pane. */
 	private JPanel contentPane;
 
-	/**  Telefonoa textfield. */
+	/** Telefonoa textfield. */
 	private JTextField TelefonoatextField;
 
-	/**  Helbidea textfield. */
+	/** Helbidea textfield. */
 	private JTextField HelbideatextField;
 
 	private String IzenAbizena = DatuBasea.erabIzena;
@@ -133,7 +132,7 @@ public class PaketeaUI extends JFrame {
 
 		JPanel ZerrendaPanela = new JPanel();
 		ZerrendaPanela.setBounds(0, 60, 492, 651);
-		
+
 		ZerrendaPanela.setLayout(null);
 
 		/*
@@ -148,8 +147,6 @@ public class PaketeaUI extends JFrame {
 		PaketeZerrenda = new JList<>();
 
 		lortupaketeak();
-
-
 
 		konexioa.lortuPaketeak();
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
@@ -179,7 +176,7 @@ public class PaketeaUI extends JFrame {
 		EzabatuPaketeaButton.setFont(new Font("Arial", Font.BOLD, 15));
 		EzabatuPaketeaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
+				String aukeratutakoPaketea = (String) PaketeZerrenda.getSelectedValue();
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
 				konexioa.ezabatuPaketa(id);
@@ -207,7 +204,7 @@ public class PaketeaUI extends JFrame {
 		JPanel panel_Paketeak = new JPanel();
 		panel_Paketeak.setBounds(492, 60, 492, 651);
 		panel_Paketeak.setLayout(null);
-		
+
 		/*
 		 * Sortutako paketeen labela
 		 */
@@ -221,7 +218,7 @@ public class PaketeaUI extends JFrame {
 		lortupaketeakhistori();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
-		
+
 		/*
 		 * Paketeak ordenatzeko botoia
 		 */
@@ -230,7 +227,7 @@ public class PaketeaUI extends JFrame {
 		OrdenatuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		OrdenatuButton.setFont(new Font("Arial", Font.BOLD, 15));
 		OrdenatuButton.setBounds(372, 399, 110, 40);
-		
+
 		/*
 		 * Paketeak filtratzeko botoia, frame-a irekitzen du
 		 */
@@ -246,22 +243,21 @@ public class PaketeaUI extends JFrame {
 
 			}
 		});
-		
+
 		contentPane.add(panel);
 		contentPane.add(ZerrendaPanela);
 		contentPane.add(panel_Paketeak);
-		
-		
+
 		panel.add(lblErabiltzailea);
 		panel.add(btnBanatzailea);
 		panel.add(btnPaketeaEsleitu);
-		
+
 		ZerrendaPanela.add(lblPaketeZerenda);
 		ZerrendaPanela.add(SortuPaketeaButton);
 		ZerrendaPanela.add(EzabatuPaketeaButton);
 		ZerrendaPanela.add(EditatupaketeaButtonButton);
 		ZerrendaPanela.add(PaketeZerrenda);
-		
+
 		panel_Paketeak.add(lblPaketeHistoriala);
 		panel_Paketeak.add(OrdenatuButton);
 		panel_Paketeak.add(FiltratuButton);
@@ -347,11 +343,10 @@ public class PaketeaUI extends JFrame {
 			contentPane.add(TamainaLabel);
 			contentPane.add(comboBox);
 			contentPane.add(SortuButton);
-			
+
 			contentPane.add(TelefonoatextField);
 			contentPane.add(HelbideatextField);
-			
-			
+
 		}
 	}
 
@@ -401,7 +396,7 @@ public class PaketeaUI extends JFrame {
 			JLabel TamainaLabel = new JLabel("Tamaina:");
 			TamainaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			TamainaLabel.setBounds(28, 146, 86, 14);
-			
+
 			/*
 			 * paketearen tamaina aldatzeko combobox-a
 			 */
@@ -425,7 +420,6 @@ public class PaketeaUI extends JFrame {
 			MotacomboBox_1.setModel(new DefaultComboBoxModel(
 					new String[] { "Entregatuta", "Entregatu Gabe", "Entregatu Gabe arazoekin" }));
 			MotacomboBox_1.setBounds(28, 233, 121, 24);
-			
 
 			JButton EditatuButton = new JButton("Editatu");
 			EditatuButton.setFont(new Font("Arial", Font.BOLD, 15));
@@ -436,7 +430,7 @@ public class PaketeaUI extends JFrame {
 					String helbidea = HelbideatextField.getText();
 					String tamaina = (String) TamainacomboBox.getSelectedItem();
 					String mota = (String) MotacomboBox_1.getSelectedItem();
-					String aukeratutakoPaketea= (String) PaketeZerrenda.getSelectedValue();
+					String aukeratutakoPaketea = (String) PaketeZerrenda.getSelectedValue();
 					String[] parts = aukeratutakoPaketea.split(" ");
 					String id = parts[0];
 
@@ -446,16 +440,16 @@ public class PaketeaUI extends JFrame {
 					lortupaketeak();
 					lortupaketeakhistori();
 					dispose();
-					
+
 				}
 			});
-			
+
 			contentPane.add(TelefonoaLabel);
 			contentPane.add(HelbideaLabel);
 			contentPane.add(TamainaLabel);
 			contentPane.add(MotacomboBox_1);
 			contentPane.add(EditatuButton);
-			
+
 			contentPane.add(TelefonoatextField);
 			contentPane.add(HelbideatextField);
 
@@ -484,7 +478,7 @@ public class PaketeaUI extends JFrame {
 			JLabel MotaLabel = new JLabel("Mota:");
 			MotaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			MotaLabel.setBounds(97, 49, 119, 39);
-			
+
 			/*
 			 * Paketearen tamaina aukeratzeko combobox-a
 			 */
@@ -492,7 +486,7 @@ public class PaketeaUI extends JFrame {
 			comboBox.setFont(new Font("Arial", Font.BOLD, 15));
 			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Txikia", "Ertaina" }));
 			comboBox.setBounds(75, 109, 156, 22);
-			
+
 			/*
 			 * Aukeratutako tamainaren bidez filtratzeko botoia
 			 */
@@ -507,7 +501,7 @@ public class PaketeaUI extends JFrame {
 
 				}
 			});
-						
+
 			contentPane.add(MotaLabel);
 			contentPane.add(comboBox);
 			contentPane.add(FiltratuButton);
@@ -524,6 +518,7 @@ public class PaketeaUI extends JFrame {
 
 		PaketeZerrenda.setModel(model);
 	}
+
 	private void lortupaketeakhistori() {
 		ArrayList<String> paketeakhisto = konexioa.paketeHistorialaLortu();
 		DefaultListModel<String> model = new DefaultListModel<>();

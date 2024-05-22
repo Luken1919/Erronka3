@@ -248,6 +248,36 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
+	public ArrayList<String> lortupaketeakgehitu() {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+				String sql = "insert into ";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String idpakete = rs.getString("idPaketea");
+					String helbideapekete = rs.getString("Helbidea");
+					paketeak.add(idpakete + " " + helbideapekete);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
+	}
 
 	/**
 	 * Lortupaketeakhistoriala.
@@ -285,6 +315,39 @@ public class DatuBasea {
 				e.printStackTrace();
 			}
 			return paketeakhistoriala;
+		}
+	}
+	public ArrayList<String> getBanatzaielaHistorialaesleipen(String idString) {
+		ArrayList<String> BanatzaileHistoriala = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+				String sql = "SELECT *  FROM paketea WHERE erabiltzailea_idErabiltzailea=  " + idString + "";
+				stmt = conn.prepareStatement(sql);
+				System.out.println(stmt);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String idpakete = rs.getString("idPaketea");
+					String helbideapekete = rs.getString("Helbidea");
+				
+					String paketetamainaString = rs.getString("Pakete_Tamaina");
+					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " "   + paketetamainaString);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return BanatzaileHistoriala;
 		}
 	}
 

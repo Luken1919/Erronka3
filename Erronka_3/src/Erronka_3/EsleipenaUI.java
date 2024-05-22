@@ -235,7 +235,7 @@ public class EsleipenaUI extends JFrame {
 	private void lortuBanatzaileakhist(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 
-		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistoriala(id);
+		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.getBanatzaielaHistorialaesleipen(id);
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakhistList) {
@@ -244,4 +244,5 @@ public class EsleipenaUI extends JFrame {
 
 		BanatzailearenPaketeak.setModel(model);
 	}
+	
 }

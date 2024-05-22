@@ -180,7 +180,7 @@ public class SaioaHasiUI extends JFrame {
 			}
 		});
 		/*
-		 * Erabiltzaileren psahitza sartzeko passwordfield
+		 * Erabiltzaileren pasahitza sartzeko passwordfield
 		 */
 		PasahitzaField = new JPasswordField();
 		PasahitzaField.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(253, 194, 116)));

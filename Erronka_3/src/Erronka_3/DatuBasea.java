@@ -310,6 +310,38 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
+	public ArrayList<String> lortupaketeakkendu(String paketeid) {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+				String sql = "Update Paketea set Erabiltzailea_idErabiltzailea = 1   where idPaketea = "  + paketeid  +"";
+				
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				
+				 pstmt.executeUpdate();
+			
+				System.out.println(pstmt);
+			
+				
+
+				
+
+				
+				pstmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
+	}
 
 	/**
 	 * Lortupaketeakhistoriala.

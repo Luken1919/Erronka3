@@ -180,8 +180,12 @@ public class EsleipenaUI extends JFrame {
 				System.out.println("Aukeratutakoaa: " + iderab);
 				System.out.println("Aukeratutakoa: " + id);
 				konexioaBasea.lortupaketeakgehitu(iderab,id);
-				
-				
+				lortupaketeakguztiak();
+				String aukeratutakoerabiltzailea3= (String) Banatzaileak.getSelectedItem();
+				String[] parts3 = aukeratutakoerabiltzailea3.split(" ");
+				String id3 = parts3[parts3.length - 1];
+				System.out.println("Aukeratutakoa3: " + id3);
+				lortuBanatzaileakhist(id3);
 				
 			}
 		});
@@ -196,6 +200,27 @@ public class EsleipenaUI extends JFrame {
 		 * botoia
 		 */
 		JButton btnKendu = new JButton("Kendu");
+		btnKendu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				DatuBasea konexioaBasea = new DatuBasea();
+				String aukeratutakopaketea= (String) BanatzailearenPaketeak.getSelectedValue();
+				String[] parts = aukeratutakopaketea.split(" ");
+				String id = parts[0];
+			
+				System.out.println("Aukeratutakoa: " + id);
+				konexioaBasea.lortupaketeakkendu(id);
+				
+				lortupaketeakguztiak();
+				String aukeratutakoerabiltzailea2= (String) Banatzaileak.getSelectedItem();
+				String[] parts2 = aukeratutakoerabiltzailea2.split(" ");
+				String id2 = parts2[parts2.length - 1];
+				System.out.println("Aukeratutakoa2: " + id2);
+				lortuBanatzaileakhist(id2);
+				
+			}
+		});
 		btnKendu.setBackground(new Color(111, 141, 158));
 		btnKendu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnKendu.setFont(new Font("Arial", Font.BOLD, 15));

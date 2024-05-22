@@ -349,7 +349,7 @@ PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 19
 			
 		}
 	}
-	private void lortupaketeak() {
+	public void lortupaketeak() {
 		DatuBasea konexioaBasea = new DatuBasea();
         ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
         DefaultListModel<String> model = new DefaultListModel<>();

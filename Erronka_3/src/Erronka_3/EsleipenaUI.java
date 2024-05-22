@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JComboBox;
@@ -31,6 +32,8 @@ public class EsleipenaUI extends JFrame {
 	private JPanel contentPane;
 	
 	String IzenAbizena = DatuBasea.erabIzena;
+	
+	JList<String> PaketeGuztiak = new JList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -126,7 +129,10 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Sortutako pakete guztiak erakutsiko diren zerrenda
 		 */
-		JList<String> PaketeGuztiak = new JList<>();
+		 PaketeGuztiak = new JList<>();
+		
+	
+		lortupaketeakguztiak();
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
 		PaketeakEsleitu.add(PaketeGuztiak);
@@ -198,4 +204,16 @@ public class EsleipenaUI extends JFrame {
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 		PaketeakEsleitu.add(lblBanaPaketeak);
 	}
+	public void lortupaketeakguztiak() {
+		DatuBasea konexioaBasea = new DatuBasea();
+        ArrayList<String> paketeaklist = konexioaBasea.lortupaketeak();
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (String paketea : paketeaklist) {
+            model.addElement(paketea);
+            System.out.println(paketea);
+        }
+
+        PaketeGuztiak.setModel(model);
+    }
 }

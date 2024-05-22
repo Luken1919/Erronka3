@@ -61,7 +61,7 @@ public class BanatzaileaUI extends JFrame {
 
 	private JList<String> BanatzaileHistoriala;
 	
-	public DatuBasea konexioa = new DatuBasea();
+	private DatuBasea konexioa = new DatuBasea();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

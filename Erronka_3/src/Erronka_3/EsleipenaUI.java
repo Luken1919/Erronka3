@@ -208,7 +208,7 @@ public class EsleipenaUI extends JFrame {
 
 				String aukeratutakopaketea = (String) BanatzailearenPaketeak.getSelectedValue();
 				if (aukeratutakopaketea == null) {
-					JOptionPane.showMessageDialog(null, "Paketea aukeratu");
+					JOptionPane.showMessageDialog(null, "Banatzailearen Paketea  aukeratu");
 				}
 
 				else {

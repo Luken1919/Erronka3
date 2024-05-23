@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
@@ -148,19 +149,22 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Sortutako pakete guztiak erakutsiko diren zerrenda
 		 */
+		JScrollPane spPaketeZerrenda = new JScrollPane();
+		spPaketeZerrenda.setBounds(100, 100, 300, 450);
 		PaketeGuztiak = new JList<>();
-
-		lortuPaketeGuztiak();
-
+		spPaketeZerrenda.setViewportView(PaketeGuztiak);
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
+		lortuPaketeGuztiak();
 		
 
 		/*
 		 * Banatzaileari ezarritako paketeak ikusiko diren zerrenda
 		 */
+		JScrollPane spBanatzaielarenPaketak = new JScrollPane();
+		spBanatzaielarenPaketak.setBounds(622, 100, 300, 450);
 		BanatzailearenPaketeak = new JList<>();
-
+		spBanatzaielarenPaketak.setViewportView(BanatzailearenPaketeak);
 		BanatzailearenPaketeak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		BanatzailearenPaketeak.setBounds(622, 100, 300, 450);
 		
@@ -247,8 +251,8 @@ public class EsleipenaUI extends JFrame {
 		pnlPaketeakEsleitu.add(btnKendu);
 		pnlPaketeakEsleitu.add(lblPaketeGuztiak);
 		pnlPaketeakEsleitu.add(lblBanaPaketeak);
-		pnlPaketeakEsleitu.add(PaketeGuztiak);
-		pnlPaketeakEsleitu.add(BanatzailearenPaketeak);
+		pnlPaketeakEsleitu.add(spPaketeZerrenda);
+		pnlPaketeakEsleitu.add(spBanatzaielarenPaketak);
 		
 	}
 

@@ -238,27 +238,23 @@ public class BanatzaileaUI extends JFrame {
 		lblHistoriala.setBounds(10, 11, 352, 38);
 
 		/*
-		 * Banatzaileen zerrenda
-		 */
-
-		/*
-		 * Banatzaileak filtratzeko panela irikitzen duen botoia
-		 */
-
-		JButton btnFiltratu = new JButton("Filtratu");
-		btnFiltratu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnFiltratu.setBackground(new Color(111, 141, 158));
-		btnFiltratu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnFiltratu.setBounds(373, 199, 110, 40);
-
-		/*
 		 * Banatzaileak ordenatzeko panela irikitzen duen botoia
 		 */
-		JButton btnOrdenatu = new JButton("Ordenatu");
+		JButton btnOrdenatu = new JButton("Ordenatu\r\n ");
+		btnOrdenatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				lortuBanatzaileakordenatutaizenez();
+				
+				
+				
+			}
+		});
 		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnOrdenatu.setBackground(new Color(111, 141, 158));
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnOrdenatu.setBounds(373, 405, 110, 40);
+		btnOrdenatu.setBounds(372, 282, 98, 74);
 
 		JScrollPane spBanatzaileakHistoriala = new JScrollPane();
 		spBanatzaileakHistoriala.setBounds(0, 49, 362, 603);
@@ -284,9 +280,33 @@ public class BanatzaileaUI extends JFrame {
 		pnlBanatzailea.add(spBanatzailea);
 
 		pnlHistoriala.add(lblHistoriala);
-		pnlHistoriala.add(btnFiltratu);
 		pnlHistoriala.add(btnOrdenatu);
 		pnlHistoriala.add(spBanatzaileakHistoriala);
+		
+		JLabel lblNewLabel = new JLabel("Izen Bidez");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(372, 248, 98, 38);
+		pnlHistoriala.add(lblNewLabel);
+		
+		JLabel lblIdBidez = new JLabel("ID Bidez");
+		lblIdBidez.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIdBidez.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblIdBidez.setBounds(372, 367, 98, 38);
+		pnlHistoriala.add(lblIdBidez);
+		
+		JButton btnOrdenatu_1 = new JButton("Ordenatu\r\n ");
+		btnOrdenatu_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				lortuBanatzaileakordenatutaID();
+			}
+		});
+		btnOrdenatu_1.setFont(new Font("Arial", Font.BOLD, 15));
+		btnOrdenatu_1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnOrdenatu_1.setBackground(new Color(111, 141, 158));
+		btnOrdenatu_1.setBounds(372, 416, 98, 74);
+		pnlHistoriala.add(btnOrdenatu_1);
 	}
 
 	/**
@@ -579,6 +599,28 @@ public class BanatzaileaUI extends JFrame {
 	 */
 	private void lortuBanatzaileak() {
 		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileak();
+		DefaultListModel<String> model = new DefaultListModel<>();
+
+		for (String banatzailea : banatzaileakList) {
+			model.addElement(banatzailea);
+		}
+
+		listBanatzailea.setModel(model);
+	}
+	
+	private void lortuBanatzaileakordenatutaizenez() {
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaizen();
+		DefaultListModel<String> model = new DefaultListModel<>();
+
+		for (String banatzailea : banatzaileakList) {
+			model.addElement(banatzailea);
+		}
+
+		listBanatzailea.setModel(model);
+	}
+	
+	private void lortuBanatzaileakordenatutaID() {
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaid();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {

@@ -130,6 +130,69 @@ public class DatuBasea {
 			return banatzaileak;
 		}
 	}
+	
+	public static ArrayList<String> lortuBanatzaileakordenatutaizen() {
+		ArrayList<String> banatzaileak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = getConnection();
+
+				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by Izena";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String izena = rs.getString("Izena");
+					String abizena = rs.getString("Abizena");
+					String idString = rs.getString("idErabiltzailea");
+					banatzaileak.add(izena + " " + abizena + " " + idString);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return banatzaileak;
+		}
+	}
+	public static ArrayList<String> lortuBanatzaileakordenatutaid() {
+		ArrayList<String> banatzaileak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = getConnection();
+
+				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by idErabiltzailea";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String izena = rs.getString("Izena");
+					String abizena = rs.getString("Abizena");
+					String idString = rs.getString("idErabiltzailea");
+					banatzaileak.add(izena + " " + abizena + " " + idString);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return banatzaileak;
+		}
+	}
 
 	/**
 	 * Banatzaileak zerrendan gortzekeko metodoa.Datu guztiekin

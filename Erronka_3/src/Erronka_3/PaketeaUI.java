@@ -10,6 +10,7 @@ import java.awt.Panel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -45,7 +46,7 @@ public class PaketeaUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/** content pane. */
-	private JPanel contentPane;
+	private JPanel pnlGuztia;
 
 	/** Telefonoa textfield. */
 	private JTextField TelefonoatextField;
@@ -81,16 +82,16 @@ public class PaketeaUI extends JFrame {
 		setTitle("Paketeen informazioa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlGuztia = new JPanel();
+		pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlGuztia);
+		pnlGuztia.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
-		panel.setLayout(null);
-		panel.setBounds(0, 0, 984, 60);
+		JPanel pnlMenu = new JPanel();
+		pnlMenu.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
+		pnlMenu.setLayout(null);
+		pnlMenu.setBounds(0, 0, 984, 60);
 
 		/*
 		 * Erabiltzailearen izena erakutsiko duen label-a
@@ -130,10 +131,10 @@ public class PaketeaUI extends JFrame {
 			}
 		});
 
-		JPanel ZerrendaPanela = new JPanel();
-		ZerrendaPanela.setBounds(0, 60, 492, 651);
+		JPanel pnlZerrendaPanela = new JPanel();
+		pnlZerrendaPanela.setBounds(0, 60, 492, 651);
 
-		ZerrendaPanela.setLayout(null);
+		pnlZerrendaPanela.setLayout(null);
 
 		/*
 		 * paketeen zerrenda label
@@ -144,13 +145,16 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
+		
+		JScrollPane spPaketeZerrenda = new JScrollPane();
+		spPaketeZerrenda.setBounds(0, 49, 362, 603);
 		PaketeZerrenda = new JList<>();
-
+		spPaketeZerrenda.setViewportView(PaketeZerrenda);
+		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		lortupaketeak();
 
 		konexioa.lortuPaketeak();
-		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		PaketeZerrenda.setBounds(0, 61, 362, 590);
 		/*
 		 * Paketea sortzeko botoia, frame-a irekitzen du
 		 */
@@ -201,9 +205,9 @@ public class PaketeaUI extends JFrame {
 			}
 		});
 
-		JPanel panel_Paketeak = new JPanel();
-		panel_Paketeak.setBounds(492, 60, 492, 651);
-		panel_Paketeak.setLayout(null);
+		JPanel pnlPaketeaHistoriala = new JPanel();
+		pnlPaketeaHistoriala.setBounds(492, 60, 492, 651);
+		pnlPaketeaHistoriala.setLayout(null);
 
 		/*
 		 * Sortutako paketeen labela
@@ -214,7 +218,10 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Sortutako paketeen zerrenda
 		 */
+		JScrollPane spPaketeHistoriala = new JScrollPane();
+		spPaketeHistoriala.setBounds(0, 61, 362, 603);
 		PaketeHistoriala = new JList<>();
+		spPaketeHistoriala.setViewportView(PaketeHistoriala);
 		lortupaketeakhistori();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
@@ -235,23 +242,23 @@ public class PaketeaUI extends JFrame {
 			}
 		});
 
-		contentPane.add(panel);
-		contentPane.add(ZerrendaPanela);
-		contentPane.add(panel_Paketeak);
+		pnlGuztia.add(pnlMenu);
+		pnlGuztia.add(pnlZerrendaPanela);
+		pnlGuztia.add(pnlPaketeaHistoriala);
 
-		panel.add(lblErabiltzailea);
-		panel.add(btnBanatzailea);
-		panel.add(btnPaketeaEsleitu);
+		pnlMenu.add(lblErabiltzailea);
+		pnlMenu.add(btnBanatzailea);
+		pnlMenu.add(btnPaketeaEsleitu);
 
-		ZerrendaPanela.add(lblPaketeZerenda);
-		ZerrendaPanela.add(SortuPaketeaButton);
-		ZerrendaPanela.add(EzabatuPaketeaButton);
-		ZerrendaPanela.add(EditatupaketeaButtonButton);
-		ZerrendaPanela.add(PaketeZerrenda);
+		pnlZerrendaPanela.add(lblPaketeZerenda);
+		pnlZerrendaPanela.add(SortuPaketeaButton);
+		pnlZerrendaPanela.add(EzabatuPaketeaButton);
+		pnlZerrendaPanela.add(EditatupaketeaButtonButton);
+		pnlZerrendaPanela.add(spPaketeZerrenda);
 
-		panel_Paketeak.add(lblPaketeHistoriala);
-		panel_Paketeak.add(FiltratuButton);
-		panel_Paketeak.add(PaketeHistoriala);
+		pnlPaketeaHistoriala.add(lblPaketeHistoriala);
+		pnlPaketeaHistoriala.add(FiltratuButton);
+		pnlPaketeaHistoriala.add(spPaketeHistoriala);
 
 	}
 
@@ -266,11 +273,11 @@ public class PaketeaUI extends JFrame {
 		public PaketeaSortu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 			/*
 			 * Bezeroaren telefono zenbakia label
 			 */
@@ -328,14 +335,14 @@ public class PaketeaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(TelefonoaLabel);
-			contentPane.add(HelbideaLabel);
-			contentPane.add(TamainaLabel);
-			contentPane.add(comboBox);
-			contentPane.add(SortuButton);
+			pnlGuztia.add(TelefonoaLabel);
+			pnlGuztia.add(HelbideaLabel);
+			pnlGuztia.add(TamainaLabel);
+			pnlGuztia.add(comboBox);
+			pnlGuztia.add(SortuButton);
 
-			contentPane.add(TelefonoatextField);
-			contentPane.add(HelbideatextField);
+			pnlGuztia.add(TelefonoatextField);
+			pnlGuztia.add(HelbideatextField);
 
 		}
 	}
@@ -351,11 +358,11 @@ public class PaketeaUI extends JFrame {
 		public PaketeaEditatu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 			/*
 			 * Bezeroaren telefonoa label
 			 */
@@ -394,14 +401,14 @@ public class PaketeaUI extends JFrame {
 			TamainacomboBox.setFont(new Font("Arial", Font.BOLD, 15));
 			TamainacomboBox.setModel(new DefaultComboBoxModel(new String[] { "Txikia", "Ertaina" }));
 			TamainacomboBox.setBounds(28, 171, 121, 27);
-			contentPane.add(TamainacomboBox);
+			pnlGuztia.add(TamainacomboBox);
 			/*
 			 * Paketearen mota label
 			 */
 			JLabel MotaLabel = new JLabel("Mota:");
 			MotaLabel.setFont(new Font("Arial Black", Font.BOLD, 15));
 			MotaLabel.setBounds(28, 209, 86, 14);
-			contentPane.add(MotaLabel);
+			pnlGuztia.add(MotaLabel);
 			/*
 			 * Paketearen egoera aldatzeko combobox-a
 			 */
@@ -434,14 +441,14 @@ public class PaketeaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(TelefonoaLabel);
-			contentPane.add(HelbideaLabel);
-			contentPane.add(TamainaLabel);
-			contentPane.add(MotacomboBox_1);
-			contentPane.add(EditatuButton);
+			pnlGuztia.add(TelefonoaLabel);
+			pnlGuztia.add(HelbideaLabel);
+			pnlGuztia.add(TamainaLabel);
+			pnlGuztia.add(MotacomboBox_1);
+			pnlGuztia.add(EditatuButton);
 
-			contentPane.add(TelefonoatextField);
-			contentPane.add(HelbideatextField);
+			pnlGuztia.add(TelefonoatextField);
+			pnlGuztia.add(HelbideatextField);
 
 		}
 	}
@@ -457,11 +464,11 @@ public class PaketeaUI extends JFrame {
 		public PaketeakFiltratu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 355, 439);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 			/*
 			 * paketearen tamaina label
 			 */
@@ -493,9 +500,9 @@ public class PaketeaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(MotaLabel);
-			contentPane.add(comboBox);
-			contentPane.add(FiltratuButton);
+			pnlGuztia.add(MotaLabel);
+			pnlGuztia.add(comboBox);
+			pnlGuztia.add(FiltratuButton);
 		}
 	}
 

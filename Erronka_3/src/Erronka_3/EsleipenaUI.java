@@ -29,7 +29,7 @@ public class EsleipenaUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/** content pane. */
-	private JPanel contentPane;
+	private JPanel pnlGuztia;
 
 	/** Izen abizena. */
 	String IzenAbizena = DatuBasea.erabIzena;
@@ -66,15 +66,16 @@ public class EsleipenaUI extends JFrame {
 	public EsleipenaUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlGuztia = new JPanel();
+		pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlGuztia);
+		pnlGuztia.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(0, 0, 984, 60);
+		JPanel pnlMenu = new JPanel();
+		pnlMenu.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
+		pnlMenu.setLayout(null);
+		pnlMenu.setBounds(0, 0, 984, 60);
 		
 
 		/*
@@ -118,9 +119,9 @@ public class EsleipenaUI extends JFrame {
 		});
 		
 
-		JPanel PaketeakEsleitu = new JPanel();
-		PaketeakEsleitu.setBounds(0, 60, 984, 651);
-		PaketeakEsleitu.setLayout(null);
+		JPanel pnlPaketeakEsleitu = new JPanel();
+		pnlPaketeakEsleitu.setBounds(0, 60, 984, 651);
+		pnlPaketeakEsleitu.setLayout(null);
 
 		/*
 		 * Banatzaile guztiake rakutsiko dituen ComboBox-a
@@ -234,20 +235,20 @@ public class EsleipenaUI extends JFrame {
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 		
 		
-		contentPane.add(panel);
-		contentPane.add(PaketeakEsleitu);
+		pnlGuztia.add(pnlMenu);
+		pnlGuztia.add(pnlPaketeakEsleitu);
 		
-		panel.add(lblErabiltzailea);
-		panel.add(btnBanatzailea);
-		panel.add(btnPaketea);
+		pnlMenu.add(lblErabiltzailea);
+		pnlMenu.add(btnBanatzailea);
+		pnlMenu.add(btnPaketea);
 		
-		PaketeakEsleitu.add(Banatzaileak);
-		PaketeakEsleitu.add(btnGehitu);
-		PaketeakEsleitu.add(btnKendu);
-		PaketeakEsleitu.add(lblPaketeGuztiak);
-		PaketeakEsleitu.add(lblBanaPaketeak);
-		PaketeakEsleitu.add(PaketeGuztiak);
-		PaketeakEsleitu.add(BanatzailearenPaketeak);
+		pnlPaketeakEsleitu.add(Banatzaileak);
+		pnlPaketeakEsleitu.add(btnGehitu);
+		pnlPaketeakEsleitu.add(btnKendu);
+		pnlPaketeakEsleitu.add(lblPaketeGuztiak);
+		pnlPaketeakEsleitu.add(lblBanaPaketeak);
+		pnlPaketeakEsleitu.add(PaketeGuztiak);
+		pnlPaketeakEsleitu.add(BanatzailearenPaketeak);
 		
 	}
 

@@ -40,7 +40,7 @@ public class BanatzaileaUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/** Content pane. */
-	private JPanel contentPane;
+	private JPanel pnlGuztia;
 
 	/** Izena textfield. */
 	private JTextField Izena;
@@ -58,7 +58,7 @@ public class BanatzaileaUI extends JFrame {
 	private String IzenAbizena = DatuBasea.erabIzena;
 
 	/** Banatzaileen Zerrenda. */
-	private JList<String> Banatzaileak;
+	private JList<String> listBanatzailea;
 
 	/** Banatzaile historiala Bakoitzaren paketeak. */
 	private JList<String> BanatzaileHistoriala;
@@ -93,15 +93,16 @@ public class BanatzaileaUI extends JFrame {
 	public BanatzaileaUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlGuztia = new JPanel();
+		pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlGuztia);
+		pnlGuztia.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 984, 60);
-		panel.setLayout(null);
+		JPanel pnlMenu = new JPanel();
+		pnlMenu.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
+		pnlMenu.setBounds(0, 0, 984, 60);
+		pnlMenu.setLayout(null);
 
 		/*
 		 * Erabiltzaile izenaren label-a
@@ -147,9 +148,9 @@ public class BanatzaileaUI extends JFrame {
 		 * Banatzaileak erakutsiko diren panel-a
 		 */
 
-		JPanel banatzaileakPanel = new JPanel();
-		banatzaileakPanel.setBounds(0, 59, 492, 652);
-		banatzaileakPanel.setLayout(null);
+		JPanel pnlBanatzailea = new JPanel();
+		pnlBanatzailea.setBounds(0, 59, 492, 652);
+		pnlBanatzailea.setLayout(null);
 
 		JLabel lblBanatzailea = new JLabel("Banatzaileak");
 		lblBanatzailea.setBounds(10, 11, 352, 38);
@@ -200,18 +201,20 @@ public class BanatzaileaUI extends JFrame {
 			}
 		});
 
-		JScrollPane BanatzaileakScrollPane = new JScrollPane();
-		BanatzaileakScrollPane.setBounds(0, 49, 362, 603);
+		JScrollPane spBanatzailea = new JScrollPane();
+		spBanatzailea.setBounds(0, 49, 362, 603);
 
 		/*
 		 * Aukeratutako banatzailearen historiala erakusten du
 		 */
-		Banatzaileak = new JList<>();
-		Banatzaileak.setFixedCellHeight(20);
-		Banatzaileak.addListSelectionListener(new ListSelectionListener() {
+		listBanatzailea = new JList<>();
+		listBanatzailea.setFixedCellHeight(20);
+		spBanatzailea.setViewportView(listBanatzailea);
+		listBanatzailea.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+		listBanatzailea.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
-					String aukeratutakoa = Banatzaileak.getSelectedValue();
+					String aukeratutakoa = listBanatzailea.getSelectedValue();
 					if (aukeratutakoa != null) {
 						parts = aukeratutakoa.split(" ");
 					}
@@ -221,16 +224,14 @@ public class BanatzaileaUI extends JFrame {
 				}
 			}
 		});
-		BanatzaileakScrollPane.setViewportView(Banatzaileak);
-		Banatzaileak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		lortuBanatzaileak();
 
 		/*
 		 * Sortutako banatzaileak erakutsiko diren panela
 		 */
-		JPanel historiala = new JPanel();
-		historiala.setBounds(491, 59, 493, 652);
-		historiala.setLayout(null);
+		JPanel pnlHistoriala = new JPanel();
+		pnlHistoriala.setBounds(491, 59, 493, 652);
+		pnlHistoriala.setLayout(null);
 
 		JLabel lblHistoriala = new JLabel("Autatutako banatzailearen historiala");
 		lblHistoriala.setFont(new Font("Arial Black", Font.BOLD, 15));
@@ -259,33 +260,33 @@ public class BanatzaileaUI extends JFrame {
 		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnOrdenatu.setBounds(373, 405, 110, 40);
 
-		JScrollPane BanatzaileakHistorialaScrollPane = new JScrollPane();
-		BanatzaileakHistorialaScrollPane.setBounds(0, 49, 362, 603);
-		historiala.add(BanatzaileakHistorialaScrollPane);
+		JScrollPane spBanatzaileakHistoriala = new JScrollPane();
+		spBanatzaileakHistoriala.setBounds(0, 49, 362, 603);
+		pnlHistoriala.add(spBanatzaileakHistoriala);
 
 		BanatzaileHistoriala = new JList<>();
 		BanatzaileHistoriala.setFixedCellHeight(20);
-		BanatzaileakHistorialaScrollPane.setViewportView(BanatzaileHistoriala);
+		spBanatzaileakHistoriala.setViewportView(BanatzaileHistoriala);
 		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 
-		contentPane.add(panel);
-		contentPane.add(banatzaileakPanel);
-		contentPane.add(historiala);
+		pnlGuztia.add(pnlMenu);
+		pnlGuztia.add(pnlBanatzailea);
+		pnlGuztia.add(pnlHistoriala);
 
-		panel.add(lblErabiltzailea);
-		panel.add(btnPaketea);
-		panel.add(btnPaketeaEsleitu);
+		pnlMenu.add(lblErabiltzailea);
+		pnlMenu.add(btnPaketea);
+		pnlMenu.add(btnPaketeaEsleitu);
 
-		banatzaileakPanel.add(lblBanatzailea);
-		banatzaileakPanel.add(btnGehitu);
-		banatzaileakPanel.add(btnKendu);
-		banatzaileakPanel.add(btnEditatu);
-		banatzaileakPanel.add(BanatzaileakScrollPane);
+		pnlBanatzailea.add(lblBanatzailea);
+		pnlBanatzailea.add(btnGehitu);
+		pnlBanatzailea.add(btnKendu);
+		pnlBanatzailea.add(btnEditatu);
+		pnlBanatzailea.add(spBanatzailea);
 
-		historiala.add(lblHistoriala);
-		historiala.add(btnFiltratu);
-		historiala.add(btnOrdenatu);
-		historiala.add(BanatzaileakHistorialaScrollPane);
+		pnlHistoriala.add(lblHistoriala);
+		pnlHistoriala.add(btnFiltratu);
+		pnlHistoriala.add(btnOrdenatu);
+		pnlHistoriala.add(spBanatzaileakHistoriala);
 	}
 
 	/**
@@ -299,11 +300,11 @@ public class BanatzaileaUI extends JFrame {
 		public BanatzaileaGehitu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 399, 500);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 
 			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
 			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
@@ -314,9 +315,9 @@ public class BanatzaileaUI extends JFrame {
 			 * Banatzailearen izena zehazteko label-a
 			 */
 
-			JLabel lblizena = new JLabel("Izena:");
-			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
-			lblizena.setBounds(30, 51, 200, 29);
+			JLabel lblIzena = new JLabel("Izena:");
+			lblIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblIzena.setBounds(30, 51, 200, 29);
 			/*
 			 * Idatziko den izena textfield-ean joango da
 			 */
@@ -369,15 +370,15 @@ public class BanatzaileaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(lblTitulua);
-			contentPane.add(lblizena);
-			contentPane.add(lblAbizena);
-			contentPane.add(lblPasahitza);
-			contentPane.add(btnGehitu);
+			pnlGuztia.add(lblTitulua);
+			pnlGuztia.add(lblIzena);
+			pnlGuztia.add(lblAbizena);
+			pnlGuztia.add(lblPasahitza);
+			pnlGuztia.add(btnGehitu);
 
-			contentPane.add(Izena);
-			contentPane.add(Abizena);
-			contentPane.add(PasahitzaField);
+			pnlGuztia.add(Izena);
+			pnlGuztia.add(Abizena);
+			pnlGuztia.add(PasahitzaField);
 		}
 	}
 
@@ -392,11 +393,11 @@ public class BanatzaileaUI extends JFrame {
 		public BanatzaileaKendu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 362, 458);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 
 			JLabel ErabIzenaLabel = new JLabel("Erabiltzailea");
 			ErabIzenaLabel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -432,9 +433,9 @@ public class BanatzaileaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(ErabIzenaLabel);
-			contentPane.add(comboBox);
-			contentPane.add(EzabatuButton);
+			pnlGuztia.add(ErabIzenaLabel);
+			pnlGuztia.add(comboBox);
+			pnlGuztia.add(EzabatuButton);
 		}
 	}
 
@@ -449,11 +450,11 @@ public class BanatzaileaUI extends JFrame {
 		public BanatzaileaEditatu() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 399, 500);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			pnlGuztia = new JPanel();
+			pnlGuztia.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			setContentPane(contentPane);
-			contentPane.setLayout(null);
+			setContentPane(pnlGuztia);
+			pnlGuztia.setLayout(null);
 
 			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
 			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
@@ -464,9 +465,9 @@ public class BanatzaileaUI extends JFrame {
 			 * Banatzailearen izena editatzeko label-a
 			 */
 
-			JLabel lblizena = new JLabel("Izena:");
-			lblizena.setFont(new Font("Arial Black", Font.BOLD, 15));
-			lblizena.setBounds(30, 51, 200, 29);
+			JLabel lblIzena = new JLabel("Izena:");
+			lblIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
+			lblIzena.setBounds(30, 51, 200, 29);
 
 			/*
 			 * Izen berria sartzeko textfield-a
@@ -522,7 +523,7 @@ public class BanatzaileaUI extends JFrame {
 			 */
 			JButton btnEditatu = new JButton("Editatu");
 			btnEditatu.setBounds(250, 400, 89, 29);
-			contentPane.add(btnEditatu);
+			pnlGuztia.add(btnEditatu);
 			btnEditatu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String izenaString = Izena.getText();
@@ -530,7 +531,7 @@ public class BanatzaileaUI extends JFrame {
 					String pasahitza = PasahitzaField.getText();
 					String erabizenaString = ErabiltzaileIzena.getText();
 
-					String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedValue();
+					String aukeratutakoerabiltzailea = (String) listBanatzailea.getSelectedValue();
 					String[] parts = aukeratutakoerabiltzailea.split(" ");
 					String id = parts[parts.length - 1];
 					konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
@@ -539,16 +540,16 @@ public class BanatzaileaUI extends JFrame {
 				}
 			});
 
-			contentPane.add(lblTitulua);
-			contentPane.add(lblizena);
-			contentPane.add(lblAbizena);
-			contentPane.add(lblErabiltzaileIzena);
-			contentPane.add(lblPasahitza);
+			pnlGuztia.add(lblTitulua);
+			pnlGuztia.add(lblIzena);
+			pnlGuztia.add(lblAbizena);
+			pnlGuztia.add(lblErabiltzaileIzena);
+			pnlGuztia.add(lblPasahitza);
 
-			contentPane.add(Izena);
-			contentPane.add(Abizena);
-			contentPane.add(ErabiltzaileIzena);
-			contentPane.add(PasahitzaField);
+			pnlGuztia.add(Izena);
+			pnlGuztia.add(Abizena);
+			pnlGuztia.add(ErabiltzaileIzena);
+			pnlGuztia.add(PasahitzaField);
 		}
 	}
 
@@ -566,7 +567,7 @@ public class BanatzaileaUI extends JFrame {
 			model.addElement(banatzailea);
 		}
 
-		Banatzaileak.setModel(model);
+		listBanatzailea.setModel(model);
 		return banatzaileakList;
 	}
 
@@ -584,7 +585,7 @@ public class BanatzaileaUI extends JFrame {
 			model.addElement(banatzailea);
 		}
 
-		Banatzaileak.setModel(model);
+		listBanatzailea.setModel(model);
 	}
 	/*
 	 * Banatzaileen historiala lortzeko metodoa

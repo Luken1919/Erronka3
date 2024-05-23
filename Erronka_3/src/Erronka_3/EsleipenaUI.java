@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -40,7 +41,7 @@ public class EsleipenaUI extends JFrame {
 
 	/** Banatzailearen paketeak. */
 	JList<String> BanatzailearenPaketeak = new JList<>();
-	
+
 	DatuBasea konexioa = new DatuBasea();
 
 	/**
@@ -77,7 +78,6 @@ public class EsleipenaUI extends JFrame {
 		pnlMenu.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(253, 194, 116)));
 		pnlMenu.setLayout(null);
 		pnlMenu.setBounds(0, 0, 984, 60);
-		
 
 		/*
 		 * Erabiltzailearen izena erakusteko label-a
@@ -85,7 +85,6 @@ public class EsleipenaUI extends JFrame {
 		JLabel lblErabiltzailea = new JLabel("Erabiltzailea: " + IzenAbizena);
 		lblErabiltzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblErabiltzailea.setBounds(10, 11, 316, 38);
-		
 
 		/*
 		 * Paketeak frame-era joateko botoia
@@ -118,7 +117,6 @@ public class EsleipenaUI extends JFrame {
 				dispose();
 			}
 		});
-		
 
 		JPanel pnlPaketeakEsleitu = new JPanel();
 		pnlPaketeakEsleitu.setBounds(0, 60, 984, 651);
@@ -144,7 +142,6 @@ public class EsleipenaUI extends JFrame {
 		for (String item : aukeratuBanatzaileak) {
 			Banatzaileak.addItem(item);
 		}
-		
 
 		/*
 		 * Sortutako pakete guztiak erakutsiko diren zerrenda
@@ -156,7 +153,6 @@ public class EsleipenaUI extends JFrame {
 		PaketeGuztiak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeGuztiak.setBounds(100, 100, 300, 450);
 		lortuPaketeGuztiak();
-		
 
 		/*
 		 * Banatzaileari ezarritako paketeak ikusiko diren zerrenda
@@ -167,7 +163,6 @@ public class EsleipenaUI extends JFrame {
 		spBanatzaielarenPaketak.setViewportView(BanatzailearenPaketeak);
 		BanatzailearenPaketeak.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		BanatzailearenPaketeak.setBounds(622, 100, 300, 450);
-		
 
 		/*
 		 * Pakete guztietatik banatzailearen paketera, aukeratutako paketea gehitzeko
@@ -182,20 +177,23 @@ public class EsleipenaUI extends JFrame {
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-
 				String aukeratutakopaketea = (String) PaketeGuztiak.getSelectedValue();
-				String[] parts = aukeratutakopaketea.split(" ");
-				String id = parts[0];
-				String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
-				String[] parts2 = aukeratutakoerabiltzailea.split(" ");
-				String id2 = parts2[parts2.length - 1];
-				konexioa.paketeakEsleituGehitu(id2, id);
-				lortuPaketeGuztiak();
-				lortuBanatzaiearenPaketeak(id2);
+				if (aukeratutakopaketea == null) {
+					JOptionPane.showMessageDialog(null, "Aukeratu paketea");
+				} else {
+					String[] parts = aukeratutakopaketea.split(" ");
+					String id = parts[0];
+					String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
+					String[] parts2 = aukeratutakoerabiltzailea.split(" ");
+					String id2 = parts2[parts2.length - 1];
+					konexioa.paketeakEsleituGehitu(id2, id);
+					lortuPaketeGuztiak();
+					lortuBanatzaiearenPaketeak(id2);
+				}
 
 			}
 		});
-		
+
 		/*
 		 * Banatzailearen paketeetatik pakete gutietara, aukeratutako paketea kentzeko
 		 * botoia
@@ -209,16 +207,22 @@ public class EsleipenaUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String aukeratutakopaketea = (String) BanatzailearenPaketeak.getSelectedValue();
-				String[] parts = aukeratutakopaketea.split(" ");
-				String id = parts[0];
+				if (aukeratutakopaketea == null) {
+					JOptionPane.showMessageDialog(null, "Paketea aukeratu");
+				}
 
-				konexioa.paketeakEsleituKendu(id);
+				else {
+					String[] parts = aukeratutakopaketea.split(" ");
+					String id = parts[0];
 
-				lortuPaketeGuztiak();
-				String aukeratutakoerabiltzailea2 = (String) Banatzaileak.getSelectedItem();
-				String[] parts2 = aukeratutakoerabiltzailea2.split(" ");
-				String id2 = parts2[parts2.length - 1];
-				lortuBanatzaiearenPaketeak(id2);
+					konexioa.paketeakEsleituKendu(id);
+
+					lortuPaketeGuztiak();
+					String aukeratutakoerabiltzailea2 = (String) Banatzaileak.getSelectedItem();
+					String[] parts2 = aukeratutakoerabiltzailea2.split(" ");
+					String id2 = parts2[parts2.length - 1];
+					lortuBanatzaiearenPaketeak(id2);
+				}
 
 			}
 		});
@@ -229,7 +233,6 @@ public class EsleipenaUI extends JFrame {
 		JLabel lblPaketeGuztiak = new JLabel("Pakete guztiak");
 		lblPaketeGuztiak.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblPaketeGuztiak.setBounds(100, 59, 150, 30);
-		
 
 		/*
 		 * Banatzaileen paketeen labela
@@ -237,15 +240,14 @@ public class EsleipenaUI extends JFrame {
 		JLabel lblBanaPaketeak = new JLabel("Banatzailearen Paketeak");
 		lblBanaPaketeak.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
-		
-		
+
 		pnlGuztia.add(pnlMenu);
 		pnlGuztia.add(pnlPaketeakEsleitu);
-		
+
 		pnlMenu.add(lblErabiltzailea);
 		pnlMenu.add(btnBanatzailea);
 		pnlMenu.add(btnPaketea);
-		
+
 		pnlPaketeakEsleitu.add(Banatzaileak);
 		pnlPaketeakEsleitu.add(btnGehitu);
 		pnlPaketeakEsleitu.add(btnKendu);
@@ -253,7 +255,7 @@ public class EsleipenaUI extends JFrame {
 		pnlPaketeakEsleitu.add(lblBanaPaketeak);
 		pnlPaketeakEsleitu.add(spPaketeZerrenda);
 		pnlPaketeakEsleitu.add(spBanatzaielarenPaketak);
-		
+
 	}
 
 	/**
@@ -276,7 +278,6 @@ public class EsleipenaUI extends JFrame {
 	 * @param id , banatzailearen id-a
 	 */
 	private void lortuBanatzaiearenPaketeak(String id) {
-		
 
 		ArrayList<String> banatzailearenPaketeak = konexioa.paketeakEsleituBanatzailearenPaketakLortu(id);
 		DefaultListModel<String> model = new DefaultListModel<>();

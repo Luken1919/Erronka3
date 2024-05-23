@@ -17,6 +17,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -218,6 +220,9 @@ public class BanatzaileaUI extends JFrame {
 					if (aukeratutakoa != null) {
 						parts = aukeratutakoa.split(" ");
 					}
+					if (aukeratutakoa == null) {
+
+					}
 
 					String id = parts[parts.length - 1];
 					lortuBanatzaileakhist(id);
@@ -243,12 +248,9 @@ public class BanatzaileaUI extends JFrame {
 		JButton btnOrdenatu = new JButton("Ordenatu\r\n ");
 		btnOrdenatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				lortuBanatzaileakordenatutaizenez();
-				
-				
-				
+
 			}
 		});
 		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -282,23 +284,23 @@ public class BanatzaileaUI extends JFrame {
 		pnlHistoriala.add(lblHistoriala);
 		pnlHistoriala.add(btnOrdenatu);
 		pnlHistoriala.add(spBanatzaileakHistoriala);
-		
+
 		JLabel lblNewLabel = new JLabel("Izen Bidez");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(372, 248, 98, 38);
 		pnlHistoriala.add(lblNewLabel);
-		
+
 		JLabel lblIdBidez = new JLabel("ID Bidez");
 		lblIdBidez.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIdBidez.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblIdBidez.setBounds(372, 367, 98, 38);
 		pnlHistoriala.add(lblIdBidez);
-		
+
 		JButton btnOrdenatu_1 = new JButton("Ordenatu\r\n ");
 		btnOrdenatu_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				lortuBanatzaileakordenatutaID();
 			}
 		});
@@ -552,11 +554,17 @@ public class BanatzaileaUI extends JFrame {
 					String erabizenaString = ErabiltzaileIzena.getText();
 
 					String aukeratutakoerabiltzailea = (String) listBanatzailea.getSelectedValue();
-					String[] parts = aukeratutakoerabiltzailea.split(" ");
-					String id = parts[parts.length - 1];
-					konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
-					dispose();
-					lortuBanatzaileakzerrenda();
+					if (aukeratutakoerabiltzailea == null) {
+						JOptionPane.showMessageDialog(null, "Aukeratu erabiltzaile bat");
+					} 
+					else {
+						String[] parts = aukeratutakoerabiltzailea.split(" ");
+						String id = parts[parts.length - 1];
+						konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
+						dispose();
+						lortuBanatzaileakzerrenda();
+					}
+					
 				}
 			});
 
@@ -607,7 +615,7 @@ public class BanatzaileaUI extends JFrame {
 
 		listBanatzailea.setModel(model);
 	}
-	
+
 	private void lortuBanatzaileakordenatutaizenez() {
 		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaizen();
 		DefaultListModel<String> model = new DefaultListModel<>();
@@ -618,7 +626,7 @@ public class BanatzaileaUI extends JFrame {
 
 		listBanatzailea.setModel(model);
 	}
-	
+
 	private void lortuBanatzaileakordenatutaID() {
 		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaid();
 		DefaultListModel<String> model = new DefaultListModel<>();

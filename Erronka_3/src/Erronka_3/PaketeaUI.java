@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -181,6 +182,9 @@ public class PaketeaUI extends JFrame {
 		EzabatuPaketeaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String aukeratutakoPaketea = (String) PaketeZerrenda.getSelectedValue();
+				if (aukeratutakoPaketea == null) {
+					JOptionPane.showMessageDialog(null, "Aukeratu pakete bat ezabatzeko");
+				}
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
 				konexioa.ezabatuPaketa(id);

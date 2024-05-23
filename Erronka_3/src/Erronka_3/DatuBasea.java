@@ -403,7 +403,7 @@ public class DatuBasea {
 			try {
 				conn = getConnection();
 
-				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1";
+				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1 AND idPaketea <> 1";
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
 

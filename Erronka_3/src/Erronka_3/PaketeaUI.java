@@ -495,9 +495,10 @@ public class PaketeaUI extends JFrame {
 			FiltratuButton.setBounds(240, 366, 89, 23);
 			FiltratuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setVisible(false);
-					PaketeaUI bueltatu = new PaketeaUI();
-					bueltatu.setVisible(rootPaneCheckingEnabled);
+					
+				dispose();
+				String tamainaString =	(String) comboBox.getSelectedItem();
+//				lortupaketeakfiltratuta(tamainaString);
 
 				}
 			});
@@ -510,6 +511,17 @@ public class PaketeaUI extends JFrame {
 
 	public void lortupaketeak() {
 		ArrayList<String> paketeaklist = konexioa.lortuPaketeak();
+		DefaultListModel<String> model = new DefaultListModel<>();
+
+		for (String paketea : paketeaklist) {
+			model.addElement(paketea);
+		}
+
+		PaketeZerrenda.setModel(model);
+	}
+	
+	public void lortupaketeakfiltratuta(String tamaina) {
+		ArrayList<String> paketeaklist = konexioa.lortuPaketeakfiltratuta(tamaina);
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String paketea : paketeaklist) {

@@ -178,13 +178,13 @@ public class EsleipenaUI extends JFrame {
 				String[] parts = aukeratutakopaketea.split(" ");
 				String id = parts[0];
 				String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
-				String[] parts2 = aukeratutakopaketea.split(" ");
-				String iderab = parts[0];
-				System.out.println("Aukeratutakoaa: " + iderab);
+				String[] parts2 = aukeratutakoerabiltzailea.split(" ");
+				String id2 = parts2[parts2.length - 1];
+				System.out.println("Aukeratutakoaa: " + id2);
 				System.out.println("Aukeratutakoa: " + id);
-				konexioaBasea.paketeakEsleituGehitu(iderab, id);
+				konexioaBasea.paketeakEsleituGehitu(id2, id);
 				lortupaketeakguztiak();
-				lortuBanatzaileakhist(iderab);
+				lortuBanatzaileakhist(id2);
 
 			}
 		});

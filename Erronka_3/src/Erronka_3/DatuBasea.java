@@ -423,6 +423,36 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
+	public ArrayList<String> lortuPaketeakfiltratuta(String tamaina) {
+		ArrayList<String> paketeak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = getConnection();
+
+				String sql = "SELECT * FROM paketea WHERE Pakete_Tamaina = '" + tamaina + "'";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String idpakete = rs.getString("idPaketea");
+					String helbideapekete = rs.getString("Helbidea");
+					paketeak.add(idpakete + " " + helbideapekete);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return paketeak;
+		}
+	}
 
 	/**
 	 * Paketeak esleitu banatzailearen paketak lortu.

@@ -498,7 +498,7 @@ public class PaketeaUI extends JFrame {
 					
 				dispose();
 				String tamainaString =	(String) comboBox.getSelectedItem();
-//				lortupaketeakfiltratuta(tamainaString);
+			lortupaketeakfiltratuta(tamainaString);
 
 				}
 			});

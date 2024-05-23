@@ -220,22 +220,13 @@ public class PaketeaUI extends JFrame {
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 
 		/*
-		 * Paketeak ordenatzeko botoia
-		 */
-		JButton OrdenatuButton = new JButton("Ordenatu");
-		OrdenatuButton.setBackground(new Color(111, 141, 158));
-		OrdenatuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		OrdenatuButton.setFont(new Font("Arial", Font.BOLD, 15));
-		OrdenatuButton.setBounds(372, 399, 110, 40);
-
-		/*
 		 * Paketeak filtratzeko botoia, frame-a irekitzen du
 		 */
 		JButton FiltratuButton = new JButton("Filtratu");
 		FiltratuButton.setBackground(new Color(111, 141, 158));
 		FiltratuButton.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		FiltratuButton.setFont(new Font("Arial", Font.BOLD, 15));
-		FiltratuButton.setBounds(372, 218, 110, 40);
+		FiltratuButton.setBounds(372, 309, 110, 40);
 		FiltratuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaketeakFiltratu frameFiltratu = new PaketeakFiltratu();
@@ -259,7 +250,6 @@ public class PaketeaUI extends JFrame {
 		ZerrendaPanela.add(PaketeZerrenda);
 
 		panel_Paketeak.add(lblPaketeHistoriala);
-		panel_Paketeak.add(OrdenatuButton);
 		panel_Paketeak.add(FiltratuButton);
 		panel_Paketeak.add(PaketeHistoriala);
 

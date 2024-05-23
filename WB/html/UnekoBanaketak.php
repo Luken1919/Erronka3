@@ -44,7 +44,7 @@ if ($result_usuario->num_rows > 0) {
 $stmt_usuario->close();
 
 // Consulta SQL para obtener los paquetes entregados del usuario actual
-$sql_paquetes_entregados = "SELECT paketea.idPaketea, paketea.Bezero_zenbakia, paketea.Helbidea, paketea.Pakete_Tamaina 
+$sql_paquetes_entregados = "SELECT paketea.idPaketea, paketea.Bezero_zenbakia, paketea.Helbidea, paketea.Pakete_Tamaina, paketea.Mota, paketea.Erabiltzailea_idErabiltzailea
                             FROM paketea 
                             INNER JOIN erabiltzailea 
                             ON paketea.Erabiltzailea_idErabiltzailea = erabiltzailea.idErabiltzailea 
@@ -55,6 +55,43 @@ $stmt_paquetes_entregados = $conn->prepare($sql_paquetes_entregados);
 $stmt_paquetes_entregados->bind_param("s", $_SESSION['username']);
 $stmt_paquetes_entregados->execute();
 $result_paquetes_entregados = $stmt_paquetes_entregados->get_result();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) {
+    $idPaketea = $_POST['selected_package'];
+
+    // Obtener detalles del paquete seleccionado
+    $sql_paquete = "SELECT * FROM paketea WHERE idPaketea = ?";
+    $stmt_paquete = $conn->prepare($sql_paquete);
+    $stmt_paquete->bind_param("i", $idPaketea);
+    $stmt_paquete->execute();
+    $result_paquete = $stmt_paquete->get_result();
+
+    if ($result_paquete->num_rows > 0) {
+        $row_paquete = $result_paquete->fetch_assoc();
+
+        // Insertar en entregatuta
+        $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
+        VALUES (NULL, CURDATE(), CURTIME(), ?, ?, ?, ?)";
+        $stmt_insert = $conn->prepare($sql_insert);
+        $stmt_insert->bind_param("ssiii", $row_paquete['Helbidea'], $row_paquete['Pakete_Tamaina'], $row_paquete['idPaketea'], $row_paquete['Erabiltzailea_idErabiltzailea']);
+        $stmt_insert->execute();
+        $stmt_insert->close();
+
+        
+        // Eliminar de paketea
+        $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
+        $stmt_delete = $conn->prepare($sql_delete);
+        $stmt_delete->bind_param("i", $idPaketea);
+        $stmt_delete->execute();
+        $stmt_delete->close();
+
+        // Redirigir para evitar reenvío del formulario
+        header("Location: BanaketarenHistoria.php");
+        exit;
+    }
+
+    $stmt_paquete->close();
+}
 
 ?>
 
@@ -73,37 +110,44 @@ $result_paquetes_entregados = $stmt_paquetes_entregados->get_result();
             <a href="#" class="logo">
                 <img src="../irudiak/OIG4.png" alt="Logo">
             </a>
-            <h2 class="espazioa">Erabiltzailea: <?php echo $izena . ' ' . $abizena; ?></h2>
+            <h2 class="espazioa">Erabiltzailea: <?php echo htmlspecialchars($izena . ' ' . $abizena); ?></h2>
             <div class="spacer"></div>
             <a href="../html/Hasita.php" class="login-button ">Banaketak</a>
             <a href="#" class="login-button selected">Uneko Banaketak</a>
-            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketare Historiala</a>
+            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
+            <a href="../html/arazoak.php" class="login-button">Arazoak</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>
     <main id="hasitamain">
         <section class="section" id="section3">
             <div class="content">
-                <h1>Banaketak:</h1>
-                <table>
-                    <tr>
-                        <th>Paketea ID</th>
-                        <th>Bezero Zenbakia</th>
-                        <th>Helbidea</th>
-                        <th>Tamaina</th>
-                    </tr>
-                    <?php
-                    // Mostrar los paquetes entregados en una tabla
-                    while ($row_paquete = $result_paquetes_entregados->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row_paquete["idPaketea"] . "</td>";
-                        echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
-                        echo "<td>" . $row_paquete["Helbidea"] . "</td>";
-                        echo "<td>" . $row_paquete["Pakete_Tamaina"] . "</td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </table>
+                <h1>Uneko Banaketak:</h1>
+                <form method="post" action="">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Paketea ID</th>
+                            <th>Bezero Zenbakia</th>
+                            <th>Helbidea</th>
+                            <th>Tamaina</th>
+                        </tr>
+                        <?php
+                        // Mostrar los paquetes entregados en una tabla
+                        while ($row_paquete = $result_paquetes_entregados->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td><input type='radio' name='selected_package' value='" . htmlspecialchars($row_paquete["idPaketea"]) . "'></td>";
+                            echo "<td>" . htmlspecialchars($row_paquete["idPaketea"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row_paquete["Bezero_zenbakia"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row_paquete["Helbidea"]) . "</td>";
+                            echo "<td>" . htmlspecialchars($row_paquete["Pakete_Tamaina"]) . "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                    <br>
+                    <input type='submit' name='submit' value='Entregatuta'>
+                </form>
             </div>
         </section>
     </main>

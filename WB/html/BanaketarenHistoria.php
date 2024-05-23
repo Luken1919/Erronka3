@@ -77,7 +77,7 @@ $conn->close();
             <div class="spacer"></div>
             <a href="../html/Hasita.php" class="login-button">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
-            <a href="#" class="login-button selected">Banaketare Historiala</a>
+            <a href="#" class="login-button selected">Banaketaren Historiala</a>
             <a href="../html/arazoak.php" class="login-button">Arazoak</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
@@ -86,28 +86,29 @@ $conn->close();
         <section class="section" id="section3">
             <div class="content">
                 <h1>Banaketaren historiala:</h1>
+                
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Entregatuta ID</th>
-                            <th>Entrega Data</th>
-                            <th>Entrega Ordua</th>
-                            <th>Helbidea</th>
-                            <th>Pakete Tamaina</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+                <?php
+                    if ($result_entregatuta->num_rows > 0) {
+                        echo "<thead>";
+                            echo "<tr>";
+                                echo "<th>Entregatuta ID</th>";
+                                echo "<th>Entrega Data</th>";
+                                echo "<th>Entrega Ordua</th>";
+                                echo "<th>Helbidea</th>";
+                                echo "<th>Pakete Tamaina</th>";
+                            echo "</tr>";
+                        echo "</thead>";
+                        echo "<tbody>";
                         // Bistaratu banaketaren historiala
-                        if ($result_entregatuta->num_rows > 0) {
-                            while ($row_entregatuta = $result_entregatuta->fetch_assoc()) {
-                                echo "<tr>";
+                        while ($row_entregatuta = $result_entregatuta->fetch_assoc()) {
+                            echo "<tr>";
                                 echo "<td>" . $row_entregatuta["idEntregatuta"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Entrega_data"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Entrega_Ordua"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Helbidea"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Pakete_Tamaina"] . "</td>";
-                                echo "</tr>";
+                            echo "</tr>";
                             }
                         } else {
                             echo "<tr><td colspan='5'>Ez daude banaketa historiarik</td></tr>";

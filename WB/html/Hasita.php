@@ -65,8 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
     $stmt_update->bind_param("i", $selected_package_id);
     $stmt_update->execute();
     $stmt_update->close();
+    
+    // Redirigir a UnekoBanaketak.php
+    header("Location: ../html/UnekoBanaketak.php");
+    exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
             <div class="spacer"></div>
             <a href="#" class="login-button selected">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
-            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketare Historiala</a>
+            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
+            <a href="../html/arazoak.php" class="login-button">Arazoak</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>

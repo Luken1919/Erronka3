@@ -66,6 +66,7 @@ public class EsleipenaUI extends JFrame {
 	 * Esleipen Framea sortu.
 	 */
 	public EsleipenaUI() {
+		setTitle("Banatzaileei paketak esleitu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		pnlGuztia = new JPanel();

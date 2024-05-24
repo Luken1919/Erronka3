@@ -146,14 +146,14 @@ public class PaketeaUI extends JFrame {
 		/*
 		 * Pakete guztiak erakusten dituen zerrenda
 		 */
-		
+
 		JScrollPane spPaketeZerrenda = new JScrollPane();
 		spPaketeZerrenda.setBounds(0, 49, 362, 603);
 		PaketeZerrenda = new JList<>();
 		spPaketeZerrenda.setViewportView(PaketeZerrenda);
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
-		lortupaketeak();
+		lortuPaketeak();
 
 		konexioa.lortuPaketeak();
 		/*
@@ -188,8 +188,8 @@ public class PaketeaUI extends JFrame {
 				String[] parts = aukeratutakoPaketea.split(" ");
 				String id = parts[0];
 				konexioa.ezabatuPaketa(id);
-				lortupaketeak();
-				lortupaketeakhistori();
+				lortuPaketeak();
+				lortuPaketeakhistoriala();
 
 			}
 		});
@@ -226,7 +226,7 @@ public class PaketeaUI extends JFrame {
 		spPaketeHistoriala.setBounds(0, 61, 362, 603);
 		PaketeHistoriala = new JList<>();
 		spPaketeHistoriala.setViewportView(PaketeHistoriala);
-		lortupaketeakhistori();
+		lortuPaketeakhistoriala();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeHistoriala.setBounds(0, 61, 362, 590);
 
@@ -275,6 +275,7 @@ public class PaketeaUI extends JFrame {
 		 * Instantiates a new paketea sortu.
 		 */
 		public PaketeaSortu() {
+			setTitle("Paketea sortu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
 			pnlGuztia = new JPanel();
@@ -333,8 +334,8 @@ public class PaketeaUI extends JFrame {
 					String helbidea = HelbideatextField.getText();
 					String tamaina = (String) comboBox.getSelectedItem();
 					konexioa.sortuPaketea(zenb, helbidea, tamaina);
-					lortupaketeak();
-					lortupaketeakhistori();
+					lortuPaketeak();
+					lortuPaketeakhistoriala();
 					dispose();
 				}
 			});
@@ -360,6 +361,7 @@ public class PaketeaUI extends JFrame {
 		 * Instantiates a new paketea editatu.
 		 */
 		public PaketeaEditatu() {
+			setTitle("Paketea editatu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 345, 550);
 			pnlGuztia = new JPanel();
@@ -438,8 +440,8 @@ public class PaketeaUI extends JFrame {
 					String luzeera = TelefonoatextField.getText();
 					int luze = luzeera.length();
 					konexioa.editatuPaketa(id, zenb, helbidea, tamaina, mota);
-					lortupaketeak();
-					lortupaketeakhistori();
+					lortuPaketeak();
+					lortuPaketeakhistoriala();
 					dispose();
 
 				}
@@ -466,6 +468,7 @@ public class PaketeaUI extends JFrame {
 		 * Instantiates a new paketeak filtratu.
 		 */
 		public PaketeakFiltratu() {
+			setTitle("Paketa filtratu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 355, 439);
 			pnlGuztia = new JPanel();
@@ -496,10 +499,10 @@ public class PaketeaUI extends JFrame {
 			FiltratuButton.setBounds(240, 366, 89, 23);
 			FiltratuButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-				dispose();
-				String tamainaString =	(String) comboBox.getSelectedItem();
-			lortupaketeakfiltratuta(tamainaString);
+
+					dispose();
+					String tamainaString =	(String) comboBox.getSelectedItem();
+					lortuPaketeakFiltratuta(tamainaString);
 
 				}
 			});
@@ -510,7 +513,7 @@ public class PaketeaUI extends JFrame {
 		}
 	}
 
-	public void lortupaketeak() {
+	public void lortuPaketeak() {
 		ArrayList<String> paketeaklist = konexioa.lortuPaketeak();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
@@ -520,9 +523,9 @@ public class PaketeaUI extends JFrame {
 
 		PaketeZerrenda.setModel(model);
 	}
-	
-	public void lortupaketeakfiltratuta(String tamaina) {
-		ArrayList<String> paketeaklist = konexioa.lortuPaketeakfiltratuta(tamaina);
+
+	public void lortuPaketeakFiltratuta(String tamaina) {
+		ArrayList<String> paketeaklist = konexioa.lortuPaketeakFiltratuta(tamaina);
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String paketea : paketeaklist) {
@@ -532,7 +535,7 @@ public class PaketeaUI extends JFrame {
 		PaketeZerrenda.setModel(model);
 	}
 
-	private void lortupaketeakhistori() {
+	private void lortuPaketeakhistoriala() {
 		ArrayList<String> paketeakhisto = konexioa.paketeHistorialaLortu();
 		DefaultListModel<String> model = new DefaultListModel<>();
 

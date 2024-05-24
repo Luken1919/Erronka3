@@ -93,6 +93,7 @@ public class BanatzaileaUI extends JFrame {
 	 * Banatzailearen frame-a sortu.
 	 */
 	public BanatzaileaUI() {
+		setTitle("Banatzaileen informazioa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		pnlGuztia = new JPanel();
@@ -225,7 +226,7 @@ public class BanatzaileaUI extends JFrame {
 					}
 
 					String id = parts[parts.length - 1];
-					lortuBanatzaileakhist(id);
+					lortuBanatzaileakHistoriala(id);
 				}
 			}
 		});
@@ -249,7 +250,7 @@ public class BanatzaileaUI extends JFrame {
 		btnOrdenatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				lortuBanatzaileakordenatutaizenez();
+				lortuBanatzaileakOrdenatutaizenez();
 
 			}
 		});
@@ -301,7 +302,7 @@ public class BanatzaileaUI extends JFrame {
 		btnOrdenatu_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				lortuBanatzaileakordenatutaID();
+				lortuBanatzaileakOrdenatutaID();
 			}
 		});
 		btnOrdenatu_1.setFont(new Font("Arial", Font.BOLD, 15));
@@ -320,6 +321,7 @@ public class BanatzaileaUI extends JFrame {
 		 * Instantiates a new banatzailea gehitu.
 		 */
 		public BanatzaileaGehitu() {
+			setTitle("Banatzailea gehitu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 399, 500);
 			pnlGuztia = new JPanel();
@@ -413,6 +415,7 @@ public class BanatzaileaUI extends JFrame {
 		 * Instantiates a new banatzailea kendu.
 		 */
 		public BanatzaileaKendu() {
+			setTitle("Banatzailea kendu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 362, 458);
 			pnlGuztia = new JPanel();
@@ -470,6 +473,7 @@ public class BanatzaileaUI extends JFrame {
 		 * Instantiates a new banatzailea editatu.
 		 */
 		public BanatzaileaEditatu() {
+			setTitle("Banatzailea editatu");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setBounds(100, 100, 399, 500);
 			pnlGuztia = new JPanel();
@@ -616,8 +620,8 @@ public class BanatzaileaUI extends JFrame {
 		listBanatzailea.setModel(model);
 	}
 
-	private void lortuBanatzaileakordenatutaizenez() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaizen();
+	private void lortuBanatzaileakOrdenatutaizenez() {
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakOrdenatutaIzenez();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
@@ -627,8 +631,8 @@ public class BanatzaileaUI extends JFrame {
 		listBanatzailea.setModel(model);
 	}
 
-	private void lortuBanatzaileakordenatutaID() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakordenatutaid();
+	private void lortuBanatzaileakOrdenatutaID() {
+		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakOrdenatutaId();
 		DefaultListModel<String> model = new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
@@ -649,7 +653,7 @@ public class BanatzaileaUI extends JFrame {
 	 *
 	 * @param id banatzailearen id-a
 	 */
-	private void lortuBanatzaileakhist(String id) {
+	private void lortuBanatzaileakHistoriala(String id) {
 		DatuBasea losrtubanatzailehsit = new DatuBasea();
 
 		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.lortuBanatzaielarenHistoriala(id);

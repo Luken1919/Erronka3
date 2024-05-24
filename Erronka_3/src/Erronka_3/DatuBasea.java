@@ -130,69 +130,6 @@ public class DatuBasea {
 			return banatzaileak;
 		}
 	}
-	
-	public static ArrayList<String> lortuBanatzaileakordenatutaizen() {
-		ArrayList<String> banatzaileak = new ArrayList<>();
-		{
-			Connection conn = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-
-			try {
-				conn = getConnection();
-
-				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by Izena";
-				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery(sql);
-
-				while (rs.next()) {
-					String izena = rs.getString("Izena");
-					String abizena = rs.getString("Abizena");
-					String idString = rs.getString("idErabiltzailea");
-					banatzaileak.add(izena + " " + abizena + " " + idString);
-				}
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return banatzaileak;
-		}
-	}
-	public static ArrayList<String> lortuBanatzaileakordenatutaid() {
-		ArrayList<String> banatzaileak = new ArrayList<>();
-		{
-			Connection conn = null;
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-
-			try {
-				conn = getConnection();
-
-				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by idErabiltzailea";
-				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery(sql);
-
-				while (rs.next()) {
-					String izena = rs.getString("Izena");
-					String abizena = rs.getString("Abizena");
-					String idString = rs.getString("idErabiltzailea");
-					banatzaileak.add(izena + " " + abizena + " " + idString);
-				}
-
-				rs.close();
-				stmt.close();
-				conn.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return banatzaileak;
-		}
-	}
 
 	/**
 	 * Banatzaileak zerrendan gortzekeko metodoa.Datu guztiekin
@@ -302,6 +239,70 @@ public class DatuBasea {
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+	
+	public static ArrayList<String> lortuBanatzaileakOrdenatutaId() {
+		ArrayList<String> banatzaileak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = getConnection();
+
+				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by idErabiltzailea";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String izena = rs.getString("Izena");
+					String abizena = rs.getString("Abizena");
+					String idString = rs.getString("idErabiltzailea");
+					banatzaileak.add(izena + " " + abizena + " " + idString);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return banatzaileak;
+		}
+	}
+	
+	public static ArrayList<String> lortuBanatzaileakOrdenatutaIzenez() {
+		ArrayList<String> banatzaileak = new ArrayList<>();
+		{
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = getConnection();
+
+				String sql = "SELECT * FROM erabiltzailea WHERE mota='Banatzailea' order by Izena";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					String izena = rs.getString("Izena");
+					String abizena = rs.getString("Abizena");
+					String idString = rs.getString("idErabiltzailea");
+					banatzaileak.add(izena + " " + abizena + " " + idString);
+				}
+
+				rs.close();
+				stmt.close();
+				conn.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return banatzaileak;
 		}
 	}
 
@@ -450,13 +451,8 @@ public class DatuBasea {
 			System.out.println(e.getMessage());
 		}
 	}
-
-	/**
-	 * Paketeak esleitu lortu peketeak.
-	 *
-	 * @return Esleitutako paketeak
-	 */
-	public ArrayList<String> paketeakEsleituLortuPeketeak() {
+	
+	public ArrayList<String> lortuPaketeakFiltratuta(String tamaina) {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
@@ -466,7 +462,7 @@ public class DatuBasea {
 			try {
 				conn = getConnection();
 
-				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1 AND idPaketea <> 1";
+				String sql = "SELECT * FROM paketea WHERE Pakete_Tamaina = '" + tamaina + "'";
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
 
@@ -486,7 +482,13 @@ public class DatuBasea {
 			return paketeak;
 		}
 	}
-	public ArrayList<String> lortuPaketeakfiltratuta(String tamaina) {
+
+	/**
+	 * Paketeak esleitu lortu peketeak.
+	 *
+	 * @return Esleitutako paketeak
+	 */
+	public ArrayList<String> paketeakEsleituLortuPeketeak() {
 		ArrayList<String> paketeak = new ArrayList<>();
 		{
 			Connection conn = null;
@@ -496,7 +498,7 @@ public class DatuBasea {
 			try {
 				conn = getConnection();
 
-				String sql = "SELECT * FROM paketea WHERE Pakete_Tamaina = '" + tamaina + "'";
+				String sql = "SELECT * FROM paketea where Erabiltzailea_idErabiltzailea = 1 AND idPaketea <> 1";
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
 

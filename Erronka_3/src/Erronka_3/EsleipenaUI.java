@@ -193,8 +193,7 @@ public class EsleipenaUI extends JFrame {
 		});
 
 		/*
-		 * Banatzailearen paketeetatik pakete gutietara, aukeratutako paketea kentzeko
-		 * botoia
+		 * Banatzailearen paketeetatik pakete guztietara pasa, 
 		 */
 		JButton btnKendu = new JButton("Kendu");
 		btnKendu.setBackground(new Color(111, 141, 158));
@@ -207,24 +206,21 @@ public class EsleipenaUI extends JFrame {
 				String aukeratutakopaketea = (String) BanatzailearenPaketeak.getSelectedValue();
 				
 				if (aukeratutakopaketea == null) {
-					
 					JOptionPane.showMessageDialog(null, "Banatzailearen Paketea  aukeratu");
 					
-				}
-
-				else {
+				} else {
 					
 					String[] parts  = aukeratutakopaketea.split(" ");
 					String id 		= parts[0];
 
 					konexioa.paketeakEsleituKendu(id);
-					lortuPaketeGuztiak();
 					
 					String aukeratutakoerabiltzailea2 = (String) Banatzaileak.getSelectedItem();
 					String[] parts2					  = aukeratutakoerabiltzailea2.split(" ");
 					String id2 						  = parts2[parts2.length - 1];
 					
 					lortuBanatzaiearenPaketeak(id2);
+					lortuPaketeGuztiak();
 				}
 
 			}
@@ -248,7 +244,6 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Gure panelean elementuak jarri
 		 */
-		
 		pnlGuztia.add(pnlMenu);
 		pnlGuztia.add(pnlPaketeakEsleitu);
 

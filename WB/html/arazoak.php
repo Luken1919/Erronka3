@@ -84,8 +84,8 @@ $conn->close();
             <div class="spacer"></div>
             <a href="../html/Hasita.php" class="login-button">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
-            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="#" class="login-button selected">Arazoak</a>
+            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>

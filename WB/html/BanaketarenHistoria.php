@@ -43,19 +43,17 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
-// Consulta SQL para obtener el historial de paquetes entregados para el usuario actual
+// Consulta SQL para obtener los datos de entregatuta del usuario actual
 $sql_entregatuta = "SELECT entregatuta.idEntregatuta, entregatuta.Entrega_data, entregatuta.Entrega_Ordua, entregatuta.Helbidea, entregatuta.Pakete_Tamaina
-                   FROM entregatuta
-                   INNER JOIN paketea ON entregatuta.idPaketea = paketea.idPaketea
-                   INNER JOIN erabiltzailea ON paketea.Erabiltzailea_idErabiltzailea = erabiltzailea.idErabiltzailea
-                   WHERE erabiltzailea.Erab_Izena = ?";
+                    FROM entregatuta
+                    INNER JOIN erabiltzailea 
+                    ON entregatuta.erabiltzailea_idErabiltzailea = erabiltzailea.idErabiltzailea 
+                    WHERE erabiltzailea.Erab_Izena = ?";
 
 $stmt_entregatuta = $conn->prepare($sql_entregatuta);
 $stmt_entregatuta->bind_param("s", $_SESSION['username']);
 $stmt_entregatuta->execute();
 $result_entregatuta = $stmt_entregatuta->get_result();
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +75,8 @@ $conn->close();
             <div class="spacer"></div>
             <a href="../html/Hasita.php" class="login-button">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
-            <a href="#" class="login-button selected">Banaketaren Historiala</a>
             <a href="../html/arazoak.php" class="login-button">Arazoak</a>
+            <a href="#" class="login-button selected">Banaketaren Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>

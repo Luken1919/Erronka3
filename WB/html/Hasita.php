@@ -53,24 +53,26 @@ $stmt_paquetes = $conn->prepare($sql_paquetes);
 $stmt_paquetes->bind_param("s", $_SESSION['username']);
 $stmt_paquetes->execute();
 $result_paquetes = $stmt_paquetes->get_result();
+$stmt_paquetes->close();
 
-// Verifica si se ha enviado el formulario y realiza la actualización de la base de datos
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_POST['selected_package'])) {
-    // Obtiene el ID del paquete seleccionado
-    $selected_package_id = $_POST['selected_package'];
+// Verificar si se ha enviado el formulario y se ha hecho clic en el botón de cambio de mota
+if(isset($_POST['change_mota'])) {
+    $idPaketea = $_POST['change_mota'];
 
-    // Actualiza el valor del atributo "mota" en la tabla "paketea" a "entregatzen"
-    $update_query = "UPDATE paketea SET Mota = 'entregatzen' WHERE idPaketea = ?";
-    $stmt_update = $conn->prepare($update_query);
-    $stmt_update->bind_param("i", $selected_package_id);
-    $stmt_update->execute();
-    $stmt_update->close();
-    
-    // Redirigir a UnekoBanaketak.php
+    // Consulta SQL para actualizar el valor de la mota a 'entregatzen'
+    $sql_update_mota = "UPDATE paketea SET Mota = 'entregatzen' WHERE idPaketea = ?";
+    $stmt_update_mota = $conn->prepare($sql_update_mota);
+    $stmt_update_mota->bind_param("i", $idPaketea);
+    $stmt_update_mota->execute();
     header("Location: ../html/UnekoBanaketak.php");
-    exit();
-}
+    // Cerrar la consulta de actualización de mota
+    $stmt_update_mota->close();
+    }
+    
+    // Cerrar la conexión
+    $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -91,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
             <div class="spacer"></div>
             <a href="#" class="login-button selected">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
-            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="../html/arazoak.php" class="login-button">Arazoak</a>
+            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>
@@ -109,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
                         echo "<tr><th></th><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
                         while ($row_paquete = $result_paquetes->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td><input type='radio' name='selected_package' value='" . $row_paquete["idPaketea"] . "'></td>";
+                            echo "<td><button type='submit' name='change_mota' value='".$row_paquete["idPaketea"]."'>Aukeratu</button></td>";
                             echo "<td>" . $row_paquete["idPaketea"] . "</td>";
                             echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
                             echo "<td>" . $row_paquete["Helbidea"] . "</td>";
@@ -118,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
                         }
                         echo "</table>";
                         echo "<br>";
-                        echo "<input type='submit' name='submit' value='Aukeratu'>";
                     } else {
                         // Si no se encontraron paquetes
                         echo "<p>Ez da aurkitu paketerik.</p>";
@@ -140,11 +141,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_P
     </footer>
 </body>
 </html>
-
-<?php
-// Cerrar la consulta de paquetes
-$stmt_paquetes->close();
-
-// Cerrar la conexión
-$conn->close();
-?>

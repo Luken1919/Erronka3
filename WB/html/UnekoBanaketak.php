@@ -69,26 +69,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
     if ($result_paquete->num_rows > 0) {
         $row_paquete = $result_paquete->fetch_assoc();
 
+        // Desactivar las restricciones de clave externa
+        $conn->query("SET foreign_key_checks = 0");
+
         // Insertar en entregatuta
         $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
-        VALUES (NULL, CURDATE(), CURTIME(), ?, ?, ?, ?)";
+        VALUES (?, CURDATE(), CURTIME(), ?, ?, ?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("ssiii", $row_paquete['Helbidea'], $row_paquete['Pakete_Tamaina'], $row_paquete['idPaketea'], $row_paquete['Erabiltzailea_idErabiltzailea']);
-        $stmt_insert->execute();
-        $stmt_insert->close();
+        $stmt_insert->bind_param("sssii", $row_paquete['Bezero_zenbakia'], $row_paquete['Helbidea'], $row_paquete['Pakete_Tamaina'], $row_paquete['idPaketea'], $row_paquete['Erabiltzailea_idErabiltzailea']);
 
-        
-        // Eliminar de paketea
-        $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
-        $stmt_delete = $conn->prepare($sql_delete);
-        $stmt_delete->bind_param("i", $idPaketea);
-        $stmt_delete->execute();
-        $stmt_delete->close();
+        if ($stmt_insert->execute()) {
+            $stmt_insert->close();
 
-        // Redirigir para evitar reenvío del formulario
-        header("Location: BanaketarenHistoria.php");
-        exit;
+            // Eliminar de paketea solo si la inserción en entregatuta fue exitosa
+            $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
+            $stmt_delete = $conn->prepare($sql_delete);
+            $stmt_delete->bind_param("i", $idPaketea);
+            $stmt_delete->execute();
+            $stmt_delete->close();
+
+            // Reactivar las restricciones de clave externa
+            $conn->query("SET foreign_key_checks = 1");
+
+            // Redirigir para evitar reenvío del formulario
+            header("Location: BanaketarenHistoria.php");
+            exit;
+        } else {
+            $stmt_insert->close();
+            // Manejar error de inserción
+            echo "Error al insertar en entregatuta.";
+        }
     }
+
 
     $stmt_paquete->close();
 }
@@ -114,8 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
             <div class="spacer"></div>
             <a href="../html/Hasita.php" class="login-button ">Banaketak</a>
             <a href="#" class="login-button selected">Uneko Banaketak</a>
-            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="../html/arazoak.php" class="login-button">Arazoak</a>
+            <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>
             <a href="../html/index.html" class="login-button">Saioa Itxi</a>
         </nav>
     </header>
@@ -124,15 +136,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
             <div class="content">
                 <h1>Uneko Banaketak:</h1>
                 <form method="post" action="">
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th>Paketea ID</th>
-                            <th>Bezero Zenbakia</th>
-                            <th>Helbidea</th>
-                            <th>Tamaina</th>
-                        </tr>
-                        <?php
+                <?php
+                if ($result_paquetes_entregados->num_rows > 0) {
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th></th>";
+                    echo "<th>Paketea ID</th>";
+                    echo "<th>Bezero Zenbakia</th>";
+                    echo "<th>Helbidea</th>";
+                    echo "<th>Tamaina</th>";
+                    echo " </tr>";
                         // Mostrar los paquetes entregados en una tabla
                         while ($row_paquete = $result_paquetes_entregados->fetch_assoc()) {
                             echo "<tr>";
@@ -143,10 +156,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
                             echo "<td>" . htmlspecialchars($row_paquete["Pakete_Tamaina"]) . "</td>";
                             echo "</tr>";
                         }
-                        ?>
-                    </table>
-                    <br>
-                    <input type='submit' name='submit' value='Entregatuta'>
+                    echo "</table>";
+                    echo "<br>";
+                    echo "<input type='submit' name='submit' value='Entregatuta'>";
+                    echo "<input type='submit' name='submit_arazoa' value='Arazoa'>";
+                } else {
+                    echo "<p>Ez da aurkitu paketerik.</p>";
+                }
+                    ?>
                 </form>
             </div>
         </section>

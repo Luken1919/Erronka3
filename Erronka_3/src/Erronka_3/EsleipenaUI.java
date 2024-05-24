@@ -1,5 +1,6 @@
 /*
- * 22 may 2024
+ * 24 may 2024
+ * Ioritz Lopetegi
  */
 package Erronka_3;
 
@@ -22,6 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class Esleipena.
  */
@@ -30,7 +32,7 @@ public class EsleipenaUI extends JFrame {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** content pane. */
+	/** Content pane. */
 	private JPanel pnlGuztia;
 
 	/** Izen abizena. */
@@ -42,6 +44,7 @@ public class EsleipenaUI extends JFrame {
 	/** Banatzailearen paketeak. */
 	JList<String> BanatzailearenPaketeak = new JList<>();
 
+	/** Datubase konexioa. */
 	DatuBasea konexioa = new DatuBasea();
 
 	
@@ -79,6 +82,10 @@ public class EsleipenaUI extends JFrame {
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketea.setFont(new Font("Arial", Font.BOLD, 15));
 		btnPaketea.setBounds(854, 11, 120, 38);
+		
+		/*
+		 * Pakete framea ireki
+		 */
 		btnPaketea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaketeaUI paketea = new PaketeaUI();
@@ -159,18 +166,24 @@ public class EsleipenaUI extends JFrame {
 		btnGehitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnGehitu.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGehitu.setBounds(443, 140, 140, 30);
+		
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				String aukeratutakopaketea = (String) PaketeGuztiak.getSelectedValue();
+				
 				if (aukeratutakopaketea == null) {
+					
 					JOptionPane.showMessageDialog(null, "Aukeratu paketea");
+					
 				} else {
-					String[] parts = aukeratutakopaketea.split(" ");
-					String id = parts[0];
+					
+					String[] parts 	 				 = aukeratutakopaketea.split(" ");
+					String id						 = parts[0];
 					String aukeratutakoerabiltzailea = (String) Banatzaileak.getSelectedItem();
-					String[] parts2 = aukeratutakoerabiltzailea.split(" ");
-					String id2 = parts2[parts2.length - 1];
+					String[] parts2 				 = aukeratutakoerabiltzailea.split(" ");
+					String id2 						 = parts2[parts2.length - 1];
+					
 					konexioa.paketeakEsleituGehitu(id2, id);
 					lortuPaketeGuztiak();
 					lortuBanatzaiearenPaketeak(id2);
@@ -192,20 +205,25 @@ public class EsleipenaUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String aukeratutakopaketea = (String) BanatzailearenPaketeak.getSelectedValue();
+				
 				if (aukeratutakopaketea == null) {
+					
 					JOptionPane.showMessageDialog(null, "Banatzailearen Paketea  aukeratu");
+					
 				}
 
 				else {
-					String[] parts = aukeratutakopaketea.split(" ");
-					String id = parts[0];
+					
+					String[] parts  = aukeratutakopaketea.split(" ");
+					String id 		= parts[0];
 
 					konexioa.paketeakEsleituKendu(id);
-
 					lortuPaketeGuztiak();
+					
 					String aukeratutakoerabiltzailea2 = (String) Banatzaileak.getSelectedItem();
-					String[] parts2 = aukeratutakoerabiltzailea2.split(" ");
-					String id2 = parts2[parts2.length - 1];
+					String[] parts2					  = aukeratutakoerabiltzailea2.split(" ");
+					String id2 						  = parts2[parts2.length - 1];
+					
 					lortuBanatzaiearenPaketeak(id2);
 				}
 
@@ -226,6 +244,11 @@ public class EsleipenaUI extends JFrame {
 		lblBanaPaketeak.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 
+		
+		/*
+		 * Gure panelean elementuak jarri
+		 */
+		
 		pnlGuztia.add(pnlMenu);
 		pnlGuztia.add(pnlPaketeakEsleitu);
 
@@ -244,7 +267,7 @@ public class EsleipenaUI extends JFrame {
 	}
 
 	/**
-	 * Lortupaketeakguztiak.
+	 * Lortu paketeakguztiak metodoa.
 	 */
 	public void lortuPaketeGuztiak() {
 		ArrayList<String> paketeaklist = konexioa.paketeakEsleituLortuPeketeak();
@@ -258,7 +281,7 @@ public class EsleipenaUI extends JFrame {
 	}
 
 	/**
-	 * Lortu banatzaileakhist.
+	 * Lortu Banatzailearen paketeak.
 	 *
 	 * @param id , banatzailearen id-a
 	 */

@@ -71,7 +71,7 @@ public class BanatzaileaUI extends JFrame {
 	/** Zerrendako testuaren zatiak. */
 	String[] parts;
 
-	
+
 	/**
 	 * Banatzailearen frame-a sortu.
 	 */
@@ -98,7 +98,7 @@ public class BanatzaileaUI extends JFrame {
 		lblErabiltzailea.setBounds(10, 11, 265, 38);
 
 		/*
-		 * Pakete Panelera joateko botoia
+		 * Paketera joateko botoia
 		 */
 		JButton btnPaketea = new JButton("Paketeak");
 		btnPaketea.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
@@ -114,9 +114,8 @@ public class BanatzaileaUI extends JFrame {
 		});
 
 		/*
-		 * Paketeak esleitu panelera joateko botoia
+		 * Paketeak esleitu joateko botoia
 		 */
-
 		JButton btnPaketeaEsleitu = new JButton("Paketeak Esleitu");
 		btnPaketeaEsleitu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
 		btnPaketeaEsleitu.setBackground(new Color(111, 141, 158));
@@ -131,9 +130,8 @@ public class BanatzaileaUI extends JFrame {
 		});
 
 		/*
-		 * Banatzaileak erakutsiko diren panel-a
+		 * Banatzailearen panela
 		 */
-
 		JPanel pnlBanatzailea = new JPanel();
 		pnlBanatzailea.setBounds(0, 59, 492, 652);
 		pnlBanatzailea.setLayout(null);
@@ -143,7 +141,38 @@ public class BanatzaileaUI extends JFrame {
 		lblBanatzailea.setFont(new Font("Arial Black", Font.BOLD, 15));
 
 		/*
-		 * Banatzaileak sortzeko panela irikitzen duen botoia
+		 * Banatzaileak erakusten ditu
+		 */
+		JScrollPane spBanatzailea = new JScrollPane();
+		spBanatzailea.setBounds(0, 49, 362, 603);
+		listBanatzailea = new JList<>();
+		listBanatzailea.setFixedCellHeight(20);
+		spBanatzailea.setViewportView(listBanatzailea);
+		listBanatzailea.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
+
+		/*
+		 * Aukeratutako banatzailearen id-a atera eta
+		 * entregatutako paketake guztiak erkutsi.
+		 */
+		listBanatzailea.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					String aukeratutakoa = listBanatzailea.getSelectedValue();
+					if (aukeratutakoa != null) {
+						parts = aukeratutakoa.split(" ");
+					} else if (aukeratutakoa == null) {
+
+					}
+
+					String id = parts[parts.length - 1];
+					lortuBanatzaileakHistoriala(id);
+				}
+			}
+		});
+		lortuBanatzaileak();
+
+		/*
+		 * Banatzaileak sortzeko irikitzen duen botoia
 		 */
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.setBounds(372, 110, 110, 40);
@@ -158,7 +187,7 @@ public class BanatzaileaUI extends JFrame {
 		});
 
 		/*
-		 * Banatzaileak kentzeko panela irikitzen duen botoia
+		 * Banatzaileak kentzeko irikitzen duen botoia
 		 */
 		JButton btnKendu = new JButton("Kendu");
 		btnKendu.setBounds(372, 299, 110, 40);
@@ -173,7 +202,7 @@ public class BanatzaileaUI extends JFrame {
 		});
 
 		/*
-		 * Banatzaileak editatzeko panela irikitzen duen botoia
+		 * Banatzaileak editatu irikitzen duen botoia
 		 */
 		JButton btnEditatu = new JButton("Editatu");
 		btnEditatu.setBounds(372, 499, 110, 40);
@@ -187,33 +216,7 @@ public class BanatzaileaUI extends JFrame {
 			}
 		});
 
-		JScrollPane spBanatzailea = new JScrollPane();
-		spBanatzailea.setBounds(0, 49, 362, 603);
 
-		/*
-		 * Aukeratutako banatzailearen historiala erakusten du
-		 */
-		listBanatzailea = new JList<>();
-		listBanatzailea.setFixedCellHeight(20);
-		spBanatzailea.setViewportView(listBanatzailea);
-		listBanatzailea.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
-		listBanatzailea.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
-					String aukeratutakoa = listBanatzailea.getSelectedValue();
-					if (aukeratutakoa != null) {
-						parts = aukeratutakoa.split(" ");
-					}
-					if (aukeratutakoa == null) {
-
-					}
-
-					String id = parts[parts.length - 1];
-					lortuBanatzaileakHistoriala(id);
-				}
-			}
-		});
-		lortuBanatzaileak();
 
 		/*
 		 * Sortutako banatzaileak erakutsiko diren panela
@@ -222,35 +225,74 @@ public class BanatzaileaUI extends JFrame {
 		pnlHistoriala.setBounds(491, 59, 493, 652);
 		pnlHistoriala.setLayout(null);
 
+		/*
+		 * Aukeratutako banatzailearen historiala label-a
+		 */
 		JLabel lblHistoriala = new JLabel("Autatutako banatzailearen historiala");
 		lblHistoriala.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblHistoriala.setBounds(10, 11, 352, 38);
 
 		/*
-		 * Banatzaileak ordenatzeko panela irikitzen duen botoia
+		 * Aukeratutako banatzailearen historiala erakusten du
 		 */
-		JButton btnOrdenatu = new JButton("Ordenatu\r\n ");
-		btnOrdenatu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				lortuBanatzaileakOrdenatutaizenez();
-
-			}
-		});
-		btnOrdenatu.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnOrdenatu.setBackground(new Color(111, 141, 158));
-		btnOrdenatu.setFont(new Font("Arial", Font.BOLD, 15));
-		btnOrdenatu.setBounds(372, 282, 98, 74);
-
 		JScrollPane spBanatzaileakHistoriala = new JScrollPane();
 		spBanatzaileakHistoriala.setBounds(0, 49, 362, 603);
 		pnlHistoriala.add(spBanatzaileakHistoriala);
-
 		BanatzaileHistoriala = new JList<>();
 		BanatzaileHistoriala.setFixedCellHeight(20);
 		spBanatzaileakHistoriala.setViewportView(BanatzaileHistoriala);
 		BanatzaileHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 
+		/*
+		 * Label-a izenare bidez ordenatzeko
+		 */
+		JLabel lblIzenBidez = new JLabel("Izen Bidez");
+		lblIzenBidez.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblIzenBidez.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIzenBidez.setBounds(372, 248, 98, 38);
+
+		/*
+		 * Banatzaileak izenen bidez ordenatzeko botoia
+		 */
+		JButton btnOrdenatuIzenaBidez = new JButton("Ordenatu\r\n ");
+		btnOrdenatuIzenaBidez.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnOrdenatuIzenaBidez.setBackground(new Color(111, 141, 158));
+		btnOrdenatuIzenaBidez.setFont(new Font("Arial", Font.BOLD, 15));
+		btnOrdenatuIzenaBidez.setBounds(372, 282, 98, 74);
+		btnOrdenatuIzenaBidez.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lortuBanatzaileakOrdenatutaizenez();
+
+			}
+		});
+
+		/*
+		 * Label-a id bidez ordenatzeko
+		 */
+		JLabel lblIdBidez = new JLabel("ID Bidez");
+		lblIdBidez.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIdBidez.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblIdBidez.setBounds(372, 367, 98, 38);
+
+		/*
+		 * Banatzailearen id bidez ordenatzeko botoia
+		 */
+		JButton btnOrdenatuIdBidez = new JButton("Ordenatu\r\n ");
+		btnOrdenatuIdBidez.setFont(new Font("Arial", Font.BOLD, 15));
+		btnOrdenatuIdBidez.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
+		btnOrdenatuIdBidez.setBackground(new Color(111, 141, 158));
+		btnOrdenatuIdBidez.setBounds(372, 416, 98, 74);
+		btnOrdenatuIdBidez.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				lortuBanatzaileakOrdenatutaID();
+			}
+		});
+
+
+		/*
+		 * Panelean elementuak gehitu
+		 */
 		pnlGuztia.add(pnlMenu);
 		pnlGuztia.add(pnlBanatzailea);
 		pnlGuztia.add(pnlHistoriala);
@@ -266,33 +308,13 @@ public class BanatzaileaUI extends JFrame {
 		pnlBanatzailea.add(spBanatzailea);
 
 		pnlHistoriala.add(lblHistoriala);
-		pnlHistoriala.add(btnOrdenatu);
 		pnlHistoriala.add(spBanatzaileakHistoriala);
-
-		JLabel lblNewLabel = new JLabel("Izen Bidez");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(372, 248, 98, 38);
-		pnlHistoriala.add(lblNewLabel);
-
-		JLabel lblIdBidez = new JLabel("ID Bidez");
-		lblIdBidez.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIdBidez.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblIdBidez.setBounds(372, 367, 98, 38);
+		pnlHistoriala.add(lblIzenBidez);
+		pnlHistoriala.add(btnOrdenatuIzenaBidez);
 		pnlHistoriala.add(lblIdBidez);
+		pnlHistoriala.add(btnOrdenatuIdBidez);
 
-		JButton btnOrdenatu_1 = new JButton("Ordenatu\r\n ");
-		btnOrdenatu_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 
-				lortuBanatzaileakOrdenatutaID();
-			}
-		});
-		btnOrdenatu_1.setFont(new Font("Arial", Font.BOLD, 15));
-		btnOrdenatu_1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(253, 194, 116)));
-		btnOrdenatu_1.setBackground(new Color(111, 141, 158));
-		btnOrdenatu_1.setBounds(372, 416, 98, 74);
-		pnlHistoriala.add(btnOrdenatu_1);
 	}
 
 	/**
@@ -313,6 +335,9 @@ public class BanatzaileaUI extends JFrame {
 			setContentPane(pnlGuztia);
 			pnlGuztia.setLayout(null);
 
+			/*
+			 * Tituluaren Label-a
+			 */
 			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
 			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
 			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
@@ -321,26 +346,26 @@ public class BanatzaileaUI extends JFrame {
 			/*
 			 * Banatzailearen izena zehazteko label-a
 			 */
-
 			JLabel lblIzena = new JLabel("Izena:");
 			lblIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblIzena.setBounds(30, 51, 200, 29);
+
 			/*
-			 * Idatziko den izena textfield-ean joango da
+			 * Idatzitako izena TextFild-ean gorde
 			 */
 			Izena = new JTextField();
 			Izena.setBounds(30, 91, 200, 34);
 			Izena.setColumns(10);
+
 			/*
 			 * Banatzailearen abizena zehazteko label-a
 			 */
-
 			JLabel lblAbizena = new JLabel("Abizena:");
 			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblAbizena.setBounds(30, 136, 200, 29);
 
 			/*
-			 * Idatziko den abizena textfield-ean joango da
+			 * Idatzitako abizena TextFild-ean gorde
 			 */
 			Abizena = new JTextField();
 			Abizena.setColumns(10);
@@ -354,7 +379,7 @@ public class BanatzaileaUI extends JFrame {
 			lblPasahitza.setBounds(30, 221, 200, 29);
 
 			/*
-			 * Banatzailearen pasahitza sartzeko textfield berezia
+			 * Idatzitako pasahitza TextFild-ean gorde
 			 */
 			PasahitzaField = new JPasswordField();
 			PasahitzaField.setColumns(10);
@@ -367,16 +392,20 @@ public class BanatzaileaUI extends JFrame {
 			btnGehitu.setBounds(250, 400, 89, 29);
 			btnGehitu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String IzenaSortu = Izena.getText();
-					String AbizenaSortu = Abizena.getText();
-					String PasahitzaSortu = PasahitzaField.getText();
-					konexioa.sortuBanatzailea(IzenaSortu, AbizenaSortu, PasahitzaSortu);
 
-					dispose();
+					String IzenaSortu 		= Izena.getText();
+					String AbizenaSortu 	= Abizena.getText();
+					String PasahitzaSortu 	= PasahitzaField.getText();
+
+					konexioa.sortuBanatzailea(IzenaSortu, AbizenaSortu, PasahitzaSortu);
 					lortuBanatzaileakzerrenda();
+					dispose();
 				}
 			});
 
+			/*
+			 * Panelean elementuak gehitu
+			 */
 			pnlGuztia.add(lblTitulua);
 			pnlGuztia.add(lblIzena);
 			pnlGuztia.add(lblAbizena);
@@ -407,6 +436,9 @@ public class BanatzaileaUI extends JFrame {
 			setContentPane(pnlGuztia);
 			pnlGuztia.setLayout(null);
 
+			/*
+			 * Erabiltzailea aukeratzeko Label-a
+			 */
 			JLabel ErabIzenaLabel = new JLabel("Erabiltzailea");
 			ErabIzenaLabel.setFont(new Font("Arial", Font.BOLD, 15));
 			ErabIzenaLabel.setBounds(123, 24, 90, 36);
@@ -441,6 +473,9 @@ public class BanatzaileaUI extends JFrame {
 				}
 			});
 
+			/*
+			 * Panelean elementuak gehitu
+			 */
 			pnlGuztia.add(ErabIzenaLabel);
 			pnlGuztia.add(comboBox);
 			pnlGuztia.add(EzabatuButton);
@@ -465,6 +500,9 @@ public class BanatzaileaUI extends JFrame {
 			setContentPane(pnlGuztia);
 			pnlGuztia.setLayout(null);
 
+			/*
+			 * Tituluaren Label-a
+			 */
 			JLabel lblTitulua = new JLabel("SARTU INFORMAZIO BERRIA");
 			lblTitulua.setFont(new Font("Arial Black", Font.BOLD, 20));
 			lblTitulua.setHorizontalAlignment(SwingConstants.CENTER);
@@ -473,13 +511,12 @@ public class BanatzaileaUI extends JFrame {
 			/*
 			 * Banatzailearen izena editatzeko label-a
 			 */
-
 			JLabel lblIzena = new JLabel("Izena:");
 			lblIzena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblIzena.setBounds(30, 51, 200, 29);
 
 			/*
-			 * Izen berria sartzeko textfield-a
+			 * Idatzitako izena TextFild-ean gorde
 			 */
 			Izena = new JTextField();
 			Izena.setBounds(30, 91, 200, 34);
@@ -491,8 +528,9 @@ public class BanatzaileaUI extends JFrame {
 			JLabel lblAbizena = new JLabel("Abizena:");
 			lblAbizena.setFont(new Font("Arial Black", Font.BOLD, 15));
 			lblAbizena.setBounds(30, 136, 200, 29);
+
 			/*
-			 * Abizen berria sartzeko textfield-a
+			 * Idatzitako abizena TextFild-ean gorde
 			 */
 			Abizena = new JTextField();
 			Abizena.setColumns(10);
@@ -506,9 +544,8 @@ public class BanatzaileaUI extends JFrame {
 			lblErabiltzaileIzena.setBounds(30, 221, 200, 29);
 
 			/*
-			 * Idatziko den erabiltzaile izena textfield-ean joango da
+			 * Idatzitako erabiltzaile izena TextFild-ean gorde
 			 */
-
 			ErabiltzaileIzena = new JTextField();
 			ErabiltzaileIzena.setColumns(10);
 			ErabiltzaileIzena.setBounds(30, 261, 200, 34);
@@ -521,7 +558,7 @@ public class BanatzaileaUI extends JFrame {
 			lblPasahitza.setBounds(30, 306, 200, 29);
 
 			/*
-			 * Idatziko den pasahitza textfield-ean joango da
+			 * Idatzitako pasahitzan TextFild-ean gorde
 			 */
 			PasahitzaField = new JPasswordField();
 			PasahitzaField.setColumns(10);
@@ -535,26 +572,30 @@ public class BanatzaileaUI extends JFrame {
 			pnlGuztia.add(btnEditatu);
 			btnEditatu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String izenaString = Izena.getText();
-					String abizenaString = Abizena.getText();
-					String pasahitza = PasahitzaField.getText();
-					String erabizenaString = ErabiltzaileIzena.getText();
+
+					String izenaString 		= Izena.getText();
+					String abizenaString 	= Abizena.getText();
+					String pasahitza 		= PasahitzaField.getText();
+					String erabizenaString 	= ErabiltzaileIzena.getText();
 
 					String aukeratutakoerabiltzailea = (String) listBanatzailea.getSelectedValue();
 					if (aukeratutakoerabiltzailea == null) {
 						JOptionPane.showMessageDialog(null, "Aukeratu erabiltzaile bat");
-					} 
-					else {
-						String[] parts = aukeratutakoerabiltzailea.split(" ");
-						String id = parts[parts.length - 1];
+					} else {
+						String[] parts 	= aukeratutakoerabiltzailea.split(" ");
+						String id 		= parts[parts.length - 1];
+
 						konexioa.editatuBanatzailea(id, izenaString, abizenaString, pasahitza, erabizenaString);
-						dispose();
 						lortuBanatzaileakzerrenda();
+						dispose();
 					}
-					
+
 				}
 			});
 
+			/*
+			 * Panelean elementuak gehitu
+			 */
 			pnlGuztia.add(lblTitulua);
 			pnlGuztia.add(lblIzena);
 			pnlGuztia.add(lblAbizena);
@@ -572,11 +613,10 @@ public class BanatzaileaUI extends JFrame {
 	 * Lortu banatzaileak.Datubaseko banatzaileak zerrendan gordetzen dira
 	 * 
 	 * @return banatzaileakList
-	 * 
 	 */
 	public ArrayList<String> lortuBanatzaileakzerrenda() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileak();
-		DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> banatzaileakList 	= DatuBasea.lortuBanatzaileak();
+		DefaultListModel<String> model 		= new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
 			model.addElement(banatzailea);
@@ -585,16 +625,13 @@ public class BanatzaileaUI extends JFrame {
 		listBanatzailea.setModel(model);
 		return banatzaileakList;
 	}
-
-	/**
-	 * Lortu banatzaileak.
-	 */
+	
 	/*
 	 * Banatzaileak lortzeko metodoa
 	 */
 	private void lortuBanatzaileak() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileak();
-		DefaultListModel<String> model = new DefaultListModel<>();
+		ArrayList<String> banatzaileakList 	= DatuBasea.lortuBanatzaileak();
+		DefaultListModel<String> model 		= new DefaultListModel<>();
 
 		for (String banatzailea : banatzaileakList) {
 			model.addElement(banatzailea);
@@ -603,46 +640,45 @@ public class BanatzaileaUI extends JFrame {
 		listBanatzailea.setModel(model);
 	}
 
-	private void lortuBanatzaileakOrdenatutaizenez() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakOrdenatutaIzenez();
-		DefaultListModel<String> model = new DefaultListModel<>();
-
-		for (String banatzailea : banatzaileakList) {
-			model.addElement(banatzailea);
-		}
-
-		listBanatzailea.setModel(model);
-	}
-
-	private void lortuBanatzaileakOrdenatutaID() {
-		ArrayList<String> banatzaileakList = DatuBasea.lortuBanatzaileakOrdenatutaId();
-		DefaultListModel<String> model = new DefaultListModel<>();
-
-		for (String banatzailea : banatzaileakList) {
-			model.addElement(banatzailea);
-		}
-
-		listBanatzailea.setModel(model);
-	}
 	/*
-	 * Banatzaileen historiala lortzeko metodoa
-	 * 
-	 * @param id, banatzailearen id-a
-	 * 
+	 * Id-aren arabera, banatzaileak ordenatzeko metodoa
 	 */
+	private void lortuBanatzaileakOrdenatutaizenez() {
+		ArrayList<String> banatzaileakList 	= DatuBasea.lortuBanatzaileakOrdenatutaIzenez();
+		DefaultListModel<String> model 		= new DefaultListModel<>();
+
+		for (String banatzailea : banatzaileakList) {
+			model.addElement(banatzailea);
+		}
+
+		listBanatzailea.setModel(model);
+	}
+
+	
+	/*
+	 * Id-aren arabera, banatzaileak ordenatzeko metodoa
+	 */
+	private void lortuBanatzaileakOrdenatutaID() {
+		ArrayList<String> banatzaileakList 	= DatuBasea.lortuBanatzaileakOrdenatutaId();
+		DefaultListModel<String> model 		= new DefaultListModel<>();
+
+		for (String banatzailea : banatzaileakList) {
+			model.addElement(banatzailea);
+		}
+
+		listBanatzailea.setModel(model);
+	}
 
 	/**
-	 * Lortu banatzaileakhist.
+	 * Lortu banatzaile historiala.
 	 *
-	 * @param id banatzailearen id-a
+	 * @param id banatzailearen id-a 
 	 */
 	private void lortuBanatzaileakHistoriala(String id) {
-		DatuBasea losrtubanatzailehsit = new DatuBasea();
+		ArrayList<String> banatzaileakhistorialaList 	= konexioa.lortuBanatzaielarenHistoriala(id);
+		DefaultListModel<String> model 					= new DefaultListModel<>();
 
-		ArrayList<String> banatzaileakhistList = losrtubanatzailehsit.lortuBanatzaielarenHistoriala(id);
-		DefaultListModel<String> model = new DefaultListModel<>();
-
-		for (String banatzailea : banatzaileakhistList) {
+		for (String banatzailea : banatzaileakhistorialaList) {
 			model.addElement(banatzailea);
 		}
 

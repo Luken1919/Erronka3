@@ -44,23 +44,7 @@ public class EsleipenaUI extends JFrame {
 
 	DatuBasea konexioa = new DatuBasea();
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EsleipenaUI frame = new EsleipenaUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Esleipen Framea sortu.

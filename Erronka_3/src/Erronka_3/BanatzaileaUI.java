@@ -71,24 +71,7 @@ public class BanatzaileaUI extends JFrame {
 	/** Zerrendako testuaren zatiak. */
 	String[] parts;
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BanatzaileaUI frame = new BanatzaileaUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Banatzailearen frame-a sortu.
 	 */

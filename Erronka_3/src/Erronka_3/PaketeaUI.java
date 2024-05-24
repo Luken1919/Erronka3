@@ -63,18 +63,7 @@ public class PaketeaUI extends JFrame {
 
 	private DatuBasea konexioa = new DatuBasea();
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PaketeaUI frame = new PaketeaUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Paketearen frame-a sortu.

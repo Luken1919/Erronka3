@@ -61,7 +61,7 @@ $result_entregatuta = $stmt_entregatuta->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PakAG</title>
+    <title>PakAG - Banaketaren Historiala</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="icon" href="../irudiak/OIG4.png" type="image/png">
 </head>

@@ -108,14 +108,14 @@ if(isset($_POST['change_mota'])) {
                     if ($result_paquetes->num_rows > 0) {
                         // Mostrar los paquetes en una tabla
                         echo "<table>";
-                        echo "<tr><th></th><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th></tr>";
+                        echo "<tr><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th><th></th></tr>";
                         while ($row_paquete = $result_paquetes->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td><button type='submit' name='change_mota' value='".$row_paquete["idPaketea"]."'>Aukeratu</button></td>";
                             echo "<td>" . $row_paquete["idPaketea"] . "</td>";
                             echo "<td>" . $row_paquete["Bezero_zenbakia"] . "</td>";
                             echo "<td>" . $row_paquete["Helbidea"] . "</td>";
                             echo "<td>" . $row_paquete["Pakete_Tamaina"] . "</td>";
+                            echo "<td><button type='submit' name='change_mota' value='".$row_paquete["idPaketea"]."'>Aukeratu</button></td>";
                             echo "</tr>";
                         }
                         echo "</table>";

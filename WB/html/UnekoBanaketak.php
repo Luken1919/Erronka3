@@ -100,19 +100,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
             echo "Error al insertar en entregatuta.";
         }
     }
-
-
+    
     $stmt_paquete->close();
 }
+// Consulta SQL para obtener los títulos de la tabla arazoak
+$sql_arazoak = "SELECT Tituloa FROM arazoak";
+$result_arazoak = $conn->query($sql_arazoak);
 
+// Verifica si se encontraron resultados
+$titulos_arazoak = [];
+if ($result_arazoak->num_rows > 0) {
+    while ($row = $result_arazoak->fetch_assoc()) {
+        $titulos_arazoak[] = $row['Tituloa'];
+    }
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PakAG - Banaketa</title>
+    <title>PakAG - Uneko Banaketa</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="icon" href="../irudiak/OIG4.png" type="image/png">
 </head>
@@ -136,33 +147,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) 
             <div class="content">
                 <h1>Uneko Banaketak:</h1>
                 <form method="post" action="">
-                <?php
-                if ($result_paquetes_entregados->num_rows > 0) {
-                    echo "<table>";
-                    echo "<tr>";
-                    echo "<th></th>";
-                    echo "<th>Paketea ID</th>";
-                    echo "<th>Bezero Zenbakia</th>";
-                    echo "<th>Helbidea</th>";
-                    echo "<th>Tamaina</th>";
-                    echo " </tr>";
+                    <?php
+                    if ($result_paquetes_entregados->num_rows > 0) {
+                        echo "<table>";
+                        echo "<tr>";
+                        echo "<th>Paketea ID</th>";
+                        echo "<th>Bezero Zenbakia</th>";
+                        echo "<th>Helbidea</th>";
+                        echo "<th>Tamaina</th>";
+                        echo "<th></th>";
+                        echo "<th>Arazoa</th>";
+                        echo " </tr>";
                         // Mostrar los paquetes entregados en una tabla
                         while ($row_paquete = $result_paquetes_entregados->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td><input type='radio' name='selected_package' value='" . htmlspecialchars($row_paquete["idPaketea"]) . "'></td>";
                             echo "<td>" . htmlspecialchars($row_paquete["idPaketea"]) . "</td>";
                             echo "<td>" . htmlspecialchars($row_paquete["Bezero_zenbakia"]) . "</td>";
                             echo "<td>" . htmlspecialchars($row_paquete["Helbidea"]) . "</td>";
                             echo "<td>" . htmlspecialchars($row_paquete["Pakete_Tamaina"]) . "</td>";
+                            echo "<td><button type='submit' name='selected_package' value='" . htmlspecialchars($row_paquete["idPaketea"]) . "'style='background-color:Green;'>Entregatuta</button></td>";
+                            echo "<td> 
+                            <select name='selected_issue'>
+                            <option value=''>Arazoa aukeratu</option>";
+                            foreach ($titulos_arazoak as $titulo) {
+                                echo "<option value='" . htmlspecialchars($titulo) . "'>" . htmlspecialchars($titulo) . "</option>";
+                            }
+                        echo "</select>
+                            <br>
+                            <br>
+                        <button type='submit' name='Arazoa' value='" . htmlspecialchars($row_paquete["idPaketea"]) . "' style='background-color:red;'>Arazoa bidali</button>
+                            </td>";
                             echo "</tr>";
                         }
-                    echo "</table>";
-                    echo "<br>";
-                    echo "<input type='submit' name='submit' value='Entregatuta'>";
-                    echo "<input type='submit' name='submit_arazoa' value='Arazoa'>";
-                } else {
-                    echo "<p>Ez da aurkitu paketerik.</p>";
-                }
+                        echo "</table>";
+                    } else {
+                        echo "<p>Ez da aurkitu paketerik.</p>";
+                    }
                     ?>
                 </form>
             </div>

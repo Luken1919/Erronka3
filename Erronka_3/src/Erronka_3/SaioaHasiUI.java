@@ -72,6 +72,7 @@ public class SaioaHasiUI extends JFrame {
 	 * Saioa hasi frame-a sortu.
 	 */
 	public SaioaHasiUI() {
+		setTitle("Saioa Hasi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();

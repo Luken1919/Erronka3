@@ -59,10 +59,10 @@ public class PaketeaUI extends JFrame {
 	private String IzenAbizena = DatuBasea.erabIzena;
 
 	/** Pakete zerrenda. */
-	private JList<String> PaketeZerrenda;
+	JList<String> PaketeZerrenda;
 
 	/** Pakete historiala. */
-	private JList<String> PaketeHistoriala;
+	JList<String> PaketeHistoriala;
 
 	/** Datubase konexioa. */
 	private DatuBasea konexioa = new DatuBasea();
@@ -141,6 +141,7 @@ public class PaketeaUI extends JFrame {
 		JScrollPane spPaketeZerrenda = new JScrollPane();
 		spPaketeZerrenda.setBounds(0, 49, 362, 603);
 		PaketeZerrenda = new JList<>();
+		 PaketeZerrenda.setName("PaketeZerrenda");
 		spPaketeZerrenda.setViewportView(PaketeZerrenda);
 		PaketeZerrenda.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
 		PaketeZerrenda.setBounds(0, 61, 362, 590);
@@ -224,6 +225,7 @@ public class PaketeaUI extends JFrame {
 		JScrollPane spPaketeHistoriala = new JScrollPane();
 		spPaketeHistoriala.setBounds(0, 61, 362, 603);
 		PaketeHistoriala = new JList<>();
+		  PaketeHistoriala.setName("PaketeHistoriala");
 		spPaketeHistoriala.setViewportView(PaketeHistoriala);
 		lortuPaketeakhistoriala();
 		PaketeHistoriala.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(253, 194, 116)));
@@ -569,7 +571,7 @@ public class PaketeaUI extends JFrame {
 	/**
 	 * Lortu paketeakhistoriala.
 	 */
-	private void lortuPaketeakhistoriala() {
+	void lortuPaketeakhistoriala() {
 		ArrayList<String> paketeakhisto = konexioa.paketeHistorialaLortu();
 		DefaultListModel<String> model 	= new DefaultListModel<>();
 

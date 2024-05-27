@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Erabiltzailea aurkituta, saioa hasi
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $erab_izena;
-        header("Location: ../html/Hasita.php");
+        header("Location: ../html/banaketa.php");
         exit();
     } else {
         // Ez da erabiltzailea aurkitu, errore mezua

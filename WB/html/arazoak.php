@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update->bind_param("i", $idPaketea);
 
         if ($stmt_update->execute()) {
-            header("Location: Hasita.php");
+            header("Location: banaketa.php");
             exit;
         } else {
             // Manejar error de actualización
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </a>
             <h2 class="espazioa">Erabiltzailea: <?php echo htmlspecialchars($izena . ' ' . $abizena); ?></h2>
             <div class="spacer"></div>
-            <a href="../html/Hasita.php" class="login-button ">Banaketak</a>
+            <a href="../html/banaketa.php" class="login-button ">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
             <a href="../html/arazoak.php" class="login-button selected">Arazoak</a>
             <a href="../html/BanaketarenHistoria.php" class="login-button">Banaketaren Historiala</a>

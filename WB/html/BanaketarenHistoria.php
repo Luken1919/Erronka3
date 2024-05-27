@@ -30,7 +30,7 @@ $result_entregatuta = $stmt_entregatuta->get_result();
             </a>
             <h2 class="espazioa">Erabiltzailea: <?php echo $izena . ' ' . $abizena; ?></h2>
             <div class="spacer"></div>
-            <a href="../html/Hasita.php" class="login-button">Banaketak</a>
+            <a href="../html/banaketa.php" class="login-button">Banaketak</a>
             <a href="../html/UnekoBanaketak.php" class="login-button">Uneko Banaketak</a>
             <a href="../html/arazoak.php" class="login-button">Arazoak</a>
             <a href="#" class="login-button selected">Banaketaren Historiala</a>

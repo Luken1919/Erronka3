@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
 $stmt->close();
 
 // Consulta SQL para obtener los datos de entregatuta del usuario actual
-$sql_entregatuta = "SELECT entregatuta.idEntregatuta, entregatuta.Entrega_data, entregatuta.Entrega_Ordua, entregatuta.Helbidea, entregatuta.Pakete_Tamaina
+$sql_entregatuta = "SELECT entregatuta.idPaketea, entregatuta.Entrega_data, entregatuta.Entrega_Ordua, entregatuta.Helbidea, entregatuta.Pakete_Tamaina
                     FROM entregatuta
                     INNER JOIN erabiltzailea 
                     ON entregatuta.erabiltzailea_idErabiltzailea = erabiltzailea.idErabiltzailea 
@@ -90,7 +90,7 @@ $result_entregatuta = $stmt_entregatuta->get_result();
                     if ($result_entregatuta->num_rows > 0) {
                         echo "<thead>";
                             echo "<tr>";
-                                echo "<th>Entregatuta ID</th>";
+                                echo "<th>Pakete Id ID</th>";
                                 echo "<th>Entrega Data</th>";
                                 echo "<th>Entrega Ordua</th>";
                                 echo "<th>Helbidea</th>";
@@ -101,7 +101,7 @@ $result_entregatuta = $stmt_entregatuta->get_result();
                         // Bistaratu banaketaren historiala
                         while ($row_entregatuta = $result_entregatuta->fetch_assoc()) {
                             echo "<tr>";
-                                echo "<td>" . $row_entregatuta["idEntregatuta"] . "</td>";
+                                echo "<td>" . $row_entregatuta["idPaketea"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Entrega_data"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Entrega_Ordua"] . "</td>";
                                 echo "<td>" . $row_entregatuta["Helbidea"] . "</td>";

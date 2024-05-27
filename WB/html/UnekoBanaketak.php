@@ -56,52 +56,93 @@ $stmt_paquetes_entregados->bind_param("s", $_SESSION['username']);
 $stmt_paquetes_entregados->execute();
 $result_paquetes_entregados = $stmt_paquetes_entregados->get_result();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_package'])) {
-    $idPaketea = $_POST['selected_package'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['selected_package'])) {
+        $idPaketea = $_POST['selected_package'];
 
-    // Obtener detalles del paquete seleccionado
-    $sql_paquete = "SELECT * FROM paketea WHERE idPaketea = ?";
-    $stmt_paquete = $conn->prepare($sql_paquete);
-    $stmt_paquete->bind_param("i", $idPaketea);
-    $stmt_paquete->execute();
-    $result_paquete = $stmt_paquete->get_result();
+        // Obtener detalles del paquete seleccionado
+        $sql_paquete = "SELECT * FROM paketea WHERE idPaketea = ?";
+        $stmt_paquete = $conn->prepare($sql_paquete);
+        $stmt_paquete->bind_param("i", $idPaketea);
+        $stmt_paquete->execute();
+        $result_paquete = $stmt_paquete->get_result();
 
-    if ($result_paquete->num_rows > 0) {
-        $row_paquete = $result_paquete->fetch_assoc();
+        if ($result_paquete->num_rows > 0) {
+            $row_paquete = $result_paquete->fetch_assoc();
 
-        // Desactivar las restricciones de clave externa
-        $conn->query("SET foreign_key_checks = 0");
+            // Desactivar las restricciones de clave externa
+            $conn->query("SET foreign_key_checks = 0");
 
-        // Insertar en entregatuta
-        $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
-        VALUES (?, CURDATE(), CURTIME(), ?, ?, ?, ?)";
-        $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("sssii", $row_paquete['Bezero_zenbakia'], $row_paquete['Helbidea'], $row_paquete['Pakete_Tamaina'], $row_paquete['idPaketea'], $row_paquete['Erabiltzailea_idErabiltzailea']);
+            // Insertar en entregatuta
+            $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
+            VALUES (?, CURDATE(), CURTIME(), ?, ?, ?, ?)";
+            $stmt_insert = $conn->prepare($sql_insert);
+            $stmt_insert->bind_param("sssii", $row_paquete['Bezero_zenbakia'], $row_paquete['Helbidea'], $row_paquete['Pakete_Tamaina'], $row_paquete['idPaketea'], $row_paquete['Erabiltzailea_idErabiltzailea']);
 
-        if ($stmt_insert->execute()) {
-            $stmt_insert->close();
+            if ($stmt_insert->execute()) {
+                $stmt_insert->close();
 
-            // Eliminar de paketea solo si la inserción en entregatuta fue exitosa
-            $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
-            $stmt_delete = $conn->prepare($sql_delete);
-            $stmt_delete->bind_param("i", $idPaketea);
-            $stmt_delete->execute();
-            $stmt_delete->close();
+                // Eliminar de paketea solo si la inserción en entregatuta fue exitosa
+                $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
+                $stmt_delete = $conn->prepare($sql_delete);
+                $stmt_delete->bind_param("i", $idPaketea);
+                $stmt_delete->execute();
+                $stmt_delete->close();
 
-            // Reactivar las restricciones de clave externa
-            $conn->query("SET foreign_key_checks = 1");
+                // Reactivar las restricciones de clave externa
+                $conn->query("SET foreign_key_checks = 1");
 
-            // Redirigir para evitar reenvío del formulario
-            header("Location: BanaketarenHistoria.php");
-            exit;
-        } else {
-            $stmt_insert->close();
-            // Manejar error de inserción
-            echo "Error al insertar en entregatuta.";
+                // Redirigir para evitar reenvío del formulario
+                header("Location: BanaketarenHistoria.php");
+                exit;
+            } else {
+                $stmt_insert->close();
+                // Manejar error de inserción
+                echo "Error al insertar en entregatuta.";
+            }
         }
+
+        $stmt_paquete->close();
+    } elseif (isset($_POST['Arazoa']) && !empty($_POST['selected_issue'])) {
+        $idPaketea = $_POST['Arazoa'];
+        $titulo_arazo = $_POST['selected_issue'];
+        
+        // Obtener el ID del arazo basado en el título
+        $sql_arazo_id = "SELECT idArazoak FROM arazoak WHERE Tituloa = ?";
+        $stmt_arazo_id = $conn->prepare($sql_arazo_id);
+        $stmt_arazo_id->bind_param("s", $titulo_arazo);
+        $stmt_arazo_id->execute();
+        $result_arazo_id = $stmt_arazo_id->get_result();
+
+        if ($result_arazo_id->num_rows > 0) {
+             // Consulta SQL para actualizar el valor de la mota a 'entregatzen'
+            $sql_update_mota = "UPDATE paketea SET Mota = 'arazoa' WHERE idPaketea = ?";
+            $stmt_update_mota = $conn->prepare($sql_update_mota);
+            $stmt_update_mota->bind_param("i", $idPaketea);
+            $stmt_update_mota->execute();
+
+            $row_arazo_id = $result_arazo_id->fetch_assoc();
+            $idArazoak = $row_arazo_id['idArazoak'];
+
+            // Insertar en la tabla izan
+            $sql_insert_izan = "INSERT INTO izan (idPaketea, idArazoak, Arazo_Ordua) VALUES (?, ?, CURTIME())";
+            $stmt_insert_izan = $conn->prepare($sql_insert_izan);
+            $stmt_insert_izan->bind_param("ii", $idPaketea, $idArazoak);
+
+            if ($stmt_insert_izan->execute()) {
+               
+            } else {
+              
+            }
+
+            $stmt_insert_izan->close();
+            header("Location: ../html/arazoak.php");
+        } else {
+            echo "Arazoa ez da aurkitu.";
+        }
+
+        $stmt_arazo_id->close();
     }
-    
-    $stmt_paquete->close();
 }
 // Consulta SQL para obtener los títulos de la tabla arazoak
 $sql_arazoak = "SELECT Tituloa FROM arazoak";
@@ -115,8 +156,6 @@ if ($result_arazoak->num_rows > 0) {
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -172,7 +211,7 @@ if ($result_arazoak->num_rows > 0) {
                             foreach ($titulos_arazoak as $titulo) {
                                 echo "<option value='" . htmlspecialchars($titulo) . "'>" . htmlspecialchars($titulo) . "</option>";
                             }
-                        echo "</select>
+                            echo "</select>
                             <br>
                             <br>
                         <button type='submit' name='Arazoa' value='" . htmlspecialchars($row_paquete["idPaketea"]) . "' style='background-color:red;'>Arazoa bidali</button>

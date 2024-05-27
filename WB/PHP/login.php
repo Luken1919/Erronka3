@@ -4,22 +4,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $erab_izena = $_POST['username'];
     $pasahitza = $_POST['password'];
 
-    // Prepara la consulta SQL
+    // SQL kontsulta prestatu
     $sql = "SELECT * FROM erabiltzailea WHERE Erab_Izena = ? AND Pasahitza = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $erab_izena, $pasahitza);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Verifica si se encontró un usuario
+    //Egiaztatu erabiltzaile bat aurkitu den
     if ($result->num_rows > 0) {
-        // Usuario encontrado, iniciar sesión
+        // Erabiltzailea aurkituta, saioa hasi
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $erab_izena;
-        header("Location: ../html/Hasita.php"); // Redirige a otra página
+        header("Location: ../html/Hasita.php");
         exit();
     } else {
-        // Usuario no encontrado, redirigir con mensaje de error
+        // Ez da erabiltzailea aurkitu, errore mezua
         $error = urlencode("Erabiltzailea edo pasahitza ez dira zuzenak, mesedez saiatu berriro.");
         header("Location: ../html/SaioaHasi.php?error=$error");
         exit();

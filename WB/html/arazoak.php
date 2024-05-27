@@ -1,6 +1,6 @@
 <?php
    require_once "../PHP/konektatu.php";
-// Ejecutar la consulta SQL
+// SQL kontsulta
 $sql_arazoa_query = "SELECT
     paketea.idPaketea, 
     paketea.Bezero_zenbakia, 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['selected_package'])) {
         $idPaketea = $_POST['selected_package'];
 
-        // Obtener detalles del paquete seleccionado
+        // Hautatutako paketearen informazioa lortu
         $sql_arazoa = "SELECT * FROM paketea WHERE idPaketea = ?";
         $stmt_arazoa = $conn->prepare($sql_arazoa);
         $stmt_arazoa->bind_param("i", $idPaketea);
@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result_arazoa->num_rows > 0) {
             $row = $result_arazoa->fetch_assoc();
 
-            // Desactivar las restricciones de clave externa
+            // Kanpoko gakoaren murrizketak desaktibatzea aldaketak egiteko
             $conn->query("SET foreign_key_checks = 0");
 
-            // Insertar en entregatuta
+            // Entregatuta taulan informazioa sartu
             $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
             VALUES (?, CURDATE(), CURTIME(), ?, ?, ?, ?)";
             $stmt_insert = $conn->prepare($sql_insert);
@@ -51,29 +51,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt_insert->execute()) {
                 $stmt_insert->close();
 
-                // Eliminar de paketea solo si la inserción en entregatuta fue exitosa
+                // Pakete taulan aukeratutako paketearen informazioa ezabatu insert agindua egiten bada
                 $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
                 $stmt_delete = $conn->prepare($sql_delete);
                 $stmt_delete->bind_param("i", $idPaketea);
                 $stmt_delete->execute();
                 $stmt_delete->close();
-
+                // Izan taulan aukeratutako paketearen informazioa ezabatu insert agindua egiten bada
                 $sql_delete_izan = "DELETE FROM Izan WHERE idPaketea = ?";
                 $stmt_delete_izan = $conn->prepare($sql_delete_izan);
                 $stmt_delete_izan->bind_param("i", $idPaketea);
                 $stmt_delete_izan->execute();
                 $stmt_delete_izan->close();
 
-                // Reactivar las restricciones de clave externa
+                // Kanpoko gakoaren murrizketak aktibatu
                 $conn->query("SET foreign_key_checks = 1");
 
-                // Redirigir para evitar reenvío del formulario
+                // Botoia ematerakoan orrialdea aldatu
                 header("Location: BanaketarenHistoria.php");
                 exit;
             } else {
                 $stmt_insert->close();
-                // Manejar error de inserción
-                echo "Error al insertar en entregatuta.";
+                // Errorea
+                echo "Arazoa entregatuta taulan datuak sartzerakoan.";
             }
         }
 
@@ -82,18 +82,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (isset($_POST['ez_entregatuta'])) {
         $idPaketea = $_POST['ez_entregatuta'];
 
-        // Realizar la actualización para "Ez entrega"
+        // pakete taulan erabiltzailearen id-a 1 da Kudeaketa delako
         $sql_update = "UPDATE paketea SET erabiltzailea_idErabiltzailea = 1 WHERE idPaketea = ?";
         $stmt_update = $conn->prepare($sql_update);
         $stmt_update->bind_param("i", $idPaketea);
 
         if ($stmt_update->execute()) {
-            // Redirigir para evitar reenvío del formulario
             header("Location: Hasita.php");
             exit;
         } else {
             // Manejar error de actualización
-            echo "Error al actualizar.";
+            echo "Arazoa aldatzerakoan.";
         }
 
         $stmt_update->close();

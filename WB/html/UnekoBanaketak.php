@@ -1,6 +1,6 @@
 <?php
    require_once "../PHP/konektatu.php";
-// Consulta SQL para obtener los paquetes entregados del usuario actual
+//  SQL kontsulta, erabiltzailearen entregatutako paketeak lortzeko
 $sql_paquetes_entregados = "SELECT paketea.idPaketea, paketea.Bezero_zenbakia, paketea.Helbidea, paketea.Pakete_Tamaina, paketea.Mota, paketea.Erabiltzailea_idErabiltzailea
                             FROM paketea 
                             INNER JOIN erabiltzailea 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['selected_package'])) {
         $idPaketea = $_POST['selected_package'];
 
-        // Obtener detalles del paquete seleccionado
+        // Hautatutako paketearen informazioa lortu
         $sql_paquete = "SELECT * FROM paketea WHERE idPaketea = ?";
         $stmt_paquete = $conn->prepare($sql_paquete);
         $stmt_paquete->bind_param("i", $idPaketea);
@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result_paquete->num_rows > 0) {
             $row_paquete = $result_paquete->fetch_assoc();
 
-            // Desactivar las restricciones de clave externa
+            // Kanpoko gakoaren murrizketak desaktibatzea aldaketak egiteko
             $conn->query("SET foreign_key_checks = 0");
 
-            // Insertar en entregatuta
+           // Entregatuta taulan informazioa sartu
             $sql_insert = "INSERT INTO entregatuta (Bezero_zenbaki, Entrega_data, Entrega_Ordua, Helbidea, Pakete_Tamaina, idPaketea, erabiltzailea_idErabiltzailea)
             VALUES (?, CURDATE(), CURTIME(), ?, ?, ?, ?)";
             $stmt_insert = $conn->prepare($sql_insert);
@@ -39,23 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt_insert->execute()) {
                 $stmt_insert->close();
 
-                // Eliminar de paketea solo si la inserción en entregatuta fue exitosa
+                // Pakete taulan aukeratutako paketea ezabatu insert agindua egiten bada
                 $sql_delete = "DELETE FROM paketea WHERE idPaketea = ?";
                 $stmt_delete = $conn->prepare($sql_delete);
                 $stmt_delete->bind_param("i", $idPaketea);
                 $stmt_delete->execute();
                 $stmt_delete->close();
 
-                // Reactivar las restricciones de clave externa
+                // Kanpoko gakoaren murrizketak aktibatu
                 $conn->query("SET foreign_key_checks = 1");
 
-                // Redirigir para evitar reenvío del formulario
+               // Botoia ematerakoan orrialdea aldatu
                 header("Location: BanaketarenHistoria.php");
                 exit;
             } else {
                 $stmt_insert->close();
-                // Manejar error de inserción
-                echo "Error al insertar en entregatuta.";
+               // Errorea
+                echo "Arazoa entregatuta taulan datuak sartzerakoan.";
             }
         }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idPaketea = $_POST['Arazoa'];
         $titulo_arazo = $_POST['selected_issue'];
         
-        // Obtener el ID del arazo basado en el título
+        // Lorut arazoaren ID tituloan oinarrituta
         $sql_arazo_id = "SELECT idArazoak FROM arazoak WHERE Tituloa = ?";
         $stmt_arazo_id = $conn->prepare($sql_arazo_id);
         $stmt_arazo_id->bind_param("s", $titulo_arazo);
@@ -72,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result_arazo_id = $stmt_arazo_id->get_result();
 
         if ($result_arazo_id->num_rows > 0) {
-             // Consulta SQL para actualizar el valor de la mota a 'entregatzen'
+             // 'Entregatzen' motako balioa eguneratzeko SQL kontsulta
+
             $sql_update_mota = "UPDATE paketea SET Mota = 'arazoa' WHERE idPaketea = ?";
             $stmt_update_mota = $conn->prepare($sql_update_mota);
             $stmt_update_mota->bind_param("i", $idPaketea);
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row_arazo_id = $result_arazo_id->fetch_assoc();
             $idArazoak = $row_arazo_id['idArazoak'];
 
-            // Insertar en la tabla izan
+            // Izan taulan datuak sartu
             $sql_insert_izan = "INSERT INTO izan (idPaketea, idArazoak, Arazo_Ordua) VALUES (?, ?, CURTIME())";
             $stmt_insert_izan = $conn->prepare($sql_insert_izan);
             $stmt_insert_izan->bind_param("ii", $idPaketea, $idArazoak);
@@ -101,11 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_arazo_id->close();
     }
 }
-// Consulta SQL para obtener los títulos de la tabla arazoak
+// SQL kontsulta arazoak taulan Tituloak lortzeko
 $sql_arazoak = "SELECT Tituloa FROM arazoak";
 $result_arazoak = $conn->query($sql_arazoak);
 
-// Verifica si se encontraron resultados
+// Emaitzak aurkitu diren egiaztatu
 $titulos_arazoak = [];
 if ($result_arazoak->num_rows > 0) {
     while ($row = $result_arazoak->fetch_assoc()) {
@@ -198,9 +199,6 @@ if ($result_arazoak->num_rows > 0) {
 </html>
 
 <?php
-// Cerrar la consulta de paquetes entregados
 $stmt_paquetes_entregados->close();
-
-// Cerrar la conexión
 $conn->close();
 ?>

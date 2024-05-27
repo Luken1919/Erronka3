@@ -1,6 +1,6 @@
 <?php
    require_once "../PHP/konektatu.php";
-// Consulta SQL para obtener los paquetes del usuario actual
+// SQL kontsulta erabiltzailearen paketea taularen datuak lortzeko 
 $sql_paquetes = "SELECT p.idPaketea, p.Bezero_zenbakia, p.Helbidea, p.Pakete_Tamaina, p.Erabiltzailea_idErabiltzailea
                 FROM paketea p
                 INNER JOIN erabiltzailea e ON p.Erabiltzailea_idErabiltzailea = e.idErabiltzailea
@@ -12,21 +12,21 @@ $stmt_paquetes->execute();
 $result_paquetes = $stmt_paquetes->get_result();
 $stmt_paquetes->close();
 
-// Verificar si se ha enviado el formulario y se ha hecho clic en el botón de cambio de mota
+//  Egiaztatu formularioa bidali den eta mota aldatzeko botoian klik egin den
 if(isset($_POST['change_mota'])) {
     $idPaketea = $_POST['change_mota'];
 
-    // Consulta SQL para actualizar el valor de la mota a 'entregatzen'
+    // 'Entregatzen' motako balioa eguneratzeko SQL kontsulta
+
     $sql_update_mota = "UPDATE paketea SET Mota = 'entregatzen' WHERE idPaketea = ?";
     $stmt_update_mota = $conn->prepare($sql_update_mota);
     $stmt_update_mota->bind_param("i", $idPaketea);
     $stmt_update_mota->execute();
     header("Location: ../html/UnekoBanaketak.php");
-    // Cerrar la consulta de actualización de mota
+
     $stmt_update_mota->close();
     }
     
-    // Cerrar la conexión
     $conn->close();
 ?>
 
@@ -61,9 +61,9 @@ if(isset($_POST['change_mota'])) {
                 <h1>Banaketak:</h1>
                 <form id="myForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <?php
-                    // Verifica si se encontraron resultados de paquetes
+                    // Egiaztatu paketeen emaitzak aurkitu diren
                     if ($result_paquetes->num_rows > 0) {
-                        // Mostrar los paquetes en una tabla
+                        // Paketeak taulan erakutsi
                         echo "<table>";
                         echo "<tr><th>Paketea ID</th><th>Bezero Zenbakia</th><th>Helbidea</th><th>Tamaina</th><th></th></tr>";
                         while ($row_paquete = $result_paquetes->fetch_assoc()) {
@@ -78,7 +78,7 @@ if(isset($_POST['change_mota'])) {
                         echo "</table>";
                         echo "<br>";
                     } else {
-                        // Si no se encontraron paquetes
+                        // Paketeak aurkitu ez dierean
                         echo "<p>Ez da aurkitu paketerik.</p>";
                     }
                     ?>

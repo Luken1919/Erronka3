@@ -1,6 +1,6 @@
 <?php
    require_once "../PHP/konektatu.php";
-// Consulta SQL para obtener los datos de entregatuta del usuario actual
+// SQL kontsulta erabiltzailearen entregatuta taularen datuak lortzeko 
 $sql_entregatuta = "SELECT entregatuta.idPaketea, entregatuta.Entrega_data, entregatuta.Entrega_Ordua, entregatuta.Helbidea, entregatuta.Pakete_Tamaina
                     FROM entregatuta
                     INNER JOIN erabiltzailea 

@@ -328,7 +328,9 @@ public class DatuBasea {
 				while (rs.next()) {
 					String idpakete = rs.getString("idPaketea");
 					String helbideapekete = rs.getString("Helbidea");
-					paketeak.add(idpakete + " " + helbideapekete);
+					String telefonoaString = rs.getString("Bezero_zenbakia");
+					String tamainaString = rs.getString("Pakete_Tamaina");
+					paketeak.add(idpakete + " " + helbideapekete + " " + telefonoaString + " " + tamainaString);
 				}
 
 				rs.close();
@@ -357,17 +359,19 @@ public class DatuBasea {
 			try {
 				conn = getConnection();
 
-				String sql = "SELECT entregatuta.idEntregatuta,entregatuta.Helbidea, erabiltzailea.izena, erabiltzailea.abizena  FROM entregatuta inner join erabiltzailea on erabiltzailea.idErabiltzailea = entregatuta.erabiltzailea_idErabiltzailea";
+				String sql = "SELECT entregatuta.idEntregatuta,entregatuta.Helbidea,entregatuta.Pakete_tamaina,entregatuta.Bezero_Zenbaki, erabiltzailea.izena, erabiltzailea.abizena  FROM entregatuta inner join erabiltzailea on erabiltzailea.idErabiltzailea = entregatuta.erabiltzailea_idErabiltzailea";
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
 					String idpakete = rs.getString("idEntregatuta");
 					String helbideapekete = rs.getString("Helbidea");
+					String telefonoaString = rs.getString("Bezero_zenbaki");
+					String tamainaString = rs.getString("Pakete_Tamaina");
 					String izenabanatzaileaString = rs.getString("Izena");
 					String abizenabanatzaileaString = rs.getString("Abizena");
-					paketeakhistoriala.add(idpakete + " " + helbideapekete + " " + izenabanatzaileaString + " "
-							+ abizenabanatzaileaString);
+					paketeakhistoriala.add(idpakete +" " + izenabanatzaileaString +" "+ abizenabanatzaileaString +" " + helbideapekete + " " 
+						 + telefonoaString + " " + tamainaString +" ");
 				}
 
 				rs.close();
@@ -505,7 +509,9 @@ public class DatuBasea {
 				while (rs.next()) {
 					String idpakete = rs.getString("idPaketea");
 					String helbideapekete = rs.getString("Helbidea");
-					paketeak.add(idpakete + " " + helbideapekete);
+					String telefonoaString = rs.getString("Bezero_zenbakia");
+					String tamainaString = rs.getString("Pakete_Tamaina");
+					paketeak.add(idpakete + " " + helbideapekete + " " + telefonoaString + " " + tamainaString + "");
 				}
 
 				rs.close();
@@ -542,9 +548,11 @@ public class DatuBasea {
 				while (rs.next()) {
 					String idpakete = rs.getString("idPaketea");
 					String helbideapekete = rs.getString("Helbidea");
+					String telefonoaString = rs.getString("Bezero_zenbakia");
+				
 
 					String paketetamainaString = rs.getString("Pakete_Tamaina");
-					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + paketetamainaString);
+					BanatzaileHistoriala.add(idpakete + " " + helbideapekete + " " + paketetamainaString+ " " + telefonoaString);
 				}
 
 				rs.close();

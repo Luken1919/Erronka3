@@ -46,6 +46,8 @@ public class EsleipenaUI extends JFrame {
 
 	/** Datubase konexioa. */
 	DatuBasea konexioa = new DatuBasea();
+	
+	JLabel lblBanaPaketeak = new JLabel("Banatzailearen Paketeak");
 
 	
 
@@ -240,7 +242,9 @@ public class EsleipenaUI extends JFrame {
 		/*
 		 * Banatzaileen paketeen labela
 		 */
-		JLabel lblBanaPaketeak = new JLabel("Banatzailearen Paketeak");
+		JLabel lblBanaPaketeak = new JLabel();
+		String erabizenaaString = (String) Banatzaileak.getSelectedItem();
+		lblBanaPaketeak.setText(erabizenaaString);
 		lblBanaPaketeak.setFont(new Font("Arial Black", Font.BOLD, 15));
 		lblBanaPaketeak.setBounds(622, 67, 225, 22);
 

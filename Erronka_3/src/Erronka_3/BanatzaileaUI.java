@@ -579,8 +579,10 @@ public class BanatzaileaUI extends JFrame {
 					String erabizenaString 	= ErabiltzaileIzena.getText();
 
 					String aukeratutakoerabiltzailea = (String) listBanatzailea.getSelectedValue();
+					
 					if (aukeratutakoerabiltzailea == null) {
 						JOptionPane.showMessageDialog(null, "Aukeratu erabiltzaile bat");
+						
 					} else {
 						String[] parts 	= aukeratutakoerabiltzailea.split(" ");
 						String id 		= parts[parts.length - 1];

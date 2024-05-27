@@ -1,48 +1,5 @@
 <?php
-// Inicia la sesión
-session_start();
-
-// Verifica si el usuario está autenticado
-if (!isset($_SESSION['loggedin'])) {
-    header('Location: login.html');
-    exit;
-}
-
-// Conexión a la base de datos
-$servername = "localhost:33066";
-$username = "root";
-$password = "";
-$dbname = "erronka_pakag";
-
-// Crea la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
-// Consulta SQL para obtener los datos del usuario
-$sql_usuario = "SELECT Izena, Abizena FROM erabiltzailea WHERE Erab_Izena = ?";
-$stmt_usuario = $conn->prepare($sql_usuario);
-$stmt_usuario->bind_param("s", $_SESSION['username']);
-$stmt_usuario->execute();
-$result_usuario = $stmt_usuario->get_result();
-
-// Verifica si se encontraron resultados de usuario
-if ($result_usuario->num_rows > 0) {
-    // Usuario encontrado, obtiene los detalles
-    $row_usuario = $result_usuario->fetch_assoc();
-    $izena = $row_usuario['Izena'];
-    $abizena = $row_usuario['Abizena'];
-} else {
-    // Si no se encuentra el usuario, muestra un mensaje de error
-    $izena = "Errorea";
-    $abizena = "Errorea";
-}
-
-$stmt_usuario->close();
-
+   require_once "../PHP/konektatu.php";
 // Ejecutar la consulta SQL
 $sql_arazoa_query = "SELECT
     paketea.idPaketea, 

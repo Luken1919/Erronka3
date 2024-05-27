@@ -1,18 +1,5 @@
 <?php
-// Inicia la sesión
-session_start();
-$servername = "localhost:33066";
-$username = "root";
-$password = "";
-$dbname = "erronka_pakag";
-
-// Crea la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+   require_once "../PHP/konektatu.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $erab_izena = $_POST['username'];
     $pasahitza = $_POST['password'];

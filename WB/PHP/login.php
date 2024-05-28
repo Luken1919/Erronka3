@@ -1,5 +1,20 @@
 <?php
-   require_once "../PHP/konektatu.php";
+// Inicia la sesión
+session_start();
+
+// Conexión a la base de datos
+$servername = "localhost:33066";
+$username = "root";
+$password = "";
+$dbname = "erronka_pakag";
+
+// Crea la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verifica la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $erab_izena = $_POST['username'];
     $pasahitza = $_POST['password'];

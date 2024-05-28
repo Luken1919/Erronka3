@@ -4,7 +4,7 @@ session_start();
 
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: login.html');
+    header('Location: login.php');
     exit;
 }
 
@@ -42,4 +42,3 @@ if ($result->num_rows > 0) {
 }
 
 $stmt->close();
-?>

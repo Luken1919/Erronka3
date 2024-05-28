@@ -1,42 +1,41 @@
 <?php
-// Inicia la sesión
+//saioa Hasi
 session_start();
 
-// Verifica si el usuario está autenticado
 if (!isset($_SESSION['loggedin'])) {
     header('Location: login.php');
     exit;
 }
 
-// Conexión a la base de datos
+// Datu basearekin konektatu
 $servername = "localhost:33066";
 $username = "root";
 $password = "";
 $dbname = "erronka_pakag";
 
-// Crea la conexión
+// Konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica la conexión
+// Konexioa 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Consulta SQL para obtener los detalles del usuario
+// Erabiltzailearen datuak lortzeko SQL kontsulta
 $sql = "SELECT Izena, Abizena FROM erabiltzailea WHERE Erab_Izena = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Verifica si se encontraron resultados
+
 if ($result->num_rows > 0) {
-    // Usuario encontrado, obtiene los detalles
+    // Erabiltzailea aurkituta
     $row = $result->fetch_assoc();
     $izena = $row['Izena'];
     $abizena = $row['Abizena'];
 } else {
-    // Si no se encuentra el usuario, muestra un mensaje de error
+    //Erabiltzailea aurkitu ez badu errorea.
     $izena = "Errorea";
     $abizena = "Errorea";
 }

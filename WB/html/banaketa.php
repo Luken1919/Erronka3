@@ -4,7 +4,7 @@
 $sql_paquetes = "SELECT p.idPaketea, p.Bezero_zenbakia, p.Helbidea, p.Pakete_Tamaina, p.Erabiltzailea_idErabiltzailea
                 FROM paketea p
                 INNER JOIN erabiltzailea e ON p.Erabiltzailea_idErabiltzailea = e.idErabiltzailea
-                WHERE e.Erab_Izena = ? AND p.Mota='entregatuGabe'";
+                WHERE e.Erab_Izena = ? AND p.Mota='entregatu Gabe'";
                 
 $stmt_paquetes = $conn->prepare($sql_paquetes);
 $stmt_paquetes->bind_param("s", $_SESSION['username']);

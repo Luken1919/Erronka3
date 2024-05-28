@@ -73,4 +73,3 @@ Ireki zure nabigatzailea eta sartu :  [http://localhost/tu_proyecto](http://loca
 Erabilpena
 
 Web aplikazio honen bidez gure banatzileen beraien paketeak ikus ditzazkete
-

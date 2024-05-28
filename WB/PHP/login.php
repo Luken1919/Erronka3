@@ -1,17 +1,17 @@
 <?php
-// Inicia la sesión
+//saioa hasi
 session_start();
 
-// Conexión a la base de datos
+// Datu basearekin konexioak sortu
 $servername = "localhost:33066";
 $username = "root";
 $password = "";
 $dbname = "erronka_pakag";
 
-// Crea la conexión
+//Konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica la conexión
+// konexioa balidatu
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
